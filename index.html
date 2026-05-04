@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Hikmoh Group of Schools</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage">
+  <h2>Hostel Login</h2>
+  <input type="password" id="password" placeholder="Enter Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" style="display:none;">
+
+  <div class="topbar">
+    <button onclick="toggleMenu()">☰</button>
+    <h3>Al Hikmoh Hostel</h3>
+  </div>
+
+  <div id="menu" class="menu">
+    <p onclick="showSection('students')">Students</p>
+    <p onclick="showSection('suggestion')">Suggestion Box</p>
+    <p onclick="logout()">Logout</p>
+  </div>
+
+  <!-- STUDENTS -->
+  <div id="students" class="section">
+    <input type="text" id="search" placeholder="Search student..." onkeyup="filterStudents()">
+
+    <select id="student"></select>
+
+    <input type="number" id="academic" placeholder="Academic (/10)">
+    <input type="number" id="character" placeholder="Character (/10)">
+    <input type="number" id="respect" placeholder="Respect (/10)">
+    <textarea id="remark" placeholder="Remark"></textarea>
+
+    <input type="file" id="image">
+
+    <button onclick="saveData()">Save</button>
+    <button onclick="sendWhatsApp()">Send to WhatsApp</button>
+
+    <div id="recordList"></div>
+  </div>
+
+  <!-- SUGGESTION BOX -->
+  <div id="suggestion" class="section" style="display:none;">
+    <h3>Suggestion Box (Parents / Hostel Master)</h3>
+    <textarea id="suggestText" placeholder="Write suggestion..."></textarea>
+    <button onclick="saveSuggestion()">Submit</button>
+
+    <div id="suggestList"></div>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
