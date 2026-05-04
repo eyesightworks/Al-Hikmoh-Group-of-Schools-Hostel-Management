@@ -1,0 +1,58 @@
+body {
+  font-family: Arial;
+  margin: 0;
+  background: #0f172a;
+  color: white;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #38bdf8;
+  border: none;
+  margin-top: 5px;
+}
+
+.topbar {
+  display: flex;
+  background: #1e293b;
+  padding: 10px;
+}
+
+.menu {
+  display: none;
+  background: #334155;
+}
+
+.menu p {
+  padding: 10px;
+  border-bottom: 1px solid #555;
+  cursor: pointer;
+}
+
+.section {
+  padding: 10px;
+}
+
+.record-item {
+  background: #1e293b;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.record-item img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.delete-btn {
+  background: red;
+  margin-top: 5px;
+}
