@@ -19,7 +19,7 @@ const students = [
 "Bello Muhammed (JSS2)",
 "Fadlullah Jimoh (JSS2)",
 
-"AbdulRazaq (JSS1)",
+"AbdulRazaq Are(JSS1)",
 "Afolabi Mustapha (JSS1)",
 "Adeboye Jubreel (JSS1)"
 
