@@ -15,7 +15,7 @@ Al Hikmoh Hostel
 <link rel="stylesheet"
 href="style.css">
 
-<!-- PDF -->
+<!-- PDF LIBRARIES -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -46,7 +46,7 @@ class="login-page">
 
 </div>
 
-<!-- MAIN APP -->
+<!-- APP -->
 <div id="app"
 style="display:none;">
 
@@ -72,7 +72,7 @@ style="display:none;">
   class="menu">
 
     <p onclick="showSection('students')">
-    Students
+    Student Report
     </p>
 
     <p onclick="showSection('suggestion')">
@@ -121,39 +121,46 @@ style="display:none;">
     id="imageInput"
     accept="image/png,image/jpeg">
 
-    <button
-    onclick="generateStudentPDF()">
+    <button onclick="generatePDF()">
 
     Generate Student PDF
 
     </button>
 
-    <button
-    onclick="sendStudentWhatsApp()">
+    <button onclick="sendWhatsApp()">
 
-    Send PDF to WhatsApp
+    Send to WhatsApp
 
     </button>
 
     <!-- PDF AREA -->
-    <div id="studentPDF"
-    class="pdf-area">
+    <div id="pdfContent"
+    class="record-item">
 
-      <img
-      id="previewImage"
+      <img id="previewImage"
       src="image.png">
 
-      <h2 id="pdfStudentName">
+      <h3 id="previewName">
       Student Name
-      </h2>
+      </h3>
 
-      <p id="pdfAcademic"></p>
+      <p id="previewAcademic">
+      Academic:
+      </p>
 
-      <p id="pdfCharacter"></p>
+      <p id="previewCharacter">
+      Character:
+      </p>
 
-      <p id="pdfRespect"></p>
+      <p id="previewRespect">
+      Respect:
+      </p>
 
-      <p id="pdfRemark"></p>
+      <p id="previewRemark">
+      Remark:
+      </p>
+
+      <small id="previewDate"></small>
 
     </div>
 
@@ -182,19 +189,23 @@ style="display:none;">
     <button
     onclick="sendSuggestionWhatsApp()">
 
-    Send Suggestion PDF
+    Send Suggestion to WhatsApp
 
     </button>
 
-    <!-- PDF -->
+    <!-- SUGGESTION PDF -->
     <div id="suggestionPDF"
-    class="pdf-area">
+    class="record-item">
 
-      <h2>
-      Suggestion Report
-      </h2>
+      <h3>
+      Suggestion
+      </h3>
 
-      <p id="suggestionPreview"></p>
+      <p id="suggestionPreview">
+      Suggestion will appear here
+      </p>
+
+      <small id="suggestionDate"></small>
 
     </div>
 
