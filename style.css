@@ -1,58 +1,56 @@
-body {
-  font-family: Arial;
-  margin: 0;
-  background: #0f172a;
-  color: white;
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0f172a;
+  color:white;
 }
 
-input, textarea, select {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
+.topbar{
+  display:flex;
+  padding:10px;
+  background:#1e293b;
 }
 
-button {
-  width: 100%;
-  padding: 10px;
-  background: #38bdf8;
-  border: none;
-  margin-top: 5px;
+button{
+  padding:10px;
+  border:none;
+  background:#38bdf8;
+  margin-top:5px;
+  width:100%;
 }
 
-.topbar {
-  display: flex;
-  background: #1e293b;
-  padding: 10px;
+input,textarea,select{
+  width:100%;
+  padding:10px;
+  margin-top:5px;
 }
 
-.menu {
-  display: none;
-  background: #334155;
+.section{
+  padding:10px;
 }
 
-.menu p {
-  padding: 10px;
-  border-bottom: 1px solid #555;
-  cursor: pointer;
+.menu{
+  display:none;
+  background:#334155;
 }
 
-.section {
-  padding: 10px;
+.menu p{
+  padding:10px;
+  border-bottom:1px solid #555;
 }
 
-.record-item {
-  background: #1e293b;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
+.record-item{
+  background:#1e293b;
+  margin-top:10px;
+  padding:10px;
+  border-radius:10px;
 }
 
-.record-item img {
-  width: 100%;
-  border-radius: 10px;
+.record-item img{
+  width:100%;
+  border-radius:10px;
 }
 
-.delete-btn {
-  background: red;
-  margin-top: 5px;
+.delete-btn{
+  background:red;
 }
