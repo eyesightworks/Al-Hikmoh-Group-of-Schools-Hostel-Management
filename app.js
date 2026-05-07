@@ -20,151 +20,352 @@ const students = [
 
 const studentSelect = document.getElementById("student");
 
+
 // LOGIN
-function login() {
+function login(){
   const pass = document.getElementById("password").value;
-  if (pass === PASSWORD) {
-    document.getElementById("loginPage").style.display = "none";
-    document.getElementById("app").style.display = "block";
+
+  if(pass === PASSWORD){
+    document.getElementById("loginPage").style.display="none";
+    document.getElementById("app").style.display="block";
+
     loadStudents();
     displayRecords();
     displaySuggestions();
-  } else {
+  }else{
     alert("Wrong password");
   }
 }
 
-function logout() {
+
+// LOGOUT
+function logout(){
   location.reload();
 }
 
+
 // MENU
-function toggleMenu() {
-  const menu = document.getElementById("menu");
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
+function toggleMenu(){
+  const menu=document.getElementById("menu");
+
+  menu.style.display =
+  menu.style.display === "block"
+  ? "none"
+  : "block";
 }
 
-function showSection(section) {
-  document.getElementById("students").style.display = "none";
-  document.getElementById("suggestion").style.display = "none";
-  document.getElementById(section).style.display = "block";
+
+// SECTION
+function showSection(id){
+
+  document.getElementById("students").style.display="none";
+  document.getElementById("suggestion").style.display="none";
+
+  document.getElementById(id).style.display="block";
 }
+
 
 // LOAD STUDENTS
-function loadStudents() {
-  students.forEach(name => {
-    let opt = document.createElement("option");
-    opt.value = name;
-    opt.textContent = name;
-    studentSelect.appendChild(opt);
+function loadStudents(){
+
+  students.forEach(name=>{
+
+    const option=document.createElement("option");
+
+    option.value=name;
+    option.textContent=name;
+
+    studentSelect.appendChild(option);
   });
 }
 
-// SEARCH
-function filterStudents() {
-  const val = document.getElementById("search").value.toLowerCase();
-  studentSelect.innerHTML = "";
 
-  students.filter(s => s.toLowerCase().includes(val))
-    .forEach(s => {
-      let opt = document.createElement("option");
-      opt.value = s;
-      opt.textContent = s;
-      studentSelect.appendChild(opt);
-    });
+// SEARCH
+function filterStudents(){
+
+  const value=document.getElementById("search")
+  .value
+  .toLowerCase();
+
+  studentSelect.innerHTML="";
+
+  students
+  .filter(s=>s.toLowerCase().includes(value))
+  .forEach(s=>{
+
+    const option=document.createElement("option");
+
+    option.value=s;
+    option.textContent=s;
+
+    studentSelect.appendChild(option);
+  });
 }
 
-// SAVE RECORD
-function saveData() {
-  const file = document.getElementById("image").files[0];
 
-  let reader = new FileReader();
-  reader.onload = function () {
-    const record = {
-      name: studentSelect.value,
-      academic: document.getElementById("academic").value,
-      character: document.getElementById("character").value,
-      respect: document.getElementById("respect").value,
-      remark: document.getElementById("remark").value,
-      image: reader.result || "image.jpg",
-      date: new Date().toLocaleString()
+// SAVE RECORD
+function saveData(){
+
+  const file=document.getElementById("image").files[0];
+
+  const reader=new FileReader();
+
+  reader.onload=function(){
+
+    const record={
+      name:studentSelect.value,
+      academic:document.getElementById("academic").value,
+      character:document.getElementById("character").value,
+      respect:document.getElementById("respect").value,
+      remark:document.getElementById("remark").value,
+      image:reader.result || "image.jpg",
+      date:new Date().toLocaleString()
     };
 
-    let records = JSON.parse(localStorage.getItem("records")) || [];
+    let records=
+    JSON.parse(localStorage.getItem("records"))
+    || [];
+
     records.push(record);
-    localStorage.setItem("records", JSON.stringify(records));
+
+    localStorage.setItem(
+      "records",
+      JSON.stringify(records)
+    );
 
     displayRecords();
   };
 
-  if (file) reader.readAsDataURL(file);
-  else reader.onload();
+  if(file){
+    reader.readAsDataURL(file);
+  }else{
+    reader.onload();
+  }
 }
 
-// DISPLAY RECORDS
-function displayRecords() {
-  const records = JSON.parse(localStorage.getItem("records")) || [];
-  const list = document.getElementById("recordList");
-  list.innerHTML = "";
 
-  records.reverse().forEach((r, i) => {
-    let div = document.createElement("div");
-    div.className = "record-item";
-    div.innerHTML = `
-      <img src="${r.image}">
-      <b>${r.name}</b><br>
-      Academic: ${r.academic} |
-      Character: ${r.character} |
-      Respect: ${r.respect}<br>
-      ${r.remark}<br>
-      <small>${r.date}</small><br>
-      <button class="delete-btn" onclick="deleteRecord(${i})">Delete</button>
+// DISPLAY RECORDS
+function displayRecords(){
+
+  const records=
+  JSON.parse(localStorage.getItem("records"))
+  || [];
+
+  const list=document.getElementById("recordList");
+
+  list.innerHTML="";
+
+  records.reverse().forEach((r,index)=>{
+
+    const div=document.createElement("div");
+
+    div.className="record-item";
+
+    div.innerHTML=`
+      <div id="pdf-${index}">
+        <img src="${r.image}">
+        <h3>${r.name}</h3>
+
+        Academic: ${r.academic}/10<br>
+        Character: ${r.character}/10<br>
+        Respect: ${r.respect}/10<br><br>
+
+        Remark:<br>
+        ${r.remark}<br><br>
+
+        ${r.date}
+      </div>
+
+      <button onclick="generatePDF(${index})">
+      Download PDF
+      </button>
+
+      <button onclick="sendRecordWhatsApp(${index})">
+      Send PDF to WhatsApp
+      </button>
+
+      <button class="delete-btn"
+      onclick="deleteRecord(${index})">
+      Delete
+      </button>
     `;
+
     list.appendChild(div);
   });
 }
 
+
 // DELETE
-function deleteRecord(index) {
-  let records = JSON.parse(localStorage.getItem("records")) || [];
-  records.splice(records.length - 1 - index, 1);
-  localStorage.setItem("records", JSON.stringify(records));
+function deleteRecord(index){
+
+  let records=
+  JSON.parse(localStorage.getItem("records"))
+  || [];
+
+  records.splice(records.length-1-index,1);
+
+  localStorage.setItem(
+    "records",
+    JSON.stringify(records)
+  );
+
   displayRecords();
 }
 
-// WHATSAPP
-function sendWhatsApp() {
-  const msg = `Al Hikmoh Group of Schools
 
-Student: ${studentSelect.value}
-Academic: ${document.getElementById("academic").value}/10
-Character: ${document.getElementById("character").value}/10
-Respect: ${document.getElementById("respect").value}/10
-Remark: ${document.getElementById("remark").value}`;
+// GENERATE PDF
+async function generatePDF(index){
 
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`);
+  const { jsPDF } = window.jspdf;
+
+  const element=document.getElementById(`pdf-${index}`);
+
+  const canvas=
+  await html2canvas(element);
+
+  const imgData=
+  canvas.toDataURL("image/png");
+
+  const pdf=new jsPDF();
+
+  pdf.addImage(imgData,"PNG",10,10,180,0);
+
+  pdf.save("student-record.pdf");
 }
 
-// SUGGESTION
-function saveSuggestion() {
-  let text = document.getElementById("suggestText").value;
 
-  let suggestions = JSON.parse(localStorage.getItem("suggestions")) || [];
-  suggestions.push({ text, date: new Date().toLocaleString() });
+// WHATSAPP PDF
+function sendRecordWhatsApp(index){
 
-  localStorage.setItem("suggestions", JSON.stringify(suggestions));
+  const message=
+  "Student PDF generated. Please attach the downloaded PDF manually to WhatsApp.";
+
+  window.open(
+    `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
+  );
+}
+
+
+// MAIN WHATSAPP
+function sendWhatsApp(){
+
+  const msg=
+`Al Hikmoh Group of Schools
+
+Student: ${studentSelect.value}
+
+Academic:
+${document.getElementById("academic").value}/10
+
+Character:
+${document.getElementById("character").value}/10
+
+Respect:
+${document.getElementById("respect").value}/10
+
+Remark:
+${document.getElementById("remark").value}`;
+
+  window.open(
+    `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
+  );
+}
+
+
+// SAVE SUGGESTION
+function saveSuggestion(){
+
+  const text=
+  document.getElementById("suggestText").value;
+
+  let suggestions=
+  JSON.parse(localStorage.getItem("suggestions"))
+  || [];
+
+  suggestions.push({
+    text,
+    date:new Date().toLocaleString()
+  });
+
+  localStorage.setItem(
+    "suggestions",
+    JSON.stringify(suggestions)
+  );
+
   displaySuggestions();
 }
 
-function displaySuggestions() {
-  let suggestions = JSON.parse(localStorage.getItem("suggestions")) || [];
-  let box = document.getElementById("suggestList");
-  box.innerHTML = "";
 
-  suggestions.reverse().forEach(s => {
-    let div = document.createElement("div");
-    div.className = "record-item";
-    div.innerHTML = `${s.text}<br><small>${s.date}</small>`;
+// DISPLAY SUGGESTIONS
+function displaySuggestions(){
+
+  const suggestions=
+  JSON.parse(localStorage.getItem("suggestions"))
+  || [];
+
+  const box=
+  document.getElementById("suggestList");
+
+  box.innerHTML="";
+
+  suggestions.reverse().forEach((s,index)=>{
+
+    const div=document.createElement("div");
+
+    div.className="record-item";
+
+    div.innerHTML=`
+      <div id="suggest-pdf-${index}">
+        <h3>Suggestion</h3>
+
+        ${s.text}<br><br>
+
+        ${s.date}
+      </div>
+
+      <button onclick="generateSuggestionPDF(${index})">
+      Download PDF
+      </button>
+
+      <button onclick="sendSuggestionWhatsApp()">
+      Send Suggestion PDF
+      </button>
+    `;
+
     box.appendChild(div);
   });
+}
+
+
+// SUGGESTION PDF
+async function generateSuggestionPDF(index){
+
+  const { jsPDF } = window.jspdf;
+
+  const element=
+  document.getElementById(`suggest-pdf-${index}`);
+
+  const canvas=
+  await html2canvas(element);
+
+  const imgData=
+  canvas.toDataURL("image/png");
+
+  const pdf=new jsPDF();
+
+  pdf.addImage(imgData,"PNG",10,10,180,0);
+
+  pdf.save("suggestion.pdf");
+}
+
+
+// SEND SUGGESTION WHATSAPP
+function sendSuggestionWhatsApp(){
+
+  const msg=
+  "Suggestion PDF generated. Please attach the PDF manually to WhatsApp.";
+
+  window.open(
+    `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
+  );
 }
