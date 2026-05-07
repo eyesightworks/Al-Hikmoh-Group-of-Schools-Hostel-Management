@@ -1,28 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Al Hikmoh Hostel</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
+<title>
+Al Hikmoh Hostel
+</title>
 
-<!-- PDF LIBRARIES -->
+<link rel="stylesheet"
+href="style.css">
+
+<!-- PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 </head>
 
 <body>
 
 <!-- LOGIN -->
-<div id="loginPage" class="login-page">
+<div id="loginPage"
+class="login-page">
 
-  <img src="image.png" class="logo">
+  <img src="image.png"
+  class="logo">
 
-  <h2>Al Hikmoh Hostel Login</h2>
+  <h2>
+  Al Hikmoh Hostel Login
+  </h2>
 
-  <input type="password"
+  <input
+  type="password"
   id="password"
   placeholder="Enter Password">
 
@@ -32,15 +46,19 @@
 
 </div>
 
-<!-- APP -->
-<div id="app" style="display:none;">
+<!-- MAIN APP -->
+<div id="app"
+style="display:none;">
 
   <!-- TOPBAR -->
   <div class="topbar">
 
-    <button class="menu-btn"
+    <button
+    class="menu-btn"
     onclick="toggleMenu()">
+
     ☰
+
     </button>
 
     <h3>
@@ -50,7 +68,8 @@
   </div>
 
   <!-- MENU -->
-  <div id="menu" class="menu">
+  <div id="menu"
+  class="menu">
 
     <p onclick="showSection('students')">
     Students
@@ -66,44 +85,77 @@
 
   </div>
 
-  <!-- STUDENTS -->
-  <div id="students" class="section">
+  <!-- STUDENT SECTION -->
+  <div id="students"
+  class="section">
 
-    <input type="text"
+    <input
+    type="text"
     id="search"
     placeholder="Search Student..."
     onkeyup="filterStudents()">
 
     <select id="student"></select>
 
-    <input type="number"
+    <input
+    type="number"
     id="academic"
     placeholder="Academic (/10)">
 
-    <input type="number"
+    <input
+    type="number"
     id="character"
     placeholder="Character (/10)">
 
-    <input type="number"
+    <input
+    type="number"
     id="respect"
     placeholder="Respect (/10)">
 
-    <textarea id="remark"
+    <textarea
+    id="remark"
     placeholder="Remark"></textarea>
 
-    <input type="file"
+    <input
+    type="file"
     id="imageInput"
     accept="image/png,image/jpeg">
 
-    <button onclick="saveData()">
-    Save Student Record
+    <button
+    onclick="generateStudentPDF()">
+
+    Generate Student PDF
+
     </button>
 
-    <button onclick="sendWhatsApp()">
-    Send to WhatsApp
+    <button
+    onclick="sendStudentWhatsApp()">
+
+    Send PDF to WhatsApp
+
     </button>
 
-    <div id="recordList"></div>
+    <!-- PDF AREA -->
+    <div id="studentPDF"
+    class="pdf-area">
+
+      <img
+      id="previewImage"
+      src="image.png">
+
+      <h2 id="pdfStudentName">
+      Student Name
+      </h2>
+
+      <p id="pdfAcademic"></p>
+
+      <p id="pdfCharacter"></p>
+
+      <p id="pdfRespect"></p>
+
+      <p id="pdfRemark"></p>
+
+    </div>
 
   </div>
 
@@ -112,25 +164,45 @@
   class="section"
   style="display:none;">
 
-    <h3>Suggestion Box</h3>
+    <h3>
+    Suggestion Box
+    </h3>
 
-    <textarea id="suggestText"
+    <textarea
+    id="suggestText"
     placeholder="Write suggestion here..."></textarea>
 
-    <button onclick="saveSuggestion()">
-    Save Suggestion
+    <button
+    onclick="generateSuggestionPDF()">
+
+    Generate Suggestion PDF
+
     </button>
 
-    <button onclick="sendSuggestionWhatsApp()">
+    <button
+    onclick="sendSuggestionWhatsApp()">
+
     Send Suggestion PDF
+
     </button>
 
-    <div id="suggestList"></div>
+    <!-- PDF -->
+    <div id="suggestionPDF"
+    class="pdf-area">
+
+      <h2>
+      Suggestion Report
+      </h2>
+
+      <p id="suggestionPreview"></p>
+
+    </div>
 
   </div>
 
 </div>
 
 <script src="app.js"></script>
+
 </body>
 </html>
