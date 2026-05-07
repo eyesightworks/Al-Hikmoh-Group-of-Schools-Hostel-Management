@@ -19,7 +19,7 @@ const students = [
 "Bello Muhammed (JSS2)",
 "Fadlullah Jimoh (JSS2)",
 
-"AbdulRazaq Are(JSS1)",
+"AbdulRazaq (JSS1)",
 "Afolabi Mustapha (JSS1)",
 "Adeboye Jubreel (JSS1)"
 
@@ -43,10 +43,6 @@ function login(){
     .style.display = "block";
 
     loadStudents();
-
-    displayRecords();
-
-    displaySuggestions();
 
   }else{
 
@@ -137,215 +133,100 @@ function filterStudents(){
 
 }
 
-/* SAVE */
-function saveData(){
+/* GENERATE STUDENT PDF */
+async function generateStudentPDF(){
 
   const file =
   document.getElementById("imageInput")
   .files[0];
 
-  const reader =
-  new FileReader();
+  /* IMAGE */
+  if(file){
 
-  reader.onload = function(){
+    const reader =
+    new FileReader();
 
-    const record = {
+    reader.onload = function(e){
 
-      name:
-      studentSelect.value,
-
-      academic:
-      document.getElementById("academic").value,
-
-      character:
-      document.getElementById("character").value,
-
-      respect:
-      document.getElementById("respect").value,
-
-      remark:
-      document.getElementById("remark").value,
-
-      image:
-      reader.result || "image.png",
-
-      date:
-      new Date().toLocaleString()
+      document.getElementById(
+      "previewImage"
+      ).src = e.target.result;
 
     };
 
-    let records =
-    JSON.parse(localStorage.getItem("records"))
-    || [];
-
-    records.push(record);
-
-    localStorage.setItem(
-      "records",
-      JSON.stringify(records)
-    );
-
-    displayRecords();
-
-  };
-
-  if(file){
-
     reader.readAsDataURL(file);
-
-  }else{
-
-    reader.onload();
 
   }
 
-}
+  /* TEXT */
+  document.getElementById(
+  "pdfStudentName"
+  ).innerText =
+  studentSelect.value;
 
-/* DISPLAY RECORDS */
-function displayRecords(){
+  document.getElementById(
+  "pdfAcademic"
+  ).innerText =
+  "Academic: " +
+  document.getElementById("academic").value +
+  "/10";
 
-  const records =
-  JSON.parse(localStorage.getItem("records"))
-  || [];
+  document.getElementById(
+  "pdfCharacter"
+  ).innerText =
+  "Character: " +
+  document.getElementById("character").value +
+  "/10";
 
-  const list =
-  document.getElementById("recordList");
+  document.getElementById(
+  "pdfRespect"
+  ).innerText =
+  "Respect: " +
+  document.getElementById("respect").value +
+  "/10";
 
-  list.innerHTML = "";
+  document.getElementById(
+  "pdfRemark"
+  ).innerText =
+  "Remark: " +
+  document.getElementById("remark").value;
 
-  records.reverse().forEach((record,index)=>{
+  setTimeout(async()=>{
 
-    const div =
-    document.createElement("div");
+    const { jsPDF } = window.jspdf;
 
-    div.className = "record-item";
+    const element =
+    document.getElementById("studentPDF");
 
-    div.innerHTML = `
+    const canvas =
+    await html2canvas(element);
 
-      <div id="pdf-${index}">
+    const image =
+    canvas.toDataURL("image/png");
 
-        <img src="${record.image}">
+    const pdf =
+    new jsPDF();
 
-        <h3>${record.name}</h3>
+    pdf.addImage(
+      image,
+      "PNG",
+      10,
+      10,
+      180,
+      0
+    );
 
-        Academic:
-        ${record.academic}/10<br><br>
+    pdf.save("student-report.pdf");
 
-        Character:
-        ${record.character}/10<br><br>
-
-        Respect:
-        ${record.respect}/10<br><br>
-
-        Remark:<br>
-        ${record.remark}<br><br>
-
-        ${record.date}
-
-      </div>
-
-      <button
-      onclick="generatePDF(${index})">
-
-      Download PDF
-
-      </button>
-
-      <button
-      onclick="sendRecordWhatsApp(${index})">
-
-      Send PDF to WhatsApp
-
-      </button>
-
-      <button
-      class="delete-btn"
-      onclick="deleteRecord(${index})">
-
-      Delete
-
-      </button>
-
-    `;
-
-    list.appendChild(div);
-
-  });
-
-}
-
-/* DELETE */
-function deleteRecord(index){
-
-  let records =
-  JSON.parse(localStorage.getItem("records"))
-  || [];
-
-  records.splice(
-    records.length - 1 - index,
-    1
-  );
-
-  localStorage.setItem(
-    "records",
-    JSON.stringify(records)
-  );
-
-  displayRecords();
-
-}
-
-/* PDF */
-async function generatePDF(index){
-
-  const { jsPDF } = window.jspdf;
-
-  const element =
-  document.getElementById(`pdf-${index}`);
-
-  const canvas =
-  await html2canvas(element);
-
-  const image =
-  canvas.toDataURL("image/png");
-
-  const pdf =
-  new jsPDF();
-
-  pdf.addImage(
-    image,
-    "PNG",
-    10,
-    10,
-    180,
-    0
-  );
-
-  pdf.save("student-record.pdf");
+  },500);
 
 }
 
 /* SEND WHATSAPP */
-function sendWhatsApp(){
+function sendStudentWhatsApp(){
 
   const msg =
-
-`Al Hikmoh Group of Schools
-
-Student:
-${studentSelect.value}
-
-Academic:
-${document.getElementById("academic").value}/10
-
-Character:
-${document.getElementById("character").value}/10
-
-Respect:
-${document.getElementById("respect").value}/10
-
-Remark:
-${document.getElementById("remark").value}`;
+"Student PDF generated successfully. Please attach the downloaded PDF manually.";
 
   window.open(
 `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
@@ -353,119 +234,44 @@ ${document.getElementById("remark").value}`;
 
 }
 
-/* SEND PDF WHATSAPP */
-function sendRecordWhatsApp(){
+/* GENERATE SUGGESTION PDF */
+async function generateSuggestionPDF(){
 
-  const msg =
-"PDF generated. Please attach the downloaded PDF manually.";
+  document.getElementById(
+  "suggestionPreview"
+  ).innerText =
+  document.getElementById(
+  "suggestText"
+  ).value;
 
-  window.open(
-`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
-  );
+  setTimeout(async()=>{
 
-}
+    const { jsPDF } = window.jspdf;
 
-/* SAVE SUGGESTION */
-function saveSuggestion(){
+    const element =
+    document.getElementById("suggestionPDF");
 
-  const text =
-  document.getElementById("suggestText").value;
+    const canvas =
+    await html2canvas(element);
 
-  let suggestions =
-  JSON.parse(localStorage.getItem("suggestions"))
-  || [];
+    const image =
+    canvas.toDataURL("image/png");
 
-  suggestions.push({
+    const pdf =
+    new jsPDF();
 
-    text,
+    pdf.addImage(
+      image,
+      "PNG",
+      10,
+      10,
+      180,
+      0
+    );
 
-    date:
-    new Date().toLocaleString()
+    pdf.save("suggestion-report.pdf");
 
-  });
-
-  localStorage.setItem(
-    "suggestions",
-    JSON.stringify(suggestions)
-  );
-
-  displaySuggestions();
-
-}
-
-/* DISPLAY SUGGESTION */
-function displaySuggestions(){
-
-  const suggestions =
-  JSON.parse(localStorage.getItem("suggestions"))
-  || [];
-
-  const box =
-  document.getElementById("suggestList");
-
-  box.innerHTML = "";
-
-  suggestions.reverse().forEach((suggest,index)=>{
-
-    const div =
-    document.createElement("div");
-
-    div.className = "record-item";
-
-    div.innerHTML = `
-
-      <div id="suggest-${index}">
-
-      <h3>Suggestion</h3>
-
-      ${suggest.text}<br><br>
-
-      ${suggest.date}
-
-      </div>
-
-      <button
-      onclick="generateSuggestionPDF(${index})">
-
-      Download Suggestion PDF
-
-      </button>
-
-    `;
-
-    box.appendChild(div);
-
-  });
-
-}
-
-/* PDF SUGGESTION */
-async function generateSuggestionPDF(index){
-
-  const { jsPDF } = window.jspdf;
-
-  const element =
-  document.getElementById(`suggest-${index}`);
-
-  const canvas =
-  await html2canvas(element);
-
-  const image =
-  canvas.toDataURL("image/png");
-
-  const pdf =
-  new jsPDF();
-
-  pdf.addImage(
-    image,
-    "PNG",
-    10,
-    10,
-    180,
-    0
-  );
-
-  pdf.save("suggestion.pdf");
+  },500);
 
 }
 
@@ -473,7 +279,7 @@ async function generateSuggestionPDF(index){
 function sendSuggestionWhatsApp(){
 
   const msg =
-"Suggestion PDF generated. Please attach it manually.";
+"Suggestion PDF generated successfully. Please attach the downloaded PDF manually.";
 
   window.open(
 `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
