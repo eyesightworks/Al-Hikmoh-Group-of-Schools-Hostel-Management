@@ -1,56 +1,107 @@
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
-  font-family:Arial;
+  font-family:Arial,sans-serif;
   background:#0f172a;
   color:white;
 }
 
+/* LOGIN */
+.login-page{
+  padding:20px;
+  text-align:center;
+}
+
+.logo{
+  width:100px;
+  margin-top:20px;
+}
+
+/* TOPBAR */
 .topbar{
   display:flex;
+  align-items:center;
+  gap:10px;
   padding:10px;
   background:#1e293b;
+  position:sticky;
+  top:0;
 }
 
-button{
-  padding:10px;
-  border:none;
-  background:#38bdf8;
-  margin-top:5px;
-  width:100%;
+.menu-btn{
+  width:45px;
+  height:45px;
+  font-size:20px;
 }
 
-input,textarea,select{
-  width:100%;
-  padding:10px;
-  margin-top:5px;
-}
-
-.section{
-  padding:10px;
-}
-
+/* MENU */
 .menu{
   display:none;
   background:#334155;
 }
 
 .menu p{
-  padding:10px;
-  border-bottom:1px solid #555;
+  margin:0;
+  padding:15px;
+  border-bottom:1px solid #475569;
 }
 
+/* SECTION */
+.section{
+  padding:12px;
+}
+
+/* FORM */
+input,
+textarea,
+select,
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:8px;
+  font-size:15px;
+}
+
+textarea{
+  min-height:100px;
+}
+
+button{
+  background:#38bdf8;
+  color:black;
+  font-weight:bold;
+}
+
+/* RECORD CARD */
 .record-item{
   background:#1e293b;
-  margin-top:10px;
-  padding:10px;
-  border-radius:10px;
+  margin-top:15px;
+  padding:12px;
+  border-radius:12px;
 }
 
 .record-item img{
   width:100%;
   border-radius:10px;
+  margin-bottom:10px;
 }
 
 .delete-btn{
   background:red;
+  color:white;
+}
+
+/* MOBILE */
+@media(min-width:768px){
+
+  .section{
+    max-width:600px;
+    margin:auto;
+  }
+
 }
