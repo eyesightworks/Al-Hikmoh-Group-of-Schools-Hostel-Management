@@ -2,8 +2,13 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Al Hikmoh Group of Schools</title>
+<title>Al Hikmoh Hostel</title>
+
 <link rel="stylesheet" href="style.css">
+
+<!-- PDF LIBRARIES -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body>
@@ -18,11 +23,13 @@
 <!-- MAIN APP -->
 <div id="app" style="display:none;">
 
+  <!-- TOPBAR -->
   <div class="topbar">
     <button onclick="toggleMenu()">☰</button>
-    <h3>Al Hikmoh Hostel</h3>
+    <h3>Al Hikmoh Group of Schools</h3>
   </div>
 
+  <!-- MENU -->
   <div id="menu" class="menu">
     <p onclick="showSection('students')">Students</p>
     <p onclick="showSection('suggestion')">Suggestion Box</p>
@@ -31,6 +38,7 @@
 
   <!-- STUDENTS -->
   <div id="students" class="section">
+
     <input type="text" id="search" placeholder="Search student..." onkeyup="filterStudents()">
 
     <select id="student"></select>
@@ -42,19 +50,24 @@
 
     <input type="file" id="image">
 
-    <button onclick="saveData()">Save</button>
-    <button onclick="sendWhatsApp()">Send to WhatsApp</button>
+    <button onclick="saveData()">Save Student Record</button>
+    <button onclick="sendWhatsApp()">Send PDF to WhatsApp</button>
 
     <div id="recordList"></div>
   </div>
 
-  <!-- SUGGESTION BOX -->
+  <!-- SUGGESTION -->
   <div id="suggestion" class="section" style="display:none;">
-    <h3>Suggestion Box (Parents / Hostel Master)</h3>
+
+    <h3>Suggestion Box</h3>
+
     <textarea id="suggestText" placeholder="Write suggestion..."></textarea>
-    <button onclick="saveSuggestion()">Submit</button>
+
+    <button onclick="saveSuggestion()">Save Suggestion</button>
+    <button onclick="sendSuggestionPDF()">Send Suggestion PDF</button>
 
     <div id="suggestList"></div>
+
   </div>
 
 </div>
