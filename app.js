@@ -133,24 +133,23 @@ function filterStudents(){
 
 }
 
-/* GENERATE STUDENT PDF */
-async function generateStudentPDF(){
+/* PREVIEW IMAGE */
+document
+.getElementById("imageInput")
+.addEventListener("change",function(e){
 
-  const file =
-  document.getElementById("imageInput")
-  .files[0];
+  const file = e.target.files[0];
 
-  /* IMAGE */
   if(file){
 
     const reader =
     new FileReader();
 
-    reader.onload = function(e){
+    reader.onload = function(event){
 
-      document.getElementById(
-      "previewImage"
-      ).src = e.target.result;
+      document
+      .getElementById("previewImage")
+      .src = event.target.result;
 
     };
 
@@ -158,75 +157,81 @@ async function generateStudentPDF(){
 
   }
 
-  /* TEXT */
-  document.getElementById(
-  "pdfStudentName"
-  ).innerText =
+});
+
+/* GENERATE STUDENT PDF */
+async function generatePDF(){
+
+  document
+  .getElementById("previewName")
+  .innerText =
   studentSelect.value;
 
-  document.getElementById(
-  "pdfAcademic"
-  ).innerText =
-  "Academic: " +
-  document.getElementById("academic").value +
-  "/10";
+  document
+  .getElementById("previewAcademic")
+  .innerText =
+  "Academic: "
+  + document.getElementById("academic").value
+  + "/10";
 
-  document.getElementById(
-  "pdfCharacter"
-  ).innerText =
-  "Character: " +
-  document.getElementById("character").value +
-  "/10";
+  document
+  .getElementById("previewCharacter")
+  .innerText =
+  "Character: "
+  + document.getElementById("character").value
+  + "/10";
 
-  document.getElementById(
-  "pdfRespect"
-  ).innerText =
-  "Respect: " +
-  document.getElementById("respect").value +
-  "/10";
+  document
+  .getElementById("previewRespect")
+  .innerText =
+  "Respect: "
+  + document.getElementById("respect").value
+  + "/10";
 
-  document.getElementById(
-  "pdfRemark"
-  ).innerText =
-  "Remark: " +
-  document.getElementById("remark").value;
+  document
+  .getElementById("previewRemark")
+  .innerText =
+  "Remark: "
+  + document.getElementById("remark").value;
 
-  setTimeout(async()=>{
+  document
+  .getElementById("previewDate")
+  .innerText =
+  new Date().toLocaleString();
 
-    const { jsPDF } = window.jspdf;
+  const { jsPDF } =
+  window.jspdf;
 
-    const element =
-    document.getElementById("studentPDF");
+  const element =
+  document.getElementById("pdfContent");
 
-    const canvas =
-    await html2canvas(element);
+  const canvas =
+  await html2canvas(element);
 
-    const image =
-    canvas.toDataURL("image/png");
+  const image =
+  canvas.toDataURL("image/png");
 
-    const pdf =
-    new jsPDF();
+  const pdf =
+  new jsPDF();
 
-    pdf.addImage(
-      image,
-      "PNG",
-      10,
-      10,
-      180,
-      0
-    );
+  pdf.addImage(
+    image,
+    "PNG",
+    10,
+    10,
+    180,
+    0
+  );
 
-    pdf.save("student-report.pdf");
-
-  },500);
+  pdf.save("student-report.pdf");
 
 }
 
-/* SEND WHATSAPP */
-function sendStudentWhatsApp(){
+/* WHATSAPP */
+function sendWhatsApp(){
 
   const msg =
-"Student PDF generated successfully. Please attach the downloaded PDF manually.";
+  "Student PDF generated successfully. Please attach the downloaded PDF manually.";
 
   window.open(
 `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
@@ -234,44 +239,44 @@ function sendStudentWhatsApp(){
 
 }
 
-/* GENERATE SUGGESTION PDF */
+/* SUGGESTION PDF */
 async function generateSuggestionPDF(){
 
-  document.getElementById(
-  "suggestionPreview"
-  ).innerText =
-  document.getElementById(
-  "suggestText"
-  ).value;
+  document
+  .getElementById("suggestionPreview")
+  .innerText =
+  document.getElementById("suggestText").value;
 
-  setTimeout(async()=>{
+  document
+  .getElementById("suggestionDate")
+  .innerText =
+  new Date().toLocaleString();
 
-    const { jsPDF } = window.jspdf;
+  const { jsPDF } =
+  window.jspdf;
 
-    const element =
-    document.getElementById("suggestionPDF");
+  const element =
+  document.getElementById("suggestionPDF");
 
-    const canvas =
-    await html2canvas(element);
+  const canvas =
+  await html2canvas(element);
 
-    const image =
-    canvas.toDataURL("image/png");
+  const image =
+  canvas.toDataURL("image/png");
 
-    const pdf =
-    new jsPDF();
+  const pdf =
+  new jsPDF();
 
-    pdf.addImage(
-      image,
-      "PNG",
-      10,
-      10,
-      180,
-      0
-    );
+  pdf.addImage(
+    image,
+    "PNG",
+    10,
+    10,
+    180,
+    0
+  );
 
-    pdf.save("suggestion-report.pdf");
-
-  },500);
+  pdf.save("suggestion.pdf");
 
 }
 
@@ -279,7 +284,7 @@ async function generateSuggestionPDF(){
 function sendSuggestionWhatsApp(){
 
   const msg =
-"Suggestion PDF generated successfully. Please attach the downloaded PDF manually.";
+  "Suggestion PDF generated successfully. Please attach the PDF manually.";
 
   window.open(
 `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
