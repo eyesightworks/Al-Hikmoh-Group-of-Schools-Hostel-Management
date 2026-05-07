@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Al Hikmoh Hostel</title>
 
 <link rel="stylesheet" href="style.css">
@@ -14,57 +16,114 @@
 <body>
 
 <!-- LOGIN -->
-<div id="loginPage">
-  <h2>Hostel Login</h2>
-  <input type="password" id="password" placeholder="Enter Password">
-  <button onclick="login()">Login</button>
+<div id="loginPage" class="login-page">
+
+  <img src="image.png" class="logo">
+
+  <h2>Al Hikmoh Hostel Login</h2>
+
+  <input type="password"
+  id="password"
+  placeholder="Enter Password">
+
+  <button onclick="login()">
+  Login
+  </button>
+
 </div>
 
-<!-- MAIN APP -->
+<!-- APP -->
 <div id="app" style="display:none;">
 
   <!-- TOPBAR -->
   <div class="topbar">
-    <button onclick="toggleMenu()">☰</button>
-    <h3>Al Hikmoh Group of Schools</h3>
+
+    <button class="menu-btn"
+    onclick="toggleMenu()">
+    ☰
+    </button>
+
+    <h3>
+    Al Hikmoh Hostel
+    </h3>
+
   </div>
 
   <!-- MENU -->
   <div id="menu" class="menu">
-    <p onclick="showSection('students')">Students</p>
-    <p onclick="showSection('suggestion')">Suggestion Box</p>
-    <p onclick="logout()">Logout</p>
+
+    <p onclick="showSection('students')">
+    Students
+    </p>
+
+    <p onclick="showSection('suggestion')">
+    Suggestion Box
+    </p>
+
+    <p onclick="logout()">
+    Logout
+    </p>
+
   </div>
 
   <!-- STUDENTS -->
   <div id="students" class="section">
 
-    <input type="text" id="search" placeholder="Search student..." onkeyup="filterStudents()">
+    <input type="text"
+    id="search"
+    placeholder="Search Student..."
+    onkeyup="filterStudents()">
 
     <select id="student"></select>
 
-    <input type="number" id="academic" placeholder="Academic (/10)">
-    <input type="number" id="character" placeholder="Character (/10)">
-    <input type="number" id="respect" placeholder="Respect (/10)">
-    <textarea id="remark" placeholder="Remark"></textarea>
+    <input type="number"
+    id="academic"
+    placeholder="Academic (/10)">
 
-    <input type="file" id="image">
+    <input type="number"
+    id="character"
+    placeholder="Character (/10)">
 
-    <button onclick="saveData()">Save Student Record</button>
-    <button onclick="sendWhatsApp()">Send PDF to WhatsApp</button>
+    <input type="number"
+    id="respect"
+    placeholder="Respect (/10)">
+
+    <textarea id="remark"
+    placeholder="Remark"></textarea>
+
+    <input type="file"
+    id="imageInput"
+    accept="image/png,image/jpeg">
+
+    <button onclick="saveData()">
+    Save Student Record
+    </button>
+
+    <button onclick="sendWhatsApp()">
+    Send to WhatsApp
+    </button>
 
     <div id="recordList"></div>
+
   </div>
 
   <!-- SUGGESTION -->
-  <div id="suggestion" class="section" style="display:none;">
+  <div id="suggestion"
+  class="section"
+  style="display:none;">
 
     <h3>Suggestion Box</h3>
 
-    <textarea id="suggestText" placeholder="Write suggestion..."></textarea>
+    <textarea id="suggestText"
+    placeholder="Write suggestion here..."></textarea>
 
-    <button onclick="saveSuggestion()">Save Suggestion</button>
-    <button onclick="sendSuggestionPDF()">Send Suggestion PDF</button>
+    <button onclick="saveSuggestion()">
+    Save Suggestion
+    </button>
+
+    <button onclick="sendSuggestionWhatsApp()">
+    Send Suggestion PDF
+    </button>
 
     <div id="suggestList"></div>
 
