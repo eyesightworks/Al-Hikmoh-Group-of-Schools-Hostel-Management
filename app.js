@@ -1,128 +1,180 @@
 const PASSWORD = "easy001";
+
 const phone = "2348083869454";
 
 const students = [
-  "Abdulwasii Saad (SS2)",
-  "Jimoh Ridwan (SS2)",
-  "Abdul Wasil Mazdah (SS2)",
-  "Adeyemi Muaz (SS1)",
-  "Adeboye Abdul Warith (SS1)",
-  "Adejumo Habib (JSS3)",
-  "Faroq Kazeem (JSS3)",
-  "Abdulmalik Taiwo (JSS3)",
-  "Nafiu Hassan (JSS2)",
-  "Bello Muhammed (JSS2)",
-  "Fadlullah Jimoh (JSS2)",
-  "AbdulRazaq (JSS1)",
-  "Afolabi Mustapha (JSS1)",
-  "Adeboye Jubreel (JSS1)"
+
+"Abdulwasii Saad (SS2)",
+"Jimoh Ridwan (SS2)",
+"Abdul Wasil Mazdah (SS2)",
+
+"Adeyemi Muaz (SS1)",
+"Adeboye Abdul Warith (SS1)",
+
+"Adejumo Habib (JSS3)",
+"Faroq Kazeem (JSS3)",
+"Abdulmalik Taiwo (JSS3)",
+
+"Nafiu Hassan (JSS2)",
+"Bello Muhammed (JSS2)",
+"Fadlullah Jimoh (JSS2)",
+
+"AbdulRazaq (JSS1)",
+"Afolabi Mustapha (JSS1)",
+"Adeboye Jubreel (JSS1)"
+
 ];
 
-const studentSelect = document.getElementById("student");
+const studentSelect =
+document.getElementById("student");
 
-
-// LOGIN
+/* LOGIN */
 function login(){
-  const pass = document.getElementById("password").value;
+
+  const pass =
+  document.getElementById("password").value;
 
   if(pass === PASSWORD){
-    document.getElementById("loginPage").style.display="none";
-    document.getElementById("app").style.display="block";
+
+    document.getElementById("loginPage")
+    .style.display = "none";
+
+    document.getElementById("app")
+    .style.display = "block";
 
     loadStudents();
+
     displayRecords();
+
     displaySuggestions();
+
   }else{
-    alert("Wrong password");
+
+    alert("Wrong Password");
+
   }
+
 }
 
-
-// LOGOUT
+/* LOGOUT */
 function logout(){
+
   location.reload();
+
 }
 
-
-// MENU
+/* MENU */
 function toggleMenu(){
-  const menu=document.getElementById("menu");
+
+  const menu =
+  document.getElementById("menu");
 
   menu.style.display =
   menu.style.display === "block"
   ? "none"
   : "block";
+
 }
 
-
-// SECTION
+/* SECTION */
 function showSection(id){
 
-  document.getElementById("students").style.display="none";
-  document.getElementById("suggestion").style.display="none";
+  document.getElementById("students")
+  .style.display = "none";
 
-  document.getElementById(id).style.display="block";
+  document.getElementById("suggestion")
+  .style.display = "none";
+
+  document.getElementById(id)
+  .style.display = "block";
+
 }
 
-
-// LOAD STUDENTS
+/* LOAD STUDENTS */
 function loadStudents(){
 
   students.forEach(name=>{
 
-    const option=document.createElement("option");
+    const option =
+    document.createElement("option");
 
-    option.value=name;
-    option.textContent=name;
+    option.value = name;
+
+    option.textContent = name;
 
     studentSelect.appendChild(option);
+
   });
+
 }
 
-
-// SEARCH
+/* SEARCH */
 function filterStudents(){
 
-  const value=document.getElementById("search")
+  const value =
+  document.getElementById("search")
   .value
   .toLowerCase();
 
-  studentSelect.innerHTML="";
+  studentSelect.innerHTML = "";
 
   students
-  .filter(s=>s.toLowerCase().includes(value))
-  .forEach(s=>{
+  .filter(student =>
+    student.toLowerCase().includes(value)
+  )
+  .forEach(student=>{
 
-    const option=document.createElement("option");
+    const option =
+    document.createElement("option");
 
-    option.value=s;
-    option.textContent=s;
+    option.value = student;
+
+    option.textContent = student;
 
     studentSelect.appendChild(option);
+
   });
+
 }
 
-
-// SAVE RECORD
+/* SAVE */
 function saveData(){
 
-  const file=document.getElementById("image").files[0];
+  const file =
+  document.getElementById("imageInput")
+  .files[0];
 
-  const reader=new FileReader();
+  const reader =
+  new FileReader();
 
-  reader.onload=function(){
+  reader.onload = function(){
 
-    const record={
-      name:studentSelect.value,
-      academic:document.getElementById("academic").value,
-      character:document.getElementById("character").value,
-      respect:document.getElementById("respect").value,
-      remark:document.getElementById("remark").value,
-      image:reader.result || "image.jpg",
-      date:new Date().toLocaleString()
+    const record = {
+
+      name:
+      studentSelect.value,
+
+      academic:
+      document.getElementById("academic").value,
+
+      character:
+      document.getElementById("character").value,
+
+      respect:
+      document.getElementById("respect").value,
+
+      remark:
+      document.getElementById("remark").value,
+
+      image:
+      reader.result || "image.png",
+
+      date:
+      new Date().toLocaleString()
+
     };
 
-    let records=
+    let records =
     JSON.parse(localStorage.getItem("records"))
     || [];
 
@@ -134,75 +186,105 @@ function saveData(){
     );
 
     displayRecords();
+
   };
 
   if(file){
+
     reader.readAsDataURL(file);
+
   }else{
+
     reader.onload();
+
   }
+
 }
 
-
-// DISPLAY RECORDS
+/* DISPLAY RECORDS */
 function displayRecords(){
 
-  const records=
+  const records =
   JSON.parse(localStorage.getItem("records"))
   || [];
 
-  const list=document.getElementById("recordList");
+  const list =
+  document.getElementById("recordList");
 
-  list.innerHTML="";
+  list.innerHTML = "";
 
-  records.reverse().forEach((r,index)=>{
+  records.reverse().forEach((record,index)=>{
 
-    const div=document.createElement("div");
+    const div =
+    document.createElement("div");
 
-    div.className="record-item";
+    div.className = "record-item";
 
-    div.innerHTML=`
+    div.innerHTML = `
+
       <div id="pdf-${index}">
-        <img src="${r.image}">
-        <h3>${r.name}</h3>
 
-        Academic: ${r.academic}/10<br>
-        Character: ${r.character}/10<br>
-        Respect: ${r.respect}/10<br><br>
+        <img src="${record.image}">
+
+        <h3>${record.name}</h3>
+
+        Academic:
+        ${record.academic}/10<br><br>
+
+        Character:
+        ${record.character}/10<br><br>
+
+        Respect:
+        ${record.respect}/10<br><br>
 
         Remark:<br>
-        ${r.remark}<br><br>
+        ${record.remark}<br><br>
 
-        ${r.date}
+        ${record.date}
+
       </div>
 
-      <button onclick="generatePDF(${index})">
+      <button
+      onclick="generatePDF(${index})">
+
       Download PDF
+
       </button>
 
-      <button onclick="sendRecordWhatsApp(${index})">
+      <button
+      onclick="sendRecordWhatsApp(${index})">
+
       Send PDF to WhatsApp
+
       </button>
 
-      <button class="delete-btn"
+      <button
+      class="delete-btn"
       onclick="deleteRecord(${index})">
+
       Delete
+
       </button>
+
     `;
 
     list.appendChild(div);
+
   });
+
 }
 
-
-// DELETE
+/* DELETE */
 function deleteRecord(index){
 
-  let records=
+  let records =
   JSON.parse(localStorage.getItem("records"))
   || [];
 
-  records.splice(records.length-1-index,1);
+  records.splice(
+    records.length - 1 - index,
+    1
+  );
 
   localStorage.setItem(
     "records",
@@ -210,49 +292,48 @@ function deleteRecord(index){
   );
 
   displayRecords();
+
 }
 
-
-// GENERATE PDF
+/* PDF */
 async function generatePDF(index){
 
   const { jsPDF } = window.jspdf;
 
-  const element=document.getElementById(`pdf-${index}`);
+  const element =
+  document.getElementById(`pdf-${index}`);
 
-  const canvas=
+  const canvas =
   await html2canvas(element);
 
-  const imgData=
+  const image =
   canvas.toDataURL("image/png");
 
-  const pdf=new jsPDF();
+  const pdf =
+  new jsPDF();
 
-  pdf.addImage(imgData,"PNG",10,10,180,0);
+  pdf.addImage(
+    image,
+    "PNG",
+    10,
+    10,
+    180,
+    0
+  );
 
   pdf.save("student-record.pdf");
+
 }
 
-
-// WHATSAPP PDF
-function sendRecordWhatsApp(index){
-
-  const message=
-  "Student PDF generated. Please attach the downloaded PDF manually to WhatsApp.";
-
-  window.open(
-    `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
-  );
-}
-
-
-// MAIN WHATSAPP
+/* SEND WHATSAPP */
 function sendWhatsApp(){
 
-  const msg=
+  const msg =
+
 `Al Hikmoh Group of Schools
 
-Student: ${studentSelect.value}
+Student:
+${studentSelect.value}
 
 Academic:
 ${document.getElementById("academic").value}/10
@@ -267,24 +348,40 @@ Remark:
 ${document.getElementById("remark").value}`;
 
   window.open(
-    `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
+`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
   );
+
 }
 
+/* SEND PDF WHATSAPP */
+function sendRecordWhatsApp(){
 
-// SAVE SUGGESTION
+  const msg =
+"PDF generated. Please attach the downloaded PDF manually.";
+
+  window.open(
+`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
+  );
+
+}
+
+/* SAVE SUGGESTION */
 function saveSuggestion(){
 
-  const text=
+  const text =
   document.getElementById("suggestText").value;
 
-  let suggestions=
+  let suggestions =
   JSON.parse(localStorage.getItem("suggestions"))
   || [];
 
   suggestions.push({
+
     text,
-    date:new Date().toLocaleString()
+
+    date:
+    new Date().toLocaleString()
+
   });
 
   localStorage.setItem(
@@ -293,79 +390,93 @@ function saveSuggestion(){
   );
 
   displaySuggestions();
+
 }
 
-
-// DISPLAY SUGGESTIONS
+/* DISPLAY SUGGESTION */
 function displaySuggestions(){
 
-  const suggestions=
+  const suggestions =
   JSON.parse(localStorage.getItem("suggestions"))
   || [];
 
-  const box=
+  const box =
   document.getElementById("suggestList");
 
-  box.innerHTML="";
+  box.innerHTML = "";
 
-  suggestions.reverse().forEach((s,index)=>{
+  suggestions.reverse().forEach((suggest,index)=>{
 
-    const div=document.createElement("div");
+    const div =
+    document.createElement("div");
 
-    div.className="record-item";
+    div.className = "record-item";
 
-    div.innerHTML=`
-      <div id="suggest-pdf-${index}">
-        <h3>Suggestion</h3>
+    div.innerHTML = `
 
-        ${s.text}<br><br>
+      <div id="suggest-${index}">
 
-        ${s.date}
+      <h3>Suggestion</h3>
+
+      ${suggest.text}<br><br>
+
+      ${suggest.date}
+
       </div>
 
-      <button onclick="generateSuggestionPDF(${index})">
-      Download PDF
+      <button
+      onclick="generateSuggestionPDF(${index})">
+
+      Download Suggestion PDF
+
       </button>
 
-      <button onclick="sendSuggestionWhatsApp()">
-      Send Suggestion PDF
-      </button>
     `;
 
     box.appendChild(div);
+
   });
+
 }
 
-
-// SUGGESTION PDF
+/* PDF SUGGESTION */
 async function generateSuggestionPDF(index){
 
   const { jsPDF } = window.jspdf;
 
-  const element=
-  document.getElementById(`suggest-pdf-${index}`);
+  const element =
+  document.getElementById(`suggest-${index}`);
 
-  const canvas=
+  const canvas =
   await html2canvas(element);
 
-  const imgData=
+  const image =
   canvas.toDataURL("image/png");
 
-  const pdf=new jsPDF();
+  const pdf =
+  new jsPDF();
 
-  pdf.addImage(imgData,"PNG",10,10,180,0);
+  pdf.addImage(
+    image,
+    "PNG",
+    10,
+    10,
+    180,
+    0
+  );
 
   pdf.save("suggestion.pdf");
+
 }
 
-
-// SEND SUGGESTION WHATSAPP
+/* SEND SUGGESTION */
 function sendSuggestionWhatsApp(){
 
-  const msg=
-  "Suggestion PDF generated. Please attach the PDF manually to WhatsApp.";
+  const msg =
+"Suggestion PDF generated. Please attach it manually.";
 
   window.open(
-    `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
+`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
   );
+
 }
