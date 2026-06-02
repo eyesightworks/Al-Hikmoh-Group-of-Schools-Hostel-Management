@@ -1,103 +1,245 @@
+/* ==========================
+   GLOBAL
+========================== */
+
 *{
+  margin:0;
+  padding:0;
   box-sizing:border-box;
 }
 
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
+  font-family:Arial, sans-serif;
   background:#0f172a;
   color:white;
+  min-height:100vh;
 }
 
-/* LOGIN */
+img{
+  max-width:100%;
+}
+
+/* ==========================
+   LOGIN
+========================== */
+
 .login-page{
   padding:20px;
   text-align:center;
 }
 
 .logo{
-  width:100px;
-  margin-top:20px;
+  width:120px;
+  margin-top:30px;
+  margin-bottom:20px;
 }
 
-/* TOPBAR */
+.login-page h2{
+  margin-bottom:20px;
+}
+
+/* ==========================
+   TOPBAR
+========================== */
+
 .topbar{
+  position:sticky;
+  top:0;
+  background:#1e293b;
+  padding:12px;
   display:flex;
   align-items:center;
   gap:10px;
-  padding:10px;
-  background:#1e293b;
-  position:sticky;
-  top:0;
+  z-index:999;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);
+}
+
+.topbar h3{
+  font-size:18px;
 }
 
 .menu-btn{
   width:45px;
   height:45px;
-  font-size:20px;
+  font-size:22px;
+  cursor:pointer;
 }
 
-/* MENU */
+/* ==========================
+   MENU
+========================== */
+
 .menu{
   display:none;
   background:#334155;
 }
 
 .menu p{
-  margin:0;
   padding:15px;
   border-bottom:1px solid #475569;
   cursor:pointer;
 }
 
-/* SECTION */
-.section{
-  padding:12px;
+.menu p:hover{
+  background:#475569;
 }
 
-/* FORM */
+/* ==========================
+   SECTIONS
+========================== */
+
+.section{
+  padding:15px;
+}
+
+.section h2{
+  margin-bottom:15px;
+}
+
+/* ==========================
+   FORMS
+========================== */
+
 input,
-textarea,
 select,
+textarea,
 button{
+
   width:100%;
   padding:12px;
   margin-top:10px;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   font-size:15px;
+
 }
 
 textarea{
-  min-height:100px;
+  min-height:120px;
+  resize:vertical;
 }
 
 button{
   background:#38bdf8;
   color:black;
   font-weight:bold;
+  cursor:pointer;
 }
 
-/* CARD */
-.record-item{
+button:hover{
+  opacity:.9;
+}
+
+/* ==========================
+   PDF CARDS
+========================== */
+
+.pdf-card{
+
   background:#1e293b;
   margin-top:20px;
   padding:15px;
   border-radius:12px;
+
 }
 
-.record-item img{
+.pdf-card img{
+
   width:100%;
   border-radius:10px;
   margin-bottom:10px;
+
 }
 
-/* MOBILE FIRST */
+.pdf-card h3{
+  margin-bottom:10px;
+}
+
+.pdf-card p{
+  margin-bottom:10px;
+  line-height:1.5;
+}
+
+/* ==========================
+   ACTIVITIES
+========================== */
+
+.activity-list{
+
+  background:#1e293b;
+  padding:12px;
+  margin-top:15px;
+  border-radius:12px;
+
+}
+
+.activity-item{
+
+  background:#334155;
+  padding:10px;
+  border-radius:8px;
+  margin-bottom:10px;
+
+}
+
+/* ==========================
+   STUDENT LIST
+========================== */
+
+#studentList{
+
+  background:#1e293b;
+  margin-top:15px;
+  border-radius:12px;
+  padding:15px;
+
+}
+
+.student-row{
+
+  padding:10px;
+  margin-bottom:8px;
+  background:#334155;
+  border-radius:8px;
+
+}
+
+/* ==========================
+   HR
+========================== */
+
+hr{
+  margin:20px 0;
+  border:none;
+  border-top:1px solid #475569;
+}
+
+/* ==========================
+   DESKTOP
+========================== */
+
 @media(min-width:768px){
 
   .section{
-    max-width:600px;
+    max-width:800px;
     margin:auto;
+  }
+
+  .login-page{
+    max-width:450px;
+    margin:auto;
+  }
+
+}
+
+/* ==========================
+   LARGE SCREEN
+========================== */
+
+@media(min-width:1200px){
+
+  .section{
+    max-width:1000px;
   }
 
 }
