@@ -9,13 +9,13 @@
 content="width=device-width, initial-scale=1.0">
 
 <title>
-Al Hikmoh Hostel
+Al Hikmoh Hostel Management System
 </title>
 
 <link rel="stylesheet"
 href="style.css">
 
-<!-- PDF LIBRARIES -->
+<!-- PDF Libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -24,192 +24,398 @@ href="style.css">
 
 <body>
 
-<!-- LOGIN -->
-<div id="loginPage"
-class="login-page">
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="login-page">
 
-  <img src="image.png"
-  class="logo">
+<img src="image.png" class="logo">
 
-  <h2>
-  Al Hikmoh Hostel Login
-  </h2>
+<h2>
+Al Hikmoh Hostel System
+</h2>
 
-  <input
-  type="password"
-  id="password"
-  placeholder="Enter Password">
+<input
+type="password"
+id="password"
+placeholder="Enter Password">
 
-  <button onclick="login()">
-  Login
-  </button>
+<button onclick="login()">
+Login
+</button>
 
 </div>
 
-<!-- APP -->
-<div id="app"
+<!-- MAIN APP -->
+<div id="app" style="display:none;">
+
+<!-- TOPBAR -->
+<div class="topbar">
+
+<button
+class="menu-btn"
+onclick="toggleMenu()">
+
+☰
+
+</button>
+
+<h3>
+Al Hikmoh Hostel
+</h3>
+
+</div>
+
+<!-- MENU -->
+<div id="menu" class="menu">
+
+<p onclick="showSection('studentReport')">
+Student Report
+</p>
+
+<p onclick="showSection('studentNote')">
+Student Note
+</p>
+
+<p onclick="showSection('studentActivities')">
+Student Activities
+</p>
+
+<p onclick="showSection('manageStudents')">
+Manage Students
+</p>
+
+<p onclick="logout()">
+Logout
+</p>
+
+</div>
+
+<!-- STUDENT REPORT -->
+<div id="studentReport"
+class="section">
+
+<h2>
+Student Report
+</h2>
+
+<input
+type="text"
+id="searchStudent"
+placeholder="Search Student..."
+onkeyup="filterStudents()">
+
+<select id="studentSelect"></select>
+
+<input
+type="number"
+id="academic"
+placeholder="Academic Score (/10)">
+
+<input
+type="number"
+id="character"
+placeholder="Character Score (/10)">
+
+<input
+type="number"
+id="respect"
+placeholder="Respect Score (/10)">
+
+<textarea
+id="remark"
+placeholder="Remark"></textarea>
+
+<input
+type="file"
+id="studentImage"
+accept="image/*">
+
+<button onclick="generateStudentReportPDF()">
+Generate Student Report PDF
+</button>
+
+<button onclick="sendStudentReportWhatsApp()">
+Send To WhatsApp
+</button>
+
+<div
+id="studentReportPDF"
+class="pdf-card">
+
+<img
+id="reportPreviewImage"
+src="image.png">
+
+<h3 id="reportPreviewName">
+Student Name
+</h3>
+
+<p id="reportPreviewAcademic">
+Academic:
+</p>
+
+<p id="reportPreviewCharacter">
+Character:
+</p>
+
+<p id="reportPreviewRespect">
+Respect:
+</p>
+
+<p id="reportPreviewRemark">
+Remark:
+</p>
+
+<p id="reportPreviewDate">
+Date
+</p>
+
+</div>
+
+</div>
+
+<!-- STUDENT NOTE -->
+<div id="studentNote"
+class="section"
 style="display:none;">
 
-  <!-- TOPBAR -->
-  <div class="topbar">
+<h2>
+Student Note
+</h2>
 
-    <button
-    class="menu-btn"
-    onclick="toggleMenu()">
+<select id="noteStudent"></select>
 
-    ☰
+<input
+type="text"
+id="noteTitle"
+placeholder="Note Title">
 
-    </button>
+<textarea
+id="noteText"
+placeholder="Teacher comment, observation, assignment, parent note, etc..."></textarea>
 
-    <h3>
-    Al Hikmoh Hostel
-    </h3>
+<button onclick="generateStudentNotePDF()">
+Generate Student Note PDF
+</button>
 
-  </div>
+<button onclick="sendStudentNoteWhatsApp()">
+Send To WhatsApp
+</button>
 
-  <!-- MENU -->
-  <div id="menu"
-  class="menu">
+<div
+id="studentNotePDF"
+class="pdf-card">
 
-    <p onclick="showSection('students')">
-    Student Report
-    </p>
+<h3 id="notePreviewTitle">
+Student Note
+</h3>
 
-    <p onclick="showSection('suggestion')">
-    Suggestion Box
-    </p>
+<p id="notePreviewStudent">
+Student:
+</p>
 
-    <p onclick="logout()">
-    Logout
-    </p>
+<p id="notePreviewText">
+Note Content
+</p>
 
-  </div>
+<p id="notePreviewDate">
+Date
+</p>
 
-  <!-- STUDENT SECTION -->
-  <div id="students"
-  class="section">
+</div>
 
-    <input
-    type="text"
-    id="search"
-    placeholder="Search Student..."
-    onkeyup="filterStudents()">
+</div>
 
-    <select id="student"></select>
+<!-- STUDENT ACTIVITIES -->
+<div id="studentActivities"
+class="section"
+style="display:none;">
 
-    <input
-    type="number"
-    id="academic"
-    placeholder="Academic (/10)">
+<h2>
+Student Activities
+</h2>
 
-    <input
-    type="number"
-    id="character"
-    placeholder="Character (/10)">
+<select id="activityStudent"></select>
 
-    <input
-    type="number"
-    id="respect"
-    placeholder="Respect (/10)">
+<select id="activityClass">
 
-    <textarea
-    id="remark"
-    placeholder="Remark"></textarea>
+<option>SS3</option>
+<option>SS2</option>
+<option>SS1</option>
 
-    <input
-    type="file"
-    id="imageInput"
-    accept="image/png,image/jpeg">
+<option>JSS3</option>
+<option>JSS2</option>
+<option>JSS1</option>
 
-    <button onclick="generatePDF()">
+<option>Primary 5</option>
+<option>Primary 4</option>
+<option>Primary 3</option>
+<option>Primary 2</option>
+<option>Primary 1</option>
 
-    Generate Student PDF
+</select>
 
-    </button>
+<input
+type="text"
+id="subject"
+placeholder="Subject">
 
-    <button onclick="sendWhatsApp()">
+<input
+type="text"
+id="tutor"
+placeholder="Tutor Name">
 
-    Send to WhatsApp
+<select id="frequency">
 
-    </button>
+<option>Daily</option>
+<option>Weekly</option>
+<option>Monthly</option>
 
-    <!-- PDF AREA -->
-    <div id="pdfContent"
-    class="record-item">
+</select>
 
-      <img id="previewImage"
-      src="image.png">
+<textarea
+id="questionInput"
+placeholder="Enter Question or Activity"></textarea>
 
-      <h3 id="previewName">
-      Student Name
-      </h3>
+<button onclick="addActivityQuestion()">
+Add Question
+</button>
 
-      <p id="previewAcademic">
-      Academic:
-      </p>
+<div
+id="activityList"
+class="activity-list">
 
-      <p id="previewCharacter">
-      Character:
-      </p>
+</div>
 
-      <p id="previewRespect">
-      Respect:
-      </p>
+<button onclick="generateActivityPDF()">
+Generate Activities PDF
+</button>
 
-      <p id="previewRemark">
-      Remark:
-      </p>
+<button onclick="sendActivityWhatsApp()">
+Send To WhatsApp
+</button>
 
-      <small id="previewDate"></small>
+<div
+id="activityPDF"
+class="pdf-card">
 
-    </div>
+<h3>
+Student Activities
+</h3>
 
-  </div>
+<p id="activityStudentPreview">
+Student
+</p>
 
-  <!-- SUGGESTION -->
-  <div id="suggestion"
-  class="section"
-  style="display:none;">
+<p id="activityClassPreview">
+Class
+</p>
 
-    <h3>
-    Suggestion Box
-    </h3>
+<p id="activitySubjectPreview">
+Subject
+</p>
 
-    <textarea
-    id="suggestText"
-    placeholder="Write suggestion here..."></textarea>
+<p id="activityTutorPreview">
+Tutor
+</p>
 
-    <button
-    onclick="generateSuggestionPDF()">
+<p id="activityFrequencyPreview">
+Frequency
+</p>
 
-    Generate Suggestion PDF
+<div id="activityQuestionsPreview">
+</div>
 
-    </button>
+<p id="activityDatePreview">
+Date
+</p>
 
-    <button
-    onclick="sendSuggestionWhatsApp()">
+</div>
 
-    Send Suggestion to WhatsApp
+</div>
 
-    </button>
+<!-- MANAGE STUDENTS -->
+<div id="manageStudents"
+class="section"
+style="display:none;">
 
-    <!-- SUGGESTION PDF -->
-    <div id="suggestionPDF"
-    class="record-item">
+<h2>
+Manage Students
+</h2>
 
-      <h3>
-      Suggestion
-      </h3>
+<h3>
+Add Student
+</h3>
 
-      <p id="suggestionPreview">
-      Suggestion will appear here
-      </p>
+<select id="addStudentClass">
 
-      <small id="suggestionDate"></small>
+<option>SS3</option>
+<option>SS2</option>
+<option>SS1</option>
 
-    </div>
+<option>JSS3</option>
+<option>JSS2</option>
+<option>JSS1</option>
 
-  </div>
+<option>Primary 5</option>
+<option>Primary 4</option>
+<option>Primary 3</option>
+<option>Primary 2</option>
+<option>Primary 1</option>
+
+</select>
+
+<input
+type="text"
+id="newStudentName"
+placeholder="Student Name">
+
+<button onclick="addStudent()">
+Add Student
+</button>
+
+<hr>
+
+<h3>
+Remove Student
+</h3>
+
+<select id="removeClass">
+
+<option>SS3</option>
+<option>SS2</option>
+<option>SS1</option>
+
+<option>JSS3</option>
+<option>JSS2</option>
+<option>JSS1</option>
+
+<option>Primary 5</option>
+<option>Primary 4</option>
+<option>Primary 3</option>
+<option>Primary 2</option>
+<option>Primary 1</option>
+
+</select>
+
+<select id="removeStudentSelect">
+
+</select>
+
+<button onclick="removeStudent()">
+Remove Student
+</button>
+
+<hr>
+
+<h3>
+Current Students
+</h3>
+
+<div id="studentList">
+
+</div>
+
+</div>
 
 </div>
 
