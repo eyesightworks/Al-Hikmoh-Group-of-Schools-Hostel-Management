@@ -1,95 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>
-Al Hikmoh Hostel Management System
-</title>
-
-<link rel="stylesheet"
-href="style.css">
-
-<!-- PDF Libraries -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-</head>
-
-<body>
-
-<!-- LOGIN PAGE -->
-<div id="loginPage" class="login-page">
-
-<img src="image.png" class="logo">
-
-<h2>
-Al Hikmoh Hostel System
-</h2>
-
-<input
-type="password"
-id="password"
-placeholder="Enter Password">
-
-<button onclick="login()">
-Login
-</button>
-
-</div>
-
-<!-- MAIN APP -->
-<div id="app" style="display:none;">
-
-<!-- TOPBAR -->
-<div class="topbar">
-
-<button
-class="menu-btn"
-onclick="toggleMenu()">
-
-☰
-
-</button>
-
-<h3>
-Al Hikmoh Hostel
-</h3>
-
-</div>
-
-<!-- MENU -->
-<div id="menu" class="menu">
-
-<p onclick="showSection('studentReport')">
-Student Report
-</p>
-
-<p onclick="showSection('studentNote')">
-Student Note
-</p>
-
-<p onclick="showSection('studentActivities')">
-Student Activities
-</p>
-
-<p onclick="showSection('manageStudents')">
-Manage Students
-</p>
-
-<p onclick="logout()">
-Logout
-</p>
-
-</div>
-
 <!-- STUDENT REPORT -->
+
 <div id="studentReport"
 class="section">
 
@@ -105,29 +15,117 @@ onkeyup="filterStudents()">
 
 <select id="studentSelect"></select>
 
-<input
-type="number"
-id="academic"
-placeholder="Academic Score (/10)">
+<!-- TERM -->
 
-<input
-type="number"
-id="character"
-placeholder="Character Score (/10)">
+<select id="term">
 
-<input
-type="number"
-id="respect"
-placeholder="Respect Score (/10)">
+<option>First Term</option>
 
-<textarea
-id="remark"
-placeholder="Remark"></textarea>
+<option>Second Term</option>
+
+<option>Third Term</option>
+
+</select>
+
+<!-- STUDENT PHOTO -->
 
 <input
 type="file"
 id="studentImage"
 accept="image/*">
+
+<!-- SUBJECTS -->
+
+<h3>
+Academic Subjects
+</h3>
+
+<div id="subjectContainer">
+
+</div>
+
+<!-- CHARACTER RECORD -->
+
+<h3>
+Character Assessment
+</h3>
+
+<input
+type="number"
+id="character"
+placeholder="Character (0 - 100)"
+min="0"
+max="100">
+
+<input
+type="number"
+id="respect"
+placeholder="Respect (0 - 100)"
+min="0"
+max="100">
+
+<input
+type="number"
+id="discipline"
+placeholder="Discipline (0 - 100)"
+min="0"
+max="100">
+
+<input
+type="number"
+id="neatness"
+placeholder="Neatness (0 - 100)"
+min="0"
+max="100">
+
+<input
+type="number"
+id="punctuality"
+placeholder="Punctuality (0 - 100)"
+min="0"
+max="100">
+
+<!-- AUTO RESULTS -->
+
+<div class="pdf-card">
+
+<h3>
+Performance Summary
+</h3>
+
+<p>
+Academic Average:
+<span id="academicAverage">
+0%
+</span>
+</p>
+
+<p>
+Character Average:
+<span id="characterAverage">
+0%
+</span>
+</p>
+
+<p>
+Overall Percentage:
+<span id="overallPercentage">
+0%
+</span>
+</p>
+
+<p>
+Grade:
+<span id="grade">
+F
+</span>
+</p>
+
+</div>
+
+<textarea
+id="remark"
+placeholder="Hostel Master Comment"></textarea>
 
 <button onclick="generateStudentReportPDF()">
 Generate Student Report PDF
@@ -136,6 +134,8 @@ Generate Student Report PDF
 <button onclick="sendStudentReportWhatsApp()">
 Send To WhatsApp
 </button>
+
+<!-- PDF PREVIEW -->
 
 <div
 id="studentReportPDF"
@@ -146,280 +146,63 @@ id="reportPreviewImage"
 src="image.png">
 
 <h3 id="reportPreviewName">
+
 Student Name
+
 </h3>
 
-<p id="reportPreviewAcademic">
-Academic:
+<p id="reportPreviewClass">
+
+Class
+
 </p>
 
-<p id="reportPreviewCharacter">
-Character:
+<p id="reportPreviewTerm">
+
+Term
+
 </p>
 
-<p id="reportPreviewRespect">
-Respect:
+<div id="reportPreviewSubjects">
+
+</div>
+
+<p id="reportPreviewAcademicAverage">
+
+Academic Average
+
+</p>
+
+<p id="reportPreviewCharacterAverage">
+
+Character Average
+
+</p>
+
+<p id="reportPreviewOverall">
+
+Overall Percentage
+
+</p>
+
+<p id="reportPreviewGrade">
+
+Grade
+
 </p>
 
 <p id="reportPreviewRemark">
-Remark:
+
+Remark
+
 </p>
 
 <p id="reportPreviewDate">
+
 Date
+
 </p>
 
 </div>
 
 </div>
-
-<!-- STUDENT NOTE -->
-<div id="studentNote"
-class="section"
-style="display:none;">
-
-<h2>
-Student Note
-</h2>
-
-<select id="noteStudent"></select>
-
-<input
-type="text"
-id="noteTitle"
-placeholder="Note Title">
-
-<textarea
-id="noteText"
-placeholder="Teacher comment, observation, assignment, parent note, etc..."></textarea>
-
-<button onclick="generateStudentNotePDF()">
-Generate Student Note PDF
-</button>
-
-<button onclick="sendStudentNoteWhatsApp()">
-Send To WhatsApp
-</button>
-
-<div
-id="studentNotePDF"
-class="pdf-card">
-
-<h3 id="notePreviewTitle">
-Student Note
-</h3>
-
-<p id="notePreviewStudent">
-Student:
-</p>
-
-<p id="notePreviewText">
-Note Content
-</p>
-
-<p id="notePreviewDate">
-Date
-</p>
-
-</div>
-
-</div>
-
-<!-- STUDENT ACTIVITIES -->
-<div id="studentActivities"
-class="section"
-style="display:none;">
-
-<h2>
-Student Activities
-</h2>
-
-<select id="activityStudent"></select>
-
-<select id="activityClass">
-
-<option>SS3</option>
-<option>SS2</option>
-<option>SS1</option>
-
-<option>JSS3</option>
-<option>JSS2</option>
-<option>JSS1</option>
-
-<option>Primary 5</option>
-<option>Primary 4</option>
-<option>Primary 3</option>
-<option>Primary 2</option>
-<option>Primary 1</option>
-
-</select>
-
-<input
-type="text"
-id="subject"
-placeholder="Subject">
-
-<input
-type="text"
-id="tutor"
-placeholder="Tutor Name">
-
-<select id="frequency">
-
-<option>Daily</option>
-<option>Weekly</option>
-<option>Monthly</option>
-
-</select>
-
-<textarea
-id="questionInput"
-placeholder="Enter Question or Activity"></textarea>
-
-<button onclick="addActivityQuestion()">
-Add Question
-</button>
-
-<div
-id="activityList"
-class="activity-list">
-
-</div>
-
-<button onclick="generateActivityPDF()">
-Generate Activities PDF
-</button>
-
-<button onclick="sendActivityWhatsApp()">
-Send To WhatsApp
-</button>
-
-<div
-id="activityPDF"
-class="pdf-card">
-
-<h3>
-Student Activities
-</h3>
-
-<p id="activityStudentPreview">
-Student
-</p>
-
-<p id="activityClassPreview">
-Class
-</p>
-
-<p id="activitySubjectPreview">
-Subject
-</p>
-
-<p id="activityTutorPreview">
-Tutor
-</p>
-
-<p id="activityFrequencyPreview">
-Frequency
-</p>
-
-<div id="activityQuestionsPreview">
-</div>
-
-<p id="activityDatePreview">
-Date
-</p>
-
-</div>
-
-</div>
-
-<!-- MANAGE STUDENTS -->
-<div id="manageStudents"
-class="section"
-style="display:none;">
-
-<h2>
-Manage Students
-</h2>
-
-<h3>
-Add Student
-</h3>
-
-<select id="addStudentClass">
-
-<option>SS3</option>
-<option>SS2</option>
-<option>SS1</option>
-
-<option>JSS3</option>
-<option>JSS2</option>
-<option>JSS1</option>
-
-<option>Primary 5</option>
-<option>Primary 4</option>
-<option>Primary 3</option>
-<option>Primary 2</option>
-<option>Primary 1</option>
-
-</select>
-
-<input
-type="text"
-id="newStudentName"
-placeholder="Student Name">
-
-<button onclick="addStudent()">
-Add Student
-</button>
-
-<hr>
-
-<h3>
-Remove Student
-</h3>
-
-<select id="removeClass">
-
-<option>SS3</option>
-<option>SS2</option>
-<option>SS1</option>
-
-<option>JSS3</option>
-<option>JSS2</option>
-<option>JSS1</option>
-
-<option>Primary 5</option>
-<option>Primary 4</option>
-<option>Primary 3</option>
-<option>Primary 2</option>
-<option>Primary 1</option>
-
-</select>
-
-<select id="removeStudentSelect">
-
-</select>
-
-<button onclick="removeStudent()">
-Remove Student
-</button>
-
-<hr>
-
-<h3>
-Current Students
-</h3>
-
-<div id="studentList">
-
-</div>
-
-</div>
-
-</div>
-
-<script src="app.js"></script>
-
-</body>
-</html>
