@@ -455,3 +455,18 @@ gap:15px;
 }
 
 }
+/* ==========================
+   STUDENT PROGRESS
+========================== */
+
+#studentProgress textarea{
+
+  min-height:120px;
+
+}
+
+#studentProgress h3{
+
+  margin-top:20px;
+
+}
