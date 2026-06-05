@@ -94,6 +94,10 @@ Student Note
 Student Activities
 </p>
 
+<p onclick="showSection('studentProgress')">
+Student Progress Record
+</p>
+  
 <p onclick="showSection('manageStudents')">
 Manage Students
 </p>
@@ -689,6 +693,164 @@ id="activityQuestionsPreview">
 id="activityDatePreview">
 
 Date
+
+</p>
+
+</div>
+
+</div>
+  <!-- STUDENT PROGRESS RECORD -->
+
+<div id="studentProgress"
+class="section"
+style="display:none;">
+
+<h2>
+Student Progress Record
+</h2>
+
+<select id="progressStudent">
+
+</select>
+
+<input
+type="text"
+id="dateJoined"
+placeholder="Date Joined">
+
+<input
+type="file"
+id="progressImage"
+accept="image/*">
+
+<h3>
+Initial Assessment
+</h3>
+
+<textarea
+id="initialAssessment"
+placeholder="What the student could not do when admitted">
+
+</textarea>
+
+<h3>
+Current Assessment
+</h3>
+
+<textarea
+id="currentAssessment"
+placeholder="What the student can do now">
+
+</textarea>
+
+<h3>
+Achievements
+</h3>
+
+<textarea
+id="achievements"
+placeholder="Achievements gained">
+
+</textarea>
+
+<h3>
+Areas Needing Improvement
+</h3>
+
+<textarea
+id="improvementAreas"
+placeholder="What still needs improvement">
+
+</textarea>
+
+<h3>
+Teacher Comment
+</h3>
+
+<textarea
+id="teacherComment">
+
+</textarea>
+
+<h3>
+Hostel Master Comment
+</h3>
+
+<textarea
+id="hostelComment">
+
+</textarea>
+
+<button
+onclick="generateProgressPDF()">
+
+Generate Progress PDF
+
+</button>
+
+<button
+onclick="sendProgressWhatsApp()">
+
+Send To WhatsApp
+
+</button>
+
+<!-- PDF PREVIEW -->
+
+<div
+id="progressPDF"
+class="pdf-card">
+
+<img
+id="progressPreviewImage"
+src="image.png">
+
+<h3
+id="progressPreviewStudent">
+
+Student
+
+</h3>
+
+<p
+id="progressPreviewJoined">
+
+Date Joined
+
+</p>
+
+<p
+id="progressPreviewInitial">
+
+</p>
+
+<p
+id="progressPreviewCurrent">
+
+</p>
+
+<p
+id="progressPreviewAchievements">
+
+</p>
+
+<p
+id="progressPreviewImprovement">
+
+</p>
+
+<p
+id="progressPreviewTeacher">
+
+</p>
+
+<p
+id="progressPreviewHostel">
+
+</p>
+
+<p
+id="progressPreviewDate">
 
 </p>
 
