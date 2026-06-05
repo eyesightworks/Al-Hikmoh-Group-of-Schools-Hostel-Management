@@ -243,6 +243,11 @@ function loadStudents(){
     "activityStudent"
   );
 
+const progressStudent =
+document.getElementById(
+  "progressStudent"
+);
+   
   const removeStudentSelect =
   document.getElementById(
     "removeStudentSelect"
@@ -291,7 +296,10 @@ function loadStudents(){
       activityStudent.appendChild(
         option.cloneNode(true)
       );
-
+      if(progressStudent)
+     progressStudent.appendChild(
+      option.cloneNode(true)
+);
     });
 
   });
@@ -1360,3 +1368,163 @@ function sendActivityWhatsApp(){
   );
 
 }
+/* ==========================
+   STUDENT PROGRESS RECORD
+========================== */
+
+let progressImage = "image.png";
+
+const progressInput =
+document.getElementById(
+  "progressImage"
+);
+
+if(progressInput){
+
+  progressInput.addEventListener(
+    "change",
+    function(e){
+
+      const file =
+      e.target.files[0];
+
+      if(file){
+
+        const reader =
+        new FileReader();
+
+        reader.onload =
+        function(event){
+
+          progressImage =
+          event.target.result;
+
+          document.getElementById(
+            "progressPreviewImage"
+          ).src =
+          progressImage;
+
+        };
+
+        reader.readAsDataURL(
+          file
+        );
+
+      }
+
+    }
+  );
+
+}
+async function generateProgressPDF(){
+
+  document.getElementById(
+    "progressPreviewStudent"
+  ).textContent =
+  document.getElementById(
+    "progressStudent"
+  ).value;
+
+  document.getElementById(
+    "progressPreviewJoined"
+  ).textContent =
+  "Date Joined: " +
+  document.getElementById(
+    "dateJoined"
+  ).value;
+
+  document.getElementById(
+    "progressPreviewInitial"
+  ).textContent =
+  "Initial Assessment: " +
+  document.getElementById(
+    "initialAssessment"
+  ).value;
+
+  document.getElementById(
+    "progressPreviewCurrent"
+  ).textContent =
+  "Current Assessment: " +
+  document.getElementById(
+    "currentAssessment"
+  ).value;
+
+  document.getElementById(
+    "progressPreviewAchievements"
+  ).textContent =
+  "Achievements: " +
+  document.getElementById(
+    "achievements"
+  ).value;
+
+  document.getElementById(
+    "progressPreviewImprovement"
+  ).textContent =
+  "Areas For Improvement: " +
+  document.getElementById(
+    "improvementAreas"
+  ).value;
+
+  document.getElementById(
+    "progressPreviewTeacher"
+  ).textContent =
+  "Teacher Comment: " +
+  document.getElementById(
+    "teacherComment"
+  ).value;
+
+  document.getElementById(
+    "progressPreviewHostel"
+  ).textContent =
+  "Hostel Master Comment: " +
+  document.getElementById(
+    "hostelComment"
+  ).value;
+
+  document.getElementById(
+    "progressPreviewDate"
+  ).textContent =
+  new Date()
+  .toLocaleDateString();
+
+  const canvas =
+  await html2canvas(
+    document.getElementById(
+      "progressPDF"
+    )
+  );
+
+  const imgData =
+  canvas.toDataURL(
+    "image/png"
+  );
+
+  const { jsPDF } =
+  window.jspdf;
+
+  const pdf =
+  new jsPDF();
+
+  pdf.addImage(
+    imgData,
+    "PNG",
+    10,
+    10,
+    190,
+    0
+  );
+
+  pdf.save(
+    "student-progress.pdf"
+  );
+
+}
+function sendProgressWhatsApp(){
+
+  window.open(
+    "https://wa.me/2348083869454",
+    "_blank"
+  );
+
+}
+
