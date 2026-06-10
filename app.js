@@ -1,30 +1,36 @@
-/* ==========================
+/* =====================================
    LOGIN SYSTEM
-========================== */
+===================================== */
 
 const PASSWORD = "easy001";
 
 function login(){
 
   const password =
-  document.getElementById("password").value;
+  document.getElementById(
+    "password"
+  ).value;
 
   if(password === PASSWORD){
-
-    document.getElementById("loginPage")
-    .style.display = "none";
-
-    document.getElementById("app")
-    .style.display = "block";
 
     localStorage.setItem(
       "hostelLoggedIn",
       "true"
     );
 
+    document.getElementById(
+      "loginPage"
+    ).style.display = "none";
+
+    document.getElementById(
+      "app"
+    ).style.display = "block";
+
   }else{
 
-    alert("Wrong Password");
+    alert(
+      "Wrong Password"
+    );
 
   }
 
@@ -40,333 +46,221 @@ function logout(){
 
 }
 
-window.onload = function(){
+window.addEventListener(
+  "load",
+  function(){
 
-  if(
-    localStorage.getItem(
-      "hostelLoggedIn"
-    ) === "true"
-  ){
+    if(
+      localStorage.getItem(
+        "hostelLoggedIn"
+      ) === "true"
+    ){
 
-    document.getElementById(
-      "loginPage"
-    ).style.display = "none";
+      document.getElementById(
+        "loginPage"
+      ).style.display = "none";
 
-    document.getElementById(
-      "app"
-    ).style.display = "block";
+      document.getElementById(
+        "app"
+      ).style.display = "block";
+
+    }
 
   }
+);
 
-};
-
-/* ==========================
+/* =====================================
    MENU
-========================== */
+===================================== */
 
 function toggleMenu(){
 
   const menu =
-  document.getElementById("menu");
+  document.getElementById(
+    "menu"
+  );
 
-  if(menu.style.display === "block"){
+  if(
+    menu.style.display ===
+    "block"
+  ){
 
-    menu.style.display = "none";
+    menu.style.display =
+    "none";
 
   }else{
 
-    menu.style.display = "block";
+    menu.style.display =
+    "block";
 
   }
 
 }
 
-/* ==========================
-   SECTION SWITCHING
-========================== */
+function showSection(
+  sectionId
+){
 
-function showSection(sectionId){
+  document
+  .querySelectorAll(
+    ".section"
+  )
+  .forEach(section=>{
 
-  const sections =
-  document.querySelectorAll(".section");
-
-  sections.forEach(section=>{
-
-    section.style.display="none";
+    section.style.display =
+    "none";
 
   });
 
   document.getElementById(
     sectionId
-  ).style.display="block";
+  ).style.display =
+  "block";
 
   document.getElementById(
     "menu"
-  ).style.display="none";
+  ).style.display =
+  "none";
 
 }
 
-/* ==========================
-   DEFAULT STUDENTS
-========================== */
+/* =====================================
+   STORAGE
+===================================== */
 
-let students = JSON.parse(
-  localStorage.getItem("students")
-) || {
+let students =
+JSON.parse(
+  localStorage.getItem(
+    "students"
+  )
+) || [];
 
-  "SS3":[],
-
-  "SS2":[],
-
-  "SS1":[
-    "Adeyemi Muaz",
-    "Adeboye Abdul Warith"
-  ],
-
-  "JSS3":[
-    "Adejumo Habib",
-    "Faroq Kazeem",
-    "Abdulmalik Taiwo"
-  ],
-
-  "JSS2":[
-    "Nafiu Hassan",
-    "Bello Muhammed",
-    "Fadlullah Jimoh"
-  ],
-
-  "JSS1":[
-    "AbdulRazaq",
-    "Afolabi Mustapha",
-    "Adeboye Jubreel"
-  ],
-
-  "Primary 5":[],
-
-  "Primary 4":[],
-
-  "Primary 3":[],
-
-  "Primary 2":[],
-
-  "Primary 1":[]
-
-};
-
-/* ==========================
-   DEFAULT SUBJECTS
-========================== */
-
-let subjects = JSON.parse(
-  localStorage.getItem("subjects")
+let subjects =
+JSON.parse(
+  localStorage.getItem(
+    "subjects"
+  )
 ) || [
 
   "Mathematics",
-
   "English Language",
-
   "Basic Science",
-
-  "Basic Technology",
-
   "Computer Studies",
-
-  "Physical & Health Education",
-
   "Social Studies",
-
   "Civic Education",
-
   "History",
-
-  "Yoruba Language",
-
   "Arabic Language",
-
-  "Security Education",
-
-  "Phonics",
-
   "French",
-
-  "Islamic Religious Studies",
-
-  "Quantitative Reasoning",
-
-  "Verbal Reasoning",
-
-  "Vocational Studies",
-
-  "Agricultural Science",
-
-  "Home Economics",
-
-  "Creative Arts",
-
-  "Literature",
-
-  "Hadith",
-
-  "Quran Memorization",
-
-  "Tajweed"
+  "Agricultural Science"
 
 ];
 
-localStorage.setItem(
-  "students",
-  JSON.stringify(students)
-);
+let reportHistory =
+JSON.parse(
+  localStorage.getItem(
+    "reportHistory"
+  )
+) || [];
 
-localStorage.setItem(
-  "subjects",
-  JSON.stringify(subjects)
-);
-/* ==========================
-   LOAD STUDENTS
-========================== */
+saveData();
 
-function loadStudents(){
+function saveData(){
 
-  const studentSelect =
-  document.getElementById(
-    "studentSelect"
+  localStorage.setItem(
+    "students",
+    JSON.stringify(
+      students
+    )
   );
 
-  const noteStudent =
-  document.getElementById(
-    "noteStudent"
+  localStorage.setItem(
+    "subjects",
+    JSON.stringify(
+      subjects
+    )
   );
 
-  const activityStudent =
-  document.getElementById(
-    "activityStudent"
+  localStorage.setItem(
+    "reportHistory",
+    JSON.stringify(
+      reportHistory
+    )
   );
-
-const progressStudent =
-document.getElementById(
-  "progressStudent"
-);
-   
-  const removeStudentSelect =
-  document.getElementById(
-    "removeStudentSelect"
-  );
-
-  if(studentSelect)
-  studentSelect.innerHTML="";
-
-  if(noteStudent)
-  noteStudent.innerHTML="";
-
-  if(activityStudent)
-  activityStudent.innerHTML="";
-
-  if(removeStudentSelect)
-  removeStudentSelect.innerHTML="";
-
-  Object.keys(students)
-  .forEach(className=>{
-
-    students[className]
-    .forEach(student=>{
-
-      const option =
-      document.createElement(
-        "option"
-      );
-
-      option.value =
-      student;
-
-      option.textContent =
-      `${student} (${className})`;
-
-      if(studentSelect)
-      studentSelect.appendChild(
-        option.cloneNode(true)
-      );
-
-      if(noteStudent)
-      noteStudent.appendChild(
-        option.cloneNode(true)
-      );
-
-      if(activityStudent)
-      activityStudent.appendChild(
-        option.cloneNode(true)
-      );
-      if(progressStudent)
-     progressStudent.appendChild(
-      option.cloneNode(true)
-);
-    });
-
-  });
-
-  updateStudentList();
-
-  updateDashboard();
 
 }
 
-/* ==========================
-   SEARCH STUDENT
-========================== */
+/* =====================================
+   STUDENT MODEL
 
-function filterStudents(){
+   {
+      id,
+      name,
+      class,
+      age,
+      parentName,
+      parentPhone
+   }
 
-  const search =
-  document.getElementById(
-    "searchStudent"
-  ).value.toLowerCase();
+===================================== */
 
-  const select =
-  document.getElementById(
-    "studentSelect"
-  );
+function createStudentObject(){
 
-  const options =
-  select.options;
+  return {
 
-  for(let i=0;i<options.length;i++){
+    id:
+    Date.now(),
 
-    const text =
-    options[i].text.toLowerCase();
+    name:
+    document
+    .getElementById(
+      "newStudentName"
+    )
+    .value.trim(),
 
-    if(
-      text.includes(search)
-    ){
+    class:
+    document
+    .getElementById(
+      "addStudentClass"
+    )
+    .value,
 
-      options[i].style.display="";
+    age:
+    document
+    .getElementById(
+      "studentAge"
+    )
+    .value,
 
-    }else{
+    parentName:
+    document
+    .getElementById(
+      "parentName"
+    )
+    .value.trim(),
 
-      options[i].style.display="none";
+    parentPhone:
+    document
+    .getElementById(
+      "parentPhone"
+    )
+    .value.trim()
 
-    }
-
-  }
+  };
 
 }
 
-/* ==========================
+/* =====================================
    ADD STUDENT
-========================== */
+===================================== */
 
 function addStudent(){
 
-  const className =
-  document.getElementById(
-    "addStudentClass"
-  ).value;
+  const student =
+  createStudentObject();
 
-  const studentName =
-  document.getElementById(
-    "newStudentName"
-  ).value.trim();
-
-  if(studentName===""){
+  if(
+    !student.name
+  ){
 
     alert(
       "Enter Student Name"
@@ -376,19 +270,15 @@ function addStudent(){
 
   }
 
-  students[className]
-  .push(studentName);
-
-  localStorage.setItem(
-    "students",
-    JSON.stringify(students)
+  students.push(
+    student
   );
 
-  document.getElementById(
-    "newStudentName"
-  ).value="";
+  saveData();
 
   loadStudents();
+
+  clearStudentForm();
 
   alert(
     "Student Added"
@@ -396,25 +286,116 @@ function addStudent(){
 
 }
 
-/* ==========================
-   REMOVE STUDENT
-========================== */
+/* =====================================
+   CLEAR FORM
+===================================== */
 
-function updateRemoveStudents(){
+function clearStudentForm(){
+
+  document.getElementById(
+    "newStudentName"
+  ).value = "";
+
+  document.getElementById(
+    "studentAge"
+  ).value = "";
+
+  document.getElementById(
+    "parentName"
+  ).value = "";
+
+  document.getElementById(
+    "parentPhone"
+  ).value = "";
+
+}
+
+/* =====================================
+   LOAD STUDENTS
+===================================== */
+
+function loadStudents(){
+
+  const selects = [
+
+    "studentSelect",
+    "noteStudent",
+    "activityStudent",
+    "progressStudent"
+
+  ];
+
+  selects.forEach(id=>{
+
+    const select =
+    document.getElementById(
+      id
+    );
+
+    if(!select) return;
+
+    select.innerHTML = "";
+
+    students.forEach(
+      student=>{
+
+        const option =
+        document.createElement(
+          "option"
+        );
+
+        option.value =
+        student.id;
+
+        option.textContent =
+        `${student.name}
+        (${student.class})`;
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+  });
+
+  loadRemoveStudents();
+
+  updateStudentList();
+
+  updateDashboard();
+
+}
+
+/* =====================================
+   REMOVE STUDENTS
+===================================== */
+
+function loadRemoveStudents(){
 
   const className =
   document.getElementById(
     "removeClass"
-  ).value;
+  )?.value;
 
-  const removeSelect =
+  const select =
   document.getElementById(
     "removeStudentSelect"
   );
 
-  removeSelect.innerHTML="";
+  if(!select) return;
 
-  students[className]
+  select.innerHTML = "";
+
+  students
+  .filter(student=>
+
+    !className ||
+    student.class ===
+    className
+
+  )
   .forEach(student=>{
 
     const option =
@@ -422,12 +403,13 @@ function updateRemoveStudents(){
       "option"
     );
 
-    option.value=student;
+    option.value =
+    student.id;
 
-    option.textContent=
-    student;
+    option.textContent =
+    student.name;
 
-    removeSelect.appendChild(
+    select.appendChild(
       option
     );
 
@@ -437,29 +419,22 @@ function updateRemoveStudents(){
 
 function removeStudent(){
 
-  const className =
-  document.getElementById(
-    "removeClass"
-  ).value;
-
-  const studentName =
-  document.getElementById(
-    "removeStudentSelect"
-  ).value;
-
-  students[className] =
-  students[className]
-  .filter(
-    student =>
-    student !== studentName
+  const id =
+  Number(
+    document.getElementById(
+      "removeStudentSelect"
+    ).value
   );
 
-  localStorage.setItem(
-    "students",
-    JSON.stringify(students)
+  students =
+  students.filter(
+    student=>
+
+    student.id !== id
+
   );
 
-  updateRemoveStudents();
+  saveData();
 
   loadStudents();
 
@@ -478,45 +453,30 @@ document.addEventListener(
       "removeClass"
     ){
 
-      updateRemoveStudents();
+      loadRemoveStudents();
 
     }
 
   }
 );
 
-/* ==========================
+/* =====================================
    STUDENT LIST
-========================== */
+===================================== */
 
 function updateStudentList(){
 
-  const studentList =
+  const container =
   document.getElementById(
     "studentList"
   );
 
-  if(!studentList) return;
+  if(!container) return;
 
-  studentList.innerHTML="";
+  container.innerHTML = "";
 
-  Object.keys(students)
-  .forEach(className=>{
-
-    const title =
-    document.createElement(
-      "h4"
-    );
-
-    title.textContent =
-    className;
-
-    studentList.appendChild(
-      title
-    );
-
-    students[className]
-    .forEach(student=>{
+  students.forEach(
+    student=>{
 
       const div =
       document.createElement(
@@ -526,51 +486,104 @@ function updateStudentList(){
       div.className =
       "student-row";
 
-      div.textContent =
-      student;
+      div.innerHTML = `
 
-      studentList.appendChild(
+      <strong>
+      ${student.name}
+      </strong>
+
+      <br>
+
+      Class:
+      ${student.class}
+
+      <br>
+
+      Age:
+      ${student.age}
+
+      <br>
+
+      Parent:
+      ${student.parentName}
+
+      <br>
+
+      Phone:
+      ${student.parentPhone}
+
+      `;
+
+      container.appendChild(
         div
       );
 
-    });
+    }
+  );
+
+}
+
+/* =====================================
+   SEARCH STUDENTS
+===================================== */
+
+function filterStudents(){
+
+  const search =
+  document
+  .getElementById(
+    "searchStudent"
+  )
+  .value
+  .toLowerCase();
+
+  const select =
+  document.getElementById(
+    "studentSelect"
+  );
+
+  Array
+  .from(
+    select.options
+  )
+  .forEach(option=>{
+
+    option.style.display =
+
+    option.textContent
+    .toLowerCase()
+    .includes(search)
+
+    ? ""
+
+    : "none";
 
   });
 
 }
 
-/* ==========================
+/* =====================================
    DASHBOARD
-========================== */
+===================================== */
 
 function updateDashboard(){
-
-  let total = 0;
-
-  Object.values(students)
-  .forEach(classArray=>{
-
-    total +=
-    classArray.length;
-
-  });
 
   const totalStudents =
   document.getElementById(
     "totalStudents"
   );
 
-  if(totalStudents){
-
-    totalStudents.textContent =
-    total;
-
-  }
-
   const totalSubjects =
   document.getElementById(
     "totalSubjects"
   );
+
+  if(totalStudents){
+
+    totalStudents.textContent =
+    students.length;
+
+  }
 
   if(totalSubjects){
 
@@ -580,9 +593,9 @@ function updateDashboard(){
   }
 
 }
-/* ==========================
+/* =====================================
    SUBJECT MANAGEMENT
-========================== */
+===================================== */
 
 function loadSubjects(){
 
@@ -603,27 +616,31 @@ function loadSubjects(){
 
   if(subjectContainer){
 
-    subjectContainer.innerHTML="";
+    subjectContainer.innerHTML = "";
 
     subjects.forEach(subject=>{
 
       const div =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
       div.className =
       "subject-item";
 
-      div.innerHTML=`
+      div.innerHTML = `
 
-      <label>${subject}</label>
+      <label>
+      ${subject}
+      </label>
 
       <input
       type="number"
-      class="subject-score"
-      data-subject="${subject}"
       min="0"
       max="100"
-      value="0">
+      value="0"
+      class="subject-score"
+      data-subject="${subject}">
 
       `;
 
@@ -636,21 +653,23 @@ function loadSubjects(){
 
   if(subjectList){
 
-    subjectList.innerHTML="";
+    subjectList.innerHTML = "";
 
     subjects.forEach(subject=>{
 
-      const div =
-      document.createElement("div");
+      const row =
+      document.createElement(
+        "div"
+      );
 
-      div.className =
+      row.className =
       "subject-row";
 
-      div.textContent =
+      row.textContent =
       subject;
 
       subjectList
-      .appendChild(div);
+      .appendChild(row);
 
     });
 
@@ -658,7 +677,8 @@ function loadSubjects(){
 
   if(removeSubjectSelect){
 
-    removeSubjectSelect.innerHTML="";
+    removeSubjectSelect
+    .innerHTML = "";
 
     subjects.forEach(subject=>{
 
@@ -684,18 +704,16 @@ function loadSubjects(){
 
 }
 
-/* ==========================
-   ADD SUBJECT
-========================== */
-
 function addSubject(){
 
   const subject =
   document.getElementById(
     "newSubject"
-  ).value.trim();
+  )
+  .value
+  .trim();
 
-  if(subject===""){
+  if(!subject){
 
     alert(
       "Enter Subject Name"
@@ -705,28 +723,33 @@ function addSubject(){
 
   }
 
-  subjects.push(subject);
+  if(
+    subjects.includes(
+      subject
+    )
+  ){
 
-  localStorage.setItem(
-    "subjects",
-    JSON.stringify(subjects)
+    alert(
+      "Subject Already Exists"
+    );
+
+    return;
+
+  }
+
+  subjects.push(
+    subject
   );
 
-  document.getElementById(
-    "newSubject"
-  ).value="";
+  saveData();
 
   loadSubjects();
 
-  alert(
-    "Subject Added"
-  );
+  document.getElementById(
+    "newSubject"
+  ).value = "";
 
 }
-
-/* ==========================
-   REMOVE SUBJECT
-========================== */
 
 function removeSubject(){
 
@@ -737,161 +760,154 @@ function removeSubject(){
 
   subjects =
   subjects.filter(
-    item => item !== subject
+    item=>
+    item !== subject
   );
 
-  localStorage.setItem(
-    "subjects",
-    JSON.stringify(subjects)
-  );
+  saveData();
 
   loadSubjects();
 
-  alert(
-    "Subject Removed"
+}
+
+/* =====================================
+   STUDENT LOOKUP
+===================================== */
+
+function getStudentById(
+  id
+){
+
+  return students.find(
+    student=>
+
+    Number(student.id)
+    ===
+    Number(id)
+
   );
 
 }
 
-/* ==========================
-   CALCULATE REPORT
-========================== */
+/* =====================================
+   REPORT CALCULATOR
+===================================== */
 
 function calculateReport(){
 
-  const scoreInputs =
+  const scores =
   document.querySelectorAll(
     ".subject-score"
   );
 
-  let academicTotal = 0;
+  let total = 0;
 
-  scoreInputs.forEach(input=>{
+  scores.forEach(input=>{
 
-    academicTotal +=
-    Number(input.value || 0);
+    total +=
+    Number(
+      input.value || 0
+    );
 
   });
 
-  const academicAverage =
-  scoreInputs.length > 0
-  ? academicTotal /
-    scoreInputs.length
-  : 0;
+  const average =
 
-  const character =
-  Number(
-    document.getElementById(
-      "character"
-    ).value || 0
-  );
+  scores.length
 
-  const respect =
-  Number(
-    document.getElementById(
-      "respect"
-    ).value || 0
-  );
+  ?
 
-  const discipline =
-  Number(
-    document.getElementById(
-      "discipline"
-    ).value || 0
-  );
+  total /
+  scores.length
 
-  const neatness =
-  Number(
-    document.getElementById(
-      "neatness"
-    ).value || 0
-  );
+  :
 
-  const punctuality =
-  Number(
-    document.getElementById(
-      "punctuality"
-    ).value || 0
-  );
-
-  const characterAverage =
-
-  (
-    character +
-    respect +
-    discipline +
-    neatness +
-    punctuality
-  ) / 5;
-
-  const overall =
-
-  (
-    academicAverage +
-    characterAverage
-  ) / 2;
+  0;
 
   let grade = "F";
 
-  if(overall >= 70){
+  if(
+    average >= 70
+  ){
 
     grade = "A";
 
-  }else if(overall >= 60){
+  }
+  else if(
+    average >= 60
+  ){
 
     grade = "B";
 
-  }else if(overall >= 50){
+  }
+  else if(
+    average >= 50
+  ){
 
     grade = "C";
 
-  }else if(overall >= 45){
+  }
+  else if(
+    average >= 45
+  ){
 
     grade = "D";
 
-  }else if(overall >= 40){
+  }
+  else if(
+    average >= 40
+  ){
 
     grade = "E";
 
   }
 
+  const academic =
   document.getElementById(
     "academicAverage"
-  ).textContent =
-  academicAverage.toFixed(1)
-  + "%";
+  );
 
-  document.getElementById(
-    "characterAverage"
-  ).textContent =
-  characterAverage.toFixed(1)
-  + "%";
-
+  const overall =
   document.getElementById(
     "overallPercentage"
-  ).textContent =
-  overall.toFixed(1)
-  + "%";
+  );
 
+  const gradeText =
   document.getElementById(
     "grade"
-  ).textContent =
-  grade;
+  );
+
+  if(academic){
+
+    academic.textContent =
+    average.toFixed(1)
+    + "%";
+
+  }
+
+  if(overall){
+
+    overall.textContent =
+    average.toFixed(1)
+    + "%";
+
+  }
+
+  if(gradeText){
+
+    gradeText.textContent =
+    grade;
+
+  }
 
   return {
 
-    academicAverage,
-    characterAverage,
-    overall,
+    average,
     grade
 
   };
 
 }
-
-/* ==========================
-   AUTO CALCULATE
-========================== */
 
 document.addEventListener(
   "input",
@@ -902,629 +918,850 @@ document.addEventListener(
   }
 );
 
-/* ==========================
-   INITIAL LOAD
-========================== */
+/* =====================================
+   REPORT HISTORY
+===================================== */
 
-window.addEventListener(
-  "load",
-  function(){
+function saveReportHistory(
+  reportType,
+  studentName
+){
 
-    loadStudents();
+  reportHistory.unshift({
 
-    loadSubjects();
+    id:
+    Date.now(),
 
-    updateRemoveStudents();
+    reportType,
 
-    calculateReport();
+    studentName,
+
+    date:
+    new Date()
+    .toLocaleString()
+
+  });
+
+  saveData();
+
+  loadReportHistory();
+
+}
+
+function loadReportHistory(){
+
+  const container =
+  document.getElementById(
+    "reportHistoryList"
+  );
+
+  if(!container) return;
+
+  container.innerHTML = "";
+
+  reportHistory.forEach(
+    item=>{
+
+      const card =
+      document.createElement(
+        "div"
+      );
+
+      card.className =
+      "report-history-card";
+
+      card.innerHTML = `
+
+      <h4>
+      ${item.studentName}
+      </h4>
+
+      <p>
+      ${item.reportType}
+      </p>
+
+      <small>
+      ${item.date}
+      </small>
+
+      `;
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+/* =====================================
+   MULTI PAGE PDF
+===================================== */
+
+async function exportElementToPDF(
+  elementId,
+  fileName
+){
+
+  const element =
+  document.getElementById(
+    elementId
+  );
+
+  const canvas =
+  await html2canvas(
+    element,
+    {
+      scale:2,
+      useCORS:true
+    }
+  );
+
+  const imgData =
+  canvas.toDataURL(
+    "image/png"
+  );
+
+  const {
+    jsPDF
+  } = window.jspdf;
+
+  const pdf =
+  new jsPDF(
+    "p",
+    "mm",
+    "a4"
+  );
+
+  const pageWidth =
+  190;
+
+  const pageHeight =
+  297;
+
+  const imgHeight =
+
+  canvas.height *
+  pageWidth /
+
+  canvas.width;
+
+  let heightLeft =
+  imgHeight;
+
+  let position =
+  0;
+
+  pdf.addImage(
+
+    imgData,
+
+    "PNG",
+
+    10,
+
+    position,
+
+    pageWidth,
+
+    imgHeight
+
+  );
+
+  heightLeft -=
+  pageHeight;
+
+  while(
+    heightLeft > 0
+  ){
+
+    position =
+    heightLeft -
+    imgHeight;
+
+    pdf.addPage();
+
+    pdf.addImage(
+
+      imgData,
+
+      "PNG",
+
+      10,
+
+      position,
+
+      pageWidth,
+
+      imgHeight
+
+    );
+
+    heightLeft -=
+    pageHeight;
 
   }
-);
-/* ==========================
-   STUDENT IMAGE PREVIEW
-========================== */
+
+  pdf.save(
+    fileName
+  );
+
+}
+/* =====================================
+STUDENT IMAGE
+===================================== */
 
 let selectedImage = "image.png";
 
 const studentImageInput =
 document.getElementById(
-  "studentImage"
+"studentImage"
 );
 
 if(studentImageInput){
 
-  studentImageInput.addEventListener(
-    "change",
-    function(e){
+studentImageInput
+.addEventListener(
+"change",
+function(e){
 
-      const file =
-      e.target.files[0];
+```
+  const file =
+  e.target.files[0];
 
-      if(file){
+  if(!file) return;
 
-        const reader =
-        new FileReader();
+  const reader =
+  new FileReader();
 
-        reader.onload =
-        function(event){
+  reader.onload =
+  function(event){
 
-          selectedImage =
-          event.target.result;
+    selectedImage =
+    event.target.result;
 
-          const preview =
-          document.getElementById(
-            "reportPreviewImage"
-          );
+    const preview =
+    document.getElementById(
+      "reportPreviewImage"
+    );
 
-          if(preview){
+    if(preview){
 
-            preview.src =
-            selectedImage;
-
-          }
-
-        };
-
-        reader.readAsDataURL(
-          file
-        );
-
-      }
+      preview.src =
+      selectedImage;
 
     }
+
+  };
+
+  reader.readAsDataURL(
+    file
   );
 
 }
+```
 
-/* ==========================
-   STUDENT REPORT PDF
-========================== */
+);
+
+}
+
+/* =====================================
+STUDENT REPORT
+===================================== */
 
 async function generateStudentReportPDF(){
 
-  const report =
-  calculateReport();
+const studentId =
+document.getElementById(
+"studentSelect"
+).value;
 
-  const student =
-  document.getElementById(
-    "studentSelect"
-  ).value;
+const student =
+getStudentById(
+studentId
+);
 
-  const term =
-  document.getElementById(
-    "term"
-  ).value;
+if(!student){
 
-  const remark =
-  document.getElementById(
-    "remark"
-  ).value;
+```
+alert(
+  "Select Student"
+);
 
-  document.getElementById(
-    "reportPreviewName"
-  ).textContent =
-  student;
-
-  document.getElementById(
-    "reportPreviewTerm"
-  ).textContent =
-  term;
-
-  document.getElementById(
-    "reportPreviewAcademicAverage"
-  ).textContent =
-  "Academic Average: "
-  + report.academicAverage
-  .toFixed(1) + "%";
-
-  document.getElementById(
-    "reportPreviewCharacterAverage"
-  ).textContent =
-  "Character Average: "
-  + report.characterAverage
-  .toFixed(1) + "%";
-
-  document.getElementById(
-    "reportPreviewOverall"
-  ).textContent =
-  "Overall Percentage: "
-  + report.overall
-  .toFixed(1) + "%";
-
-  document.getElementById(
-    "reportPreviewGrade"
-  ).textContent =
-  "Grade: "
-  + report.grade;
-
-  document.getElementById(
-    "reportPreviewRemark"
-  ).textContent =
-  remark;
-
-  document.getElementById(
-    "reportPreviewDate"
-  ).textContent =
-  new Date()
-  .toLocaleDateString();
-
-  const subjectPreview =
-  document.getElementById(
-    "reportPreviewSubjects"
-  );
-
-  subjectPreview.innerHTML = "";
-
-  document
-  .querySelectorAll(
-    ".subject-score"
-  )
-  .forEach(input=>{
-
-    const p =
-    document.createElement(
-      "p"
-    );
-
-    p.textContent =
-    input.dataset.subject +
-    " : " +
-    input.value;
-
-    subjectPreview
-    .appendChild(p);
-
-  });
-
-  const element =
-  document.getElementById(
-    "studentReportPDF"
-  );
-
-  const canvas =
-  await html2canvas(
-    element
-  );
-
-  const imgData =
-  canvas.toDataURL(
-    "image/png"
-  );
-
-  const { jsPDF } =
-  window.jspdf;
-
-  const pdf =
-  new jsPDF();
-
-  pdf.addImage(
-    imgData,
-    "PNG",
-    10,
-    10,
-    190,
-    0
-  );
-
-  pdf.save(
-    student +
-    "-report.pdf"
-  );
+return;
+```
 
 }
 
-/* ==========================
-   STUDENT NOTE PDF
-========================== */
+const report =
+calculateReport();
+
+document.getElementById(
+"reportPreviewName"
+).textContent =
+student.name;
+
+document.getElementById(
+"reportPreviewClass"
+).textContent =
+"Class: " +
+student.class;
+
+document.getElementById(
+"reportPreviewAge"
+).textContent =
+"Age: " +
+student.age;
+
+document.getElementById(
+"reportPreviewParent"
+).textContent =
+"Parent: " +
+student.parentName;
+
+document.getElementById(
+"reportPreviewPhone"
+).textContent =
+"Phone: " +
+student.parentPhone;
+
+document.getElementById(
+"reportPreviewTerm"
+).textContent =
+document.getElementById(
+"term"
+).value;
+
+const subjectPreview =
+document.getElementById(
+"reportPreviewSubjects"
+);
+
+subjectPreview.innerHTML = "";
+
+document
+.querySelectorAll(
+".subject-score"
+)
+.forEach(input=>{
+
+```
+const row =
+document.createElement(
+  "div"
+);
+
+row.className =
+"subject-row-preview";
+
+row.innerHTML = `
+
+<span class="subject-name">
+${input.dataset.subject}
+</span>
+
+<span class="subject-score">
+${input.value}
+</span>
+
+`;
+
+subjectPreview
+.appendChild(
+  row
+);
+```
+
+});
+
+document.getElementById(
+"reportPreviewAcademicAverage"
+).textContent =
+"Average: " +
+report.average.toFixed(1)
+
+* "%";
+
+document.getElementById(
+"reportPreviewGrade"
+).textContent =
+"Grade: " +
+report.grade;
+
+document.getElementById(
+"reportPreviewRemark"
+).textContent =
+document.getElementById(
+"remark"
+).value;
+
+document.getElementById(
+"reportPreviewDate"
+).textContent =
+new Date()
+.toLocaleDateString();
+
+await exportElementToPDF(
+
+```
+"studentReportPDF",
+
+student.name +
+"-report.pdf"
+```
+
+);
+
+saveReportHistory(
+"Academic Report",
+student.name
+);
+
+}
+
+/* =====================================
+STUDENT NOTE
+===================================== */
 
 async function generateStudentNotePDF(){
 
-  document.getElementById(
-    "notePreviewTitle"
-  ).textContent =
-  document.getElementById(
-    "noteTitle"
-  ).value;
+const studentId =
+document.getElementById(
+"noteStudent"
+).value;
 
-  document.getElementById(
-    "notePreviewStudent"
-  ).textContent =
-  document.getElementById(
-    "noteStudent"
-  ).value;
+const student =
+getStudentById(
+studentId
+);
 
-  document.getElementById(
-    "notePreviewCategory"
-  ).textContent =
-  document.getElementById(
-    "noteCategory"
-  ).value;
+document.getElementById(
+"notePreviewTitle"
+).textContent =
+document.getElementById(
+"noteTitle"
+).value;
 
-  document.getElementById(
-    "notePreviewText"
-  ).textContent =
-  document.getElementById(
-    "noteText"
-  ).value;
+document.getElementById(
+"notePreviewStudent"
+).textContent =
+student
+? student.name
+: "";
 
-  document.getElementById(
-    "notePreviewDate"
-  ).textContent =
-  new Date()
-  .toLocaleDateString();
+document.getElementById(
+"notePreviewCategory"
+).textContent =
+document.getElementById(
+"noteCategory"
+).value;
 
-  const canvas =
-  await html2canvas(
-    document.getElementById(
-      "studentNotePDF"
-    )
-  );
+document.getElementById(
+"notePreviewText"
+).textContent =
+document.getElementById(
+"noteText"
+).value;
 
-  const imgData =
-  canvas.toDataURL(
-    "image/png"
-  );
+document.getElementById(
+"notePreviewDate"
+).textContent =
+new Date()
+.toLocaleDateString();
 
-  const { jsPDF } =
-  window.jspdf;
+await exportElementToPDF(
 
-  const pdf =
-  new jsPDF();
+```
+"studentNotePDF",
 
-  pdf.addImage(
-    imgData,
-    "PNG",
-    10,
-    10,
-    190,
-    0
-  );
+"student-note.pdf"
+```
 
-  pdf.save(
-    "student-note.pdf"
-  );
+);
+
+saveReportHistory(
+"Student Note",
+student?.name || ""
+);
 
 }
 
-/* ==========================
-   ACTIVITY QUESTIONS
-========================== */
+/* =====================================
+ACTIVITIES
+===================================== */
 
 let activityQuestions = [];
 
 function addActivityQuestion(){
 
-  const question =
-  document.getElementById(
-    "questionInput"
-  ).value;
+const question =
+document.getElementById(
+"questionInput"
+).value.trim();
 
-  if(question==="") return;
+if(!question) return;
 
-  activityQuestions.push(
-    question
-  );
+activityQuestions.push(
+question
+);
 
-  const list =
-  document.getElementById(
-    "activityList"
-  );
+const item =
+document.createElement(
+"div"
+);
 
-  const div =
-  document.createElement(
-    "div"
-  );
+item.className =
+"activity-item";
 
-  div.className =
-  "activity-item";
+item.textContent =
+question;
 
-  div.textContent =
-  question;
+document
+.getElementById(
+"activityList"
+)
+.appendChild(
+item
+);
 
-  list.appendChild(
-    div
-  );
-
-  document.getElementById(
-    "questionInput"
-  ).value = "";
+document.getElementById(
+"questionInput"
+).value = "";
 
 }
-
-/* ==========================
-   ACTIVITY PDF
-========================== */
 
 async function generateActivityPDF(){
 
-  document.getElementById(
-    "activityStudentPreview"
-  ).textContent =
-  document.getElementById(
-    "activityStudent"
-  ).value;
+const studentId =
+document.getElementById(
+"activityStudent"
+).value;
 
-  document.getElementById(
-    "activityClassPreview"
-  ).textContent =
-  document.getElementById(
-    "activityClass"
-  ).value;
+const student =
+getStudentById(
+studentId
+);
 
-  document.getElementById(
-    "activitySubjectPreview"
-  ).textContent =
-  document.getElementById(
-    "subject"
-  ).value;
+document.getElementById(
+"activityStudentPreview"
+).textContent =
+student
+? student.name
+: "";
 
-  document.getElementById(
-    "activityTutorPreview"
-  ).textContent =
-  document.getElementById(
-    "tutor"
-  ).value;
+document.getElementById(
+"activityClassPreview"
+).textContent =
+document.getElementById(
+"activityClass"
+).value;
 
-  document.getElementById(
-    "activityFrequencyPreview"
-  ).textContent =
-  document.getElementById(
-    "frequency"
-  ).value;
+document.getElementById(
+"activitySubjectPreview"
+).textContent =
+document.getElementById(
+"subject"
+).value;
 
-  const preview =
-  document.getElementById(
-    "activityQuestionsPreview"
+document.getElementById(
+"activityTutorPreview"
+).textContent =
+document.getElementById(
+"tutor"
+).value;
+
+document.getElementById(
+"activityFrequencyPreview"
+).textContent =
+document.getElementById(
+"frequency"
+).value;
+
+const preview =
+document.getElementById(
+"activityQuestionsPreview"
+);
+
+preview.innerHTML = "";
+
+activityQuestions.forEach(
+(item,index)=>{
+
+```
+  const p =
+  document.createElement(
+    "p"
   );
 
-  preview.innerHTML = "";
+  p.textContent =
+  (index+1)
+  + ". "
+  + item;
 
-  activityQuestions.forEach(
-    (q,index)=>{
-
-      const p =
-      document.createElement(
-        "p"
-      );
-
-      p.textContent =
-      (index+1)
-      + ". "
-      + q;
-
-      preview.appendChild(
-        p
-      );
-
-    }
-  );
-
-  document.getElementById(
-    "activityDatePreview"
-  ).textContent =
-  new Date()
-  .toLocaleDateString();
-
-  const canvas =
-  await html2canvas(
-    document.getElementById(
-      "activityPDF"
-    )
-  );
-
-  const imgData =
-  canvas.toDataURL(
-    "image/png"
-  );
-
-  const { jsPDF } =
-  window.jspdf;
-
-  const pdf =
-  new jsPDF();
-
-  pdf.addImage(
-    imgData,
-    "PNG",
-    10,
-    10,
-    190,
-    0
-  );
-
-  pdf.save(
-    "student-activities.pdf"
+  preview.appendChild(
+    p
   );
 
 }
+```
 
-/* ==========================
-   WHATSAPP
-========================== */
+);
+
+document.getElementById(
+"activityDatePreview"
+).textContent =
+new Date()
+.toLocaleDateString();
+
+await exportElementToPDF(
+
+```
+"activityPDF",
+
+"student-activities.pdf"
+```
+
+);
+
+saveReportHistory(
+"Activity Report",
+student?.name || ""
+);
+
+}
+
+/* =====================================
+PROGRESS REPORT
+===================================== */
+
+let progressImage =
+"image.png";
+
+const progressInput =
+document.getElementById(
+"progressImage"
+);
+
+if(progressInput){
+
+progressInput
+.addEventListener(
+"change",
+function(e){
+
+```
+  const file =
+  e.target.files[0];
+
+  if(!file) return;
+
+  const reader =
+  new FileReader();
+
+  reader.onload =
+  function(event){
+
+    progressImage =
+    event.target.result;
+
+    document
+    .getElementById(
+      "progressPreviewImage"
+    )
+    .src =
+    progressImage;
+
+  };
+
+  reader.readAsDataURL(
+    file
+  );
+
+}
+```
+
+);
+
+}
+
+async function generateProgressPDF(){
+
+const studentId =
+document.getElementById(
+"progressStudent"
+).value;
+
+const student =
+getStudentById(
+studentId
+);
+
+if(student){
+
+```
+document.getElementById(
+  "progressPreviewStudent"
+).textContent =
+student.name;
+
+document.getElementById(
+  "progressPreviewClass"
+).textContent =
+"Class: " +
+student.class;
+
+document.getElementById(
+  "progressPreviewAge"
+).textContent =
+"Age: " +
+student.age;
+
+document.getElementById(
+  "progressPreviewParent"
+).textContent =
+"Parent: " +
+student.parentName;
+
+document.getElementById(
+  "progressPreviewPhone"
+).textContent =
+"Phone: " +
+student.parentPhone;
+```
+
+}
+
+document.getElementById(
+"progressPreviewJoined"
+).textContent =
+"Date Joined: " +
+document.getElementById(
+"dateJoined"
+).value;
+
+document.getElementById(
+"progressPreviewInitial"
+).textContent =
+document.getElementById(
+"initialAssessment"
+).value;
+
+document.getElementById(
+"progressPreviewCurrent"
+).textContent =
+document.getElementById(
+"currentAssessment"
+).value;
+
+document.getElementById(
+"progressPreviewAchievements"
+).textContent =
+document.getElementById(
+"achievements"
+).value;
+
+document.getElementById(
+"progressPreviewImprovement"
+).textContent =
+document.getElementById(
+"improvementAreas"
+).value;
+
+document.getElementById(
+"progressPreviewTeacher"
+).textContent =
+document.getElementById(
+"teacherComment"
+).value;
+
+document.getElementById(
+"progressPreviewHostel"
+).textContent =
+document.getElementById(
+"hostelComment"
+).value;
+
+document.getElementById(
+"progressPreviewDate"
+).textContent =
+new Date()
+.toLocaleDateString();
+
+await exportElementToPDF(
+
+```
+"progressPDF",
+
+"student-progress.pdf"
+```
+
+);
+
+saveReportHistory(
+"Progress Report",
+student?.name || ""
+);
+
+}
+
+/* =====================================
+WHATSAPP
+===================================== */
 
 function sendStudentReportWhatsApp(){
 
-  window.open(
-    "https://wa.me/2348083869454",
-    "_blank"
-  );
+window.open(
+"https://wa.me/",
+"_blank"
+);
 
 }
 
 function sendStudentNoteWhatsApp(){
 
-  window.open(
-    "https://wa.me/2348083869454",
-    "_blank"
-  );
+window.open(
+"https://wa.me/",
+"_blank"
+);
 
 }
 
 function sendActivityWhatsApp(){
 
-  window.open(
-    "https://wa.me/2348083869454",
-    "_blank"
-  );
-
-}
-/* ==========================
-   STUDENT PROGRESS RECORD
-========================== */
-
-let progressImage = "image.png";
-
-const progressInput =
-document.getElementById(
-  "progressImage"
+window.open(
+"https://wa.me/",
+"_blank"
 );
 
-if(progressInput){
-
-  progressInput.addEventListener(
-    "change",
-    function(e){
-
-      const file =
-      e.target.files[0];
-
-      if(file){
-
-        const reader =
-        new FileReader();
-
-        reader.onload =
-        function(event){
-
-          progressImage =
-          event.target.result;
-
-          document.getElementById(
-            "progressPreviewImage"
-          ).src =
-          progressImage;
-
-        };
-
-        reader.readAsDataURL(
-          file
-        );
-
-      }
-
-    }
-  );
-
 }
-async function generateProgressPDF(){
 
-  document.getElementById(
-    "progressPreviewStudent"
-  ).textContent =
-  document.getElementById(
-    "progressStudent"
-  ).value;
-
-  document.getElementById(
-    "progressPreviewJoined"
-  ).textContent =
-  "Date Joined: " +
-  document.getElementById(
-    "dateJoined"
-  ).value;
-
-  document.getElementById(
-    "progressPreviewInitial"
-  ).textContent =
-  "Initial Assessment: " +
-  document.getElementById(
-    "initialAssessment"
-  ).value;
-
-  document.getElementById(
-    "progressPreviewCurrent"
-  ).textContent =
-  "Current Assessment: " +
-  document.getElementById(
-    "currentAssessment"
-  ).value;
-
-  document.getElementById(
-    "progressPreviewAchievements"
-  ).textContent =
-  "Achievements: " +
-  document.getElementById(
-    "achievements"
-  ).value;
-
-  document.getElementById(
-    "progressPreviewImprovement"
-  ).textContent =
-  "Areas For Improvement: " +
-  document.getElementById(
-    "improvementAreas"
-  ).value;
-
-  document.getElementById(
-    "progressPreviewTeacher"
-  ).textContent =
-  "Teacher Comment: " +
-  document.getElementById(
-    "teacherComment"
-  ).value;
-
-  document.getElementById(
-    "progressPreviewHostel"
-  ).textContent =
-  "Hostel Master Comment: " +
-  document.getElementById(
-    "hostelComment"
-  ).value;
-
-  document.getElementById(
-    "progressPreviewDate"
-  ).textContent =
-  new Date()
-  .toLocaleDateString();
-
-  const canvas =
-  await html2canvas(
-    document.getElementById(
-      "progressPDF"
-    )
-  );
-
-  const imgData =
-  canvas.toDataURL(
-    "image/png"
-  );
-
-  const { jsPDF } =
-  window.jspdf;
-
-  const pdf =
-  new jsPDF();
-
-  pdf.addImage(
-    imgData,
-    "PNG",
-    10,
-    10,
-    190,
-    0
-  );
-
-  pdf.save(
-    "student-progress.pdf"
-  );
-
-}
 function sendProgressWhatsApp(){
 
-  window.open(
-    "https://wa.me/2348083869454",
-    "_blank"
-  );
+window.open(
+"https://wa.me/",
+"_blank"
+);
 
 }
 
+/* =====================================
+INITIAL LOAD
+===================================== */
+
+window.addEventListener(
+"load",
+function(){
+
+```
+loadStudents();
+
+loadSubjects();
+
+loadReportHistory();
+
+calculateReport();
+```
+
+}
+);
