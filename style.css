@@ -1,5 +1,5 @@
 /* =====================================
-   RESET
+RESET
 ===================================== */
 
 *{
@@ -8,16 +8,36 @@
   box-sizing:border-box;
 }
 
-html{
-  scroll-behavior:smooth;
+:root{
+
+  --bg:#0f172a;
+  --card:#1e293b;
+  --card2:#334155;
+  --border:#475569;
+
+  --primary:#38bdf8;
+  --success:#22c55e;
+  --danger:#ef4444;
+
+  --text:#ffffff;
+  --muted:#cbd5e1;
+
+  --radius:14px;
+
 }
 
 body{
-  font-family:Arial, sans-serif;
-  background:#0f172a;
-  color:#fff;
+
+  background:var(--bg);
+  color:var(--text);
+
+  font-family:
+  Arial,
+  Helvetica,
+  sans-serif;
+
   min-height:100vh;
-  line-height:1.5;
+
 }
 
 img{
@@ -26,95 +46,49 @@ img{
 }
 
 /* =====================================
-   LOGIN
+LOGIN PAGE
 ===================================== */
 
 .login-page{
-  width:100%;
+
+  padding:25px;
+
   max-width:450px;
   margin:auto;
-  padding:20px;
+
   text-align:center;
+
 }
 
 .logo{
+
   width:120px;
-  margin:30px auto 20px;
+  height:120px;
+
+  object-fit:cover;
+
+  margin:40px auto 20px;
+
+  border-radius:50%;
+
 }
 
-.login-page h2{
-  margin-bottom:20px;
-}
+.login-page h1{
 
-/* =====================================
-   TOPBAR
-===================================== */
-
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:999;
-  background:#1e293b;
-  padding:12px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  box-shadow:0 2px 10px rgba(0,0,0,.4);
-}
-
-.topbar h3{
-  font-size:18px;
-}
-
-.menu-btn{
-  width:45px;
-  height:45px;
-  border:none;
-  border-radius:10px;
-  background:#38bdf8;
-  cursor:pointer;
-  font-size:22px;
-  font-weight:bold;
-}
-
-/* =====================================
-   MENU
-===================================== */
-
-.menu{
-  display:none;
-  background:#1e293b;
-}
-
-.menu p{
-  padding:15px;
-  border-bottom:1px solid #334155;
-  cursor:pointer;
-}
-
-.menu p:hover{
-  background:#334155;
-}
-
-/* =====================================
-   SECTION
-===================================== */
-
-.section{
-  padding:15px;
-}
-
-.section h2{
-  margin-bottom:15px;
-}
-
-.section h3{
-  margin-top:20px;
   margin-bottom:10px;
+
+}
+
+.login-subtitle{
+
+  color:var(--muted);
+
+  margin-bottom:25px;
+
 }
 
 /* =====================================
-   FORMS
+FORM ELEMENTS
 ===================================== */
 
 input,
@@ -123,72 +97,426 @@ textarea,
 button{
 
   width:100%;
+
   border:none;
+
   border-radius:12px;
-  padding:12px;
-  margin-top:10px;
+
+  padding:14px;
+
+  margin-top:12px;
+
   font-size:15px;
 
 }
 
+input,
+select,
 textarea{
+
+  background:white;
+  color:black;
+
+}
+
+textarea{
+
   resize:vertical;
   min-height:120px;
+
 }
 
 button{
-  background:#38bdf8;
-  color:#000;
+
+  background:var(--primary);
+  color:black;
+
   font-weight:bold;
+
   cursor:pointer;
+
 }
 
 button:hover{
-  opacity:.95;
+
+  opacity:.9;
+
 }
 
 /* =====================================
-   DASHBOARD
+TOPBAR
 ===================================== */
 
-.dashboard-card{
+.topbar{
 
-  background:#1e293b;
+  position:sticky;
+  top:0;
+
+  background:var(--card);
 
   padding:15px;
 
-  border-radius:15px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+
+  z-index:999;
+
+  box-shadow:
+  0 2px 10px rgba(0,0,0,.35);
+
+}
+
+.topbar h2{
+
+  font-size:18px;
+
+}
+
+.topbar small{
+
+  color:var(--muted);
+
+}
+
+.menu-btn{
+
+  width:48px;
+  height:48px;
+
+  font-size:22px;
+
+  padding:0;
+
+}
+
+/* =====================================
+MENU
+===================================== */
+
+.menu{
+
+  display:none;
+
+  background:var(--card);
+
+  border-top:
+  1px solid var(--border);
+
+}
+
+.menu p{
+
+  padding:16px;
+
+  border-bottom:
+  1px solid var(--border);
+
+  cursor:pointer;
+
+}
+
+.menu p:hover{
+
+  background:var(--card2);
+
+}
+
+/* =====================================
+SECTION
+===================================== */
+
+.section{
+
+  padding:16px;
+
+}
+
+.section h2{
 
   margin-bottom:15px;
 
-  box-shadow:0 2px 10px rgba(0,0,0,.3);
+}
+
+/* =====================================
+DASHBOARD
+===================================== */
+
+.dashboard-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  1fr;
+
+  gap:15px;
+
+}
+
+.dashboard-card{
+
+  background:var(--card);
+
+  padding:16px;
+
+  border-radius:var(--radius);
+
+  box-shadow:
+  0 2px 8px rgba(0,0,0,.25);
 
 }
 
 .dashboard-card h3{
+
   margin-bottom:10px;
+
 }
 
 .dashboard-card p{
-  font-size:22px;
-  font-weight:bold;
+
+  line-height:1.6;
+
+}
+/* =====================================
+PDF REPORT DESIGN
+===================================== */
+
+.pdf-card{
+
+  background:white;
+  color:black;
+
+  margin-top:20px;
+
+  padding:20px;
+
+  border-radius:16px;
+
+  overflow:hidden;
+
+}
+
+.report-paper{
+
+  background:white;
+
+  color:black;
+
+  line-height:1.7;
+
+  word-wrap:break-word;
+
+}
+
+.report-header{
+
+  text-align:center;
+
+  margin-bottom:20px;
+
+  padding-bottom:15px;
+
+  border-bottom:
+  2px solid #ddd;
+
+}
+
+.report-header h1{
+
+  color:#0f172a;
+
+  font-size:24px;
+
+  margin-bottom:5px;
+
+}
+
+.report-header h3{
+
+  color:#555;
+
+  font-weight:normal;
+
 }
 
 /* =====================================
-   SUBJECT INPUTS
+STUDENT PROFILE
+===================================== */
+
+.student-profile{
+
+  display:flex;
+
+  gap:15px;
+
+  align-items:flex-start;
+
+  margin-bottom:20px;
+
+}
+
+.passport-photo{
+
+  width:100px;
+  height:120px;
+
+  object-fit:cover;
+
+  border-radius:10px;
+
+  border:2px solid #ddd;
+
+  flex-shrink:0;
+
+}
+
+.student-profile h3{
+
+  margin-bottom:10px;
+
+}
+
+.student-profile p{
+
+  margin-bottom:5px;
+
+}
+
+/* =====================================
+REPORT TABLE
+===================================== */
+
+.report-table{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+  margin-top:10px;
+
+}
+
+.report-table th{
+
+  background:#0f172a;
+
+  color:white;
+
+  padding:10px;
+
+  border:1px solid #ddd;
+
+}
+
+.report-table td{
+
+  padding:10px;
+
+  border:1px solid #ddd;
+
+}
+
+.report-table tr:nth-child(even){
+
+  background:#f7f7f7;
+
+}
+
+/* =====================================
+BEHAVIOUR SUMMARY
+===================================== */
+
+#behaviourSummary{
+
+  display:grid;
+
+  grid-template-columns:
+  1fr;
+
+  gap:8px;
+
+}
+
+.behaviour-item{
+
+  background:#f1f5f9;
+
+  padding:10px;
+
+  border-radius:8px;
+
+}
+
+/* =====================================
+ACTIVITY LIST
+===================================== */
+
+.activity-list{
+
+  margin-top:15px;
+
+}
+
+.activity-item{
+
+  background:var(--card);
+
+  padding:12px;
+
+  border-radius:12px;
+
+  margin-bottom:10px;
+
+  line-height:1.6;
+
+}
+
+/* =====================================
+STUDENT DIRECTORY
+===================================== */
+
+#studentList{
+
+  margin-top:20px;
+
+}
+
+.student-row{
+
+  background:var(--card);
+
+  padding:15px;
+
+  border-radius:12px;
+
+  margin-bottom:12px;
+
+  line-height:1.8;
+
+  border-left:
+  4px solid var(--primary);
+
+}
+
+/* =====================================
+SUBJECTS
 ===================================== */
 
 #subjectContainer{
+
   display:flex;
+
   flex-direction:column;
-  gap:10px;
+
+  gap:12px;
+
 }
 
 .subject-item{
 
-  background:#1e293b;
+  background:var(--card);
 
-  padding:12px;
+  padding:15px;
 
   border-radius:12px;
 
@@ -198,59 +526,15 @@ button:hover{
 
   display:block;
 
-  margin-bottom:6px;
+  margin-bottom:8px;
 
   font-weight:bold;
-
-}
-
-/* =====================================
-   STUDENT LIST
-===================================== */
-
-#studentList{
-
-  background:#1e293b;
-
-  padding:15px;
-
-  border-radius:15px;
-
-  margin-top:20px;
-
-}
-
-.student-row{
-
-  background:#334155;
-
-  padding:12px;
-
-  border-radius:10px;
-
-  margin-bottom:10px;
-
-}
-
-/* =====================================
-   SUBJECT LIST
-===================================== */
-
-#subjectList{
-
-  background:#1e293b;
-
-  padding:15px;
-
-  border-radius:15px;
-
-  margin-top:20px;
 
 }
 
 .subject-row{
 
-  background:#334155;
+  background:var(--card);
 
   padding:12px;
 
@@ -261,322 +545,81 @@ button:hover{
 }
 
 /* =====================================
-   ACTIVITY LIST
-===================================== */
-
-.activity-list{
-
-  background:#1e293b;
-
-  border-radius:15px;
-
-  padding:15px;
-
-  margin-top:15px;
-
-}
-
-.activity-item{
-
-  background:#334155;
-
-  padding:12px;
-
-  border-radius:10px;
-
-  margin-bottom:10px;
-
-}
-
-/* =====================================
-   PDF CARD
-===================================== */
-
-.pdf-card{
-
-  background:#fff;
-
-  color:#000;
-
-  border-radius:15px;
-
-  padding:20px;
-
-  margin-top:20px;
-
-  overflow:visible;
-
-  box-shadow:0 2px 10px rgba(0,0,0,.15);
-
-}
-
-/* =====================================
-   REPORT HEADER
-===================================== */
-
-.report-header{
-
-  text-align:center;
-
-  margin-bottom:20px;
-
-}
-
-.report-header h2{
-
-  margin-bottom:5px;
-
-  color:#000;
-
-}
-
-.report-header p{
-
-  font-weight:bold;
-
-  color:#444;
-
-}
-
-/* =====================================
-   REPORT PHOTOS
-===================================== */
-
-#reportPreviewImage,
-#progressPreviewImage{
-
-  width:120px;
-
-  height:120px;
-
-  object-fit:cover;
-
-  border-radius:12px;
-
-  border:2px solid #ddd;
-
-  margin:0 auto 15px;
-
-}
-
-/* =====================================
-   REPORT DETAILS
-===================================== */
-
-#reportPreviewName,
-#progressPreviewStudent{
-
-  text-align:center;
-
-  margin-bottom:10px;
-
-}
-
-#reportPreviewClass,
-#reportPreviewAge,
-#reportPreviewParent,
-#reportPreviewPhone,
-#reportPreviewTerm,
-#progressPreviewClass,
-#progressPreviewAge,
-#progressPreviewParent,
-#progressPreviewPhone,
-#progressPreviewJoined{
-
-  margin-bottom:8px;
-
-}
-
-/* =====================================
-   SUBJECT REPORT TABLE
-===================================== */
-
-#reportPreviewSubjects{
-
-  margin-top:10px;
-
-}
-
-.subject-row-preview{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  padding:8px;
-
-  border-bottom:1px solid #ddd;
-
-}
-
-.subject-name{
-
-  font-weight:600;
-
-}
-
-.subject-score{
-
-  font-weight:bold;
-
-}
-
-/* =====================================
-   BEHAVIOUR SUMMARY
-===================================== */
-
-#behaviourSummary{
-
-  background:#f4f4f4;
-
-  padding:15px;
-
-  border-radius:10px;
-
-  margin-top:10px;
-
-}
-
-/* =====================================
-   PERFORMANCE SUMMARY
-===================================== */
-
-#academicAverage,
-#characterAverage,
-#overallPercentage,
-#grade{
-
-  font-size:18px;
-
-  font-weight:bold;
-
-}
-
-/* =====================================
-   REPORT HISTORY
+REPORT HISTORY
 ===================================== */
 
 #reportHistoryList{
 
-  display:flex;
-
-  flex-direction:column;
-
-  gap:10px;
+  margin-top:20px;
 
 }
 
-.report-history-card{
+.history-card{
 
-  background:#1e293b;
+  background:var(--card);
 
   padding:15px;
 
   border-radius:12px;
 
-}
-
-.report-history-card h4{
-  margin-bottom:8px;
-}
-
-/* =====================================
-   PROGRESS REPORT
-===================================== */
-
-#progressPDF p{
-
-  padding-bottom:10px;
-
   margin-bottom:12px;
 
-  border-bottom:1px solid #ddd;
+}
 
-  word-break:break-word;
+/* =====================================
+LONG TEXT SUPPORT
+===================================== */
+
+#reportPreviewRemark,
+#notePreviewText,
+#progressPreviewInitial,
+#progressPreviewCurrent,
+#progressPreviewAchievements,
+#progressPreviewImprovement,
+#progressPreviewTeacher,
+#progressPreviewHostel{
+
+  white-space:pre-wrap;
+
+  line-height:1.8;
+
+  margin-top:10px;
+
+  margin-bottom:10px;
 
 }
 
 /* =====================================
-   HORIZONTAL RULE
+HR
 ===================================== */
 
 hr{
+
+  margin:20px 0;
 
   border:none;
 
   border-top:1px solid #ddd;
 
-  margin:20px 0;
-
 }
-
 /* =====================================
-   MOBILE FIRST
+TABLET
 ===================================== */
 
-@media(max-width:480px){
-
-  .topbar h3{
-    font-size:16px;
-  }
-
-  .menu-btn{
-    width:40px;
-    height:40px;
-  }
-
-  input,
-  select,
-  textarea,
-  button{
-    font-size:14px;
-  }
-
-  .dashboard-card p{
-    font-size:20px;
-  }
-
-}
-
-/* =====================================
-   TABLET
-===================================== */
-
-@media(min-width:768px){
+@media (min-width:768px){
 
   .section{
 
-    max-width:900px;
+    max-width:1100px;
 
     margin:auto;
 
   }
 
-  .dashboard-card{
+  .dashboard-grid{
 
-    padding:20px;
-
-  }
-
-  .pdf-card{
-
-    padding:30px;
-
-  }
-
-}
-
-/* =====================================
-   DESKTOP
-===================================== */
-
-@media(min-width:1200px){
-
-  .section{
-
-    max-width:1100px;
+    grid-template-columns:
+    repeat(2,1fr);
 
   }
 
@@ -584,10 +627,266 @@ hr{
 
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+    repeat(2,1fr);
 
     gap:15px;
 
   }
+
+  .student-profile{
+
+    gap:25px;
+
+  }
+
+  .passport-photo{
+
+    width:120px;
+    height:140px;
+
+  }
+
+}
+
+/* =====================================
+LAPTOP
+===================================== */
+
+@media (min-width:1024px){
+
+  .dashboard-grid{
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+  }
+
+  .topbar{
+
+    padding:18px 25px;
+
+  }
+
+  .topbar h2{
+
+    font-size:22px;
+
+  }
+
+  .section{
+
+    padding:25px;
+
+  }
+
+}
+
+/* =====================================
+LARGE SCREEN
+===================================== */
+
+@media (min-width:1400px){
+
+  .section{
+
+    max-width:1300px;
+
+  }
+
+}
+
+/* =====================================
+PDF TABLE SCROLL SAFETY
+===================================== */
+
+.report-table{
+
+  table-layout:fixed;
+
+}
+
+.report-table td{
+
+  word-break:break-word;
+
+}
+
+/* =====================================
+PDF IMAGE SAFETY
+===================================== */
+
+#reportPreviewImage,
+#progressPreviewImage{
+
+  width:100px;
+  height:120px;
+
+  object-fit:cover;
+
+}
+
+/* =====================================
+BUTTON GROUPS
+===================================== */
+
+.button-group{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:10px;
+
+  margin-top:15px;
+
+}
+
+@media (min-width:768px){
+
+  .button-group{
+
+    flex-direction:row;
+
+  }
+
+}
+
+/* =====================================
+FORM SPACING
+===================================== */
+
+input,
+select,
+textarea{
+
+  margin-bottom:10px;
+
+}
+
+h3{
+
+  margin-top:20px;
+  margin-bottom:10px;
+
+}
+
+/* =====================================
+PDF PRINT OPTIMIZATION
+===================================== */
+
+@media print{
+
+  body{
+
+    background:white;
+
+  }
+
+  .pdf-card{
+
+    box-shadow:none;
+
+    border:none;
+
+  }
+
+}
+
+/* =====================================
+SCROLLBAR
+===================================== */
+
+::-webkit-scrollbar{
+
+  width:8px;
+
+}
+
+::-webkit-scrollbar-track{
+
+  background:#0f172a;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+  background:#475569;
+
+  border-radius:10px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+  background:#64748b;
+
+}
+
+/* =====================================
+EMPTY STATE
+===================================== */
+
+.empty-state{
+
+  text-align:center;
+
+  padding:25px;
+
+  opacity:.7;
+
+}
+
+/* =====================================
+SUCCESS / WARNING COLORS
+===================================== */
+
+.success{
+
+  color:#22c55e;
+
+  font-weight:bold;
+
+}
+
+.warning{
+
+  color:#f59e0b;
+
+  font-weight:bold;
+
+}
+
+.danger{
+
+  color:#ef4444;
+
+  font-weight:bold;
+
+}
+
+/* =====================================
+FINAL FIXES
+===================================== */
+
+.pdf-card p{
+
+  overflow-wrap:break-word;
+
+}
+
+.pdf-card h1,
+.pdf-card h2,
+.pdf-card h3{
+
+  overflow-wrap:break-word;
+
+}
+
+.student-row,
+.subject-row,
+.activity-item{
+
+  overflow-wrap:break-word;
 
 }
