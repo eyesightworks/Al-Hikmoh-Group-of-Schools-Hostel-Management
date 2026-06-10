@@ -1765,3 +1765,430 @@ calculateReport();
 
 }
 );
+/* =====================================
+PART 3D
+PDF + REPORT FIXES
+===================================== */
+
+/* =====================================
+GET STUDENT
+===================================== */
+
+function getSelectedStudent(){
+
+  const studentId =
+  Number(
+    document.getElementById(
+      "studentSelect"
+    )?.value
+  );
+
+  return students.find(
+    student =>
+    student.id === studentId
+  );
+
+}
+
+/* =====================================
+GET PROGRESS STUDENT
+===================================== */
+
+function getProgressStudent(){
+
+  const studentId =
+  Number(
+    document.getElementById(
+      "progressStudent"
+    )?.value
+  );
+
+  return students.find(
+    student =>
+    student.id === studentId
+  );
+
+}
+
+/* =====================================
+SMALL IMAGE PREVIEW
+===================================== */
+
+function updateReportPhoto(src){
+
+  const img =
+  document.getElementById(
+    "reportPreviewImage"
+  );
+
+  if(img){
+
+    img.src = src;
+
+    img.style.width =
+    "100px";
+
+    img.style.height =
+    "120px";
+
+    img.style.objectFit =
+    "cover";
+
+  }
+
+}
+
+/* =====================================
+GENERATE SUBJECT TABLE
+===================================== */
+
+function buildSubjectTable(){
+
+  let html = `
+
+  <table class="report-table">
+
+  <thead>
+
+  <tr>
+
+  <th>Subject</th>
+
+  <th>Score</th>
+
+  </tr>
+
+  </thead>
+
+  <tbody>
+
+  `;
+
+  document
+  .querySelectorAll(
+    ".subject-score"
+  )
+  .forEach(input=>{
+
+    html += `
+
+    <tr>
+
+    <td>
+    ${input.dataset.subject}
+    </td>
+
+    <td>
+    ${input.value}
+    </td>
+
+    </tr>
+
+    `;
+
+  });
+
+  html += `
+  </tbody>
+  </table>
+  `;
+
+  return html;
+
+}
+
+/* =====================================
+SAVE REPORT HISTORY
+===================================== */
+
+function saveReportHistory(report){
+
+  reportHistory.push({
+
+    id: Date.now(),
+
+    student:
+    report.student,
+
+    term:
+    report.term,
+
+    grade:
+    report.grade,
+
+    overall:
+    report.overall,
+
+    date:
+    new Date()
+    .toLocaleDateString()
+
+  });
+
+  saveData();
+
+  loadReportHistory();
+
+}
+
+/* =====================================
+LOAD REPORT HISTORY
+===================================== */
+
+function loadReportHistory(){
+
+  const container =
+  document.getElementById(
+    "reportHistoryList"
+  );
+
+  if(!container) return;
+
+  container.innerHTML = "";
+
+  reportHistory
+  .slice()
+  .reverse()
+  .forEach(item=>{
+
+    const div =
+    document.createElement(
+      "div"
+    );
+
+    div.className =
+    "history-card";
+
+    div.innerHTML = `
+
+    <strong>
+    ${item.student}
+    </strong>
+
+    <br>
+
+    ${item.term}
+
+    <br>
+
+    Grade:
+    ${item.grade}
+
+    <br>
+
+    Average:
+    ${item.overall.toFixed(1)}%
+
+    <br>
+
+    ${item.date}
+
+    `;
+
+    container.appendChild(
+      div
+    );
+
+  });
+
+}
+
+/* =====================================
+MULTI PAGE PDF
+===================================== */
+
+async function downloadElementPDF(
+  elementId,
+  filename
+){
+
+  const element =
+  document.getElementById(
+    elementId
+  );
+
+  const canvas =
+  await html2canvas(
+    element,
+    {
+      scale:2
+    }
+  );
+
+  const imgData =
+  canvas.toDataURL(
+    "image/png"
+  );
+
+  const {
+    jsPDF
+  } = window.jspdf;
+
+  const pdf =
+  new jsPDF(
+    "p",
+    "mm",
+    "a4"
+  );
+
+  const pageWidth = 210;
+  const pageHeight = 297;
+
+  const imgWidth =
+  pageWidth - 20;
+
+  const imgHeight =
+  canvas.height *
+  imgWidth /
+  canvas.width;
+
+  let heightLeft =
+  imgHeight;
+
+  let position = 10;
+
+  pdf.addImage(
+    imgData,
+    "PNG",
+    10,
+    position,
+    imgWidth,
+    imgHeight
+  );
+
+  heightLeft -=
+  pageHeight;
+
+  while(
+    heightLeft > 0
+  ){
+
+    position =
+    heightLeft -
+    imgHeight +
+    10;
+
+    pdf.addPage();
+
+    pdf.addImage(
+      imgData,
+      "PNG",
+      10,
+      position,
+      imgWidth,
+      imgHeight
+    );
+
+    heightLeft -=
+    pageHeight;
+
+  }
+
+  pdf.save(
+    filename
+  );
+
+}
+
+/* =====================================
+REPORT AUTO DETAILS
+===================================== */
+
+function populateStudentInfo(){
+
+  const student =
+  getSelectedStudent();
+
+  if(!student) return;
+
+  const classEl =
+  document.getElementById(
+    "reportPreviewClass"
+  );
+
+  const ageEl =
+  document.getElementById(
+    "reportPreviewAge"
+  );
+
+  const parentEl =
+  document.getElementById(
+    "reportPreviewParent"
+  );
+
+  const phoneEl =
+  document.getElementById(
+    "reportPreviewPhone"
+  );
+
+  if(classEl)
+  classEl.textContent =
+  "Class: " +
+  student.class;
+
+  if(ageEl)
+  ageEl.textContent =
+  "Age: " +
+  student.age;
+
+  if(parentEl)
+  parentEl.textContent =
+  "Parent: " +
+  student.parentName;
+
+  if(phoneEl)
+  phoneEl.textContent =
+  "Phone: " +
+  student.parentPhone;
+
+}
+
+/* =====================================
+PROGRESS AUTO DETAILS
+===================================== */
+
+function populateProgressInfo(){
+
+  const student =
+  getProgressStudent();
+
+  if(!student) return;
+
+  document.getElementById(
+    "progressPreviewClass"
+  ).textContent =
+  "Class: " +
+  student.class;
+
+  document.getElementById(
+    "progressPreviewAge"
+  ).textContent =
+  "Age: " +
+  student.age;
+
+  document.getElementById(
+    "progressPreviewParent"
+  ).textContent =
+  "Parent: " +
+  student.parentName;
+
+  document.getElementById(
+    "progressPreviewPhone"
+  ).textContent =
+  "Phone: " +
+  student.parentPhone;
+
+}
+
+/* =====================================
+INITIALIZE
+===================================== */
+
+window.addEventListener(
+  "load",
+  function(){
+
+    loadReportHistory();
+
+  }
+);
