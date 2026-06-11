@@ -135,12 +135,23 @@ LOCAL STORAGE
 let students =
   JSON.parse(
     localStorage.getItem("students")
-  ) || [];
+  );
+
+if (!Array.isArray(students)) {
+
+  students = [];
+
+}
 
 let subjects =
   JSON.parse(
     localStorage.getItem("subjects")
-  ) || [
+  );
+
+if (!Array.isArray(subjects)) {
+
+  subjects = [
+
     "Mathematics",
     "English Language",
     "Basic Science",
@@ -151,12 +162,21 @@ let subjects =
     "Arabic Language",
     "French",
     "Agricultural Science"
+
   ];
+
+}
 
 let reportHistory =
   JSON.parse(
     localStorage.getItem("reportHistory")
-  ) || [];
+  );
+
+if (!Array.isArray(reportHistory)) {
+
+  reportHistory = [];
+
+}
 
 /* =====================================
 SAVE DATA
