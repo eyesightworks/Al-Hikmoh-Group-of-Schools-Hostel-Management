@@ -12,44 +12,39 @@ const PASSWORD = "easy001";
 
 function login() {
 
-const password = document.getElementById("password").value.trim();
+  const password =
+    document.getElementById("password").value.trim();
 
-if (password === PASSWORD) {
+  if (password === PASSWORD) {
 
-```
-localStorage.setItem(
-  "hostelLoggedIn",
-  "true"
-);
+    localStorage.setItem(
+      "hostelLoggedIn",
+      "true"
+    );
 
-document.getElementById(
-  "loginPage"
-).style.display = "none";
+    document.getElementById(
+      "loginPage"
+    ).style.display = "none";
 
-document.getElementById(
-  "app"
-).style.display = "block";
-```
+    document.getElementById(
+      "app"
+    ).style.display = "block";
 
-} else {
+  } else {
 
-```
-alert(
-  "Incorrect Password"
-);
-```
+    alert("Incorrect Password");
 
-}
+  }
 
 }
 
 function logout() {
 
-localStorage.removeItem(
-"hostelLoggedIn"
-);
+  localStorage.removeItem(
+    "hostelLoggedIn"
+  );
 
-location.reload();
+  location.reload();
 
 }
 
@@ -58,28 +53,26 @@ AUTO LOGIN
 ===================================== */
 
 window.addEventListener(
-"load",
-function () {
+  "load",
+  function () {
 
-```
-if (
-  localStorage.getItem(
-    "hostelLoggedIn"
-  ) === "true"
-) {
+    if (
+      localStorage.getItem(
+        "hostelLoggedIn"
+      ) === "true"
+    ) {
 
-  document.getElementById(
-    "loginPage"
-  ).style.display = "none";
+      document.getElementById(
+        "loginPage"
+      ).style.display = "none";
 
-  document.getElementById(
-    "app"
-  ).style.display = "block";
+      document.getElementById(
+        "app"
+      ).style.display = "block";
 
-}
-```
+    }
 
-}
+  }
 );
 
 /* =====================================
@@ -88,76 +81,50 @@ MENU SYSTEM
 
 function toggleMenu() {
 
-const menu =
-document.getElementById(
-"menu"
-);
+  const menu =
+    document.getElementById("menu");
 
-if (
-menu.style.display ===
-"block"
-) {
+  if (!menu) return;
 
-```
-menu.style.display =
-  "none";
-```
+  if (menu.style.display === "block") {
 
-} else {
+    menu.style.display = "none";
 
-```
-menu.style.display =
-  "block";
-```
+  } else {
+
+    menu.style.display = "block";
+
+  }
 
 }
 
-}
+function showSection(sectionId) {
 
-function showSection(
-sectionId
-) {
+  document
+    .querySelectorAll(".section")
+    .forEach(function (section) {
 
-document
-.querySelectorAll(
-".section"
-)
-.forEach(section => {
+      section.style.display = "none";
 
-```
-  section.style.display =
-    "none";
+    });
 
-});
-```
+  const current =
+    document.getElementById(sectionId);
 
-const current =
-document.getElementById(
-sectionId
-);
+  if (current) {
 
-if (current) {
+    current.style.display = "block";
 
-```
-current.style.display =
-  "block";
-```
+  }
 
-}
+  const menu =
+    document.getElementById("menu");
 
-const menu =
-document.getElementById(
-"menu"
-);
+  if (menu) {
 
-if (menu) {
+    menu.style.display = "none";
 
-```
-menu.style.display =
-  "none";
-```
-
-}
+  }
 
 }
 
@@ -166,40 +133,30 @@ LOCAL STORAGE
 ===================================== */
 
 let students =
-JSON.parse(
-localStorage.getItem(
-"students"
-)
-) || [];
+  JSON.parse(
+    localStorage.getItem("students")
+  ) || [];
 
 let subjects =
-JSON.parse(
-localStorage.getItem(
-"subjects"
-)
-) || [
-
-```
-"Mathematics",
-"English Language",
-"Basic Science",
-"Computer Studies",
-"Social Studies",
-"Civic Education",
-"History",
-"Arabic Language",
-"French",
-"Agricultural Science"
-```
-
-];
+  JSON.parse(
+    localStorage.getItem("subjects")
+  ) || [
+    "Mathematics",
+    "English Language",
+    "Basic Science",
+    "Computer Studies",
+    "Social Studies",
+    "Civic Education",
+    "History",
+    "Arabic Language",
+    "French",
+    "Agricultural Science"
+  ];
 
 let reportHistory =
-JSON.parse(
-localStorage.getItem(
-"reportHistory"
-)
-) || [];
+  JSON.parse(
+    localStorage.getItem("reportHistory")
+  ) || [];
 
 /* =====================================
 SAVE DATA
@@ -207,26 +164,20 @@ SAVE DATA
 
 function saveData() {
 
-localStorage.setItem(
-"students",
-JSON.stringify(
-students
-)
-);
+  localStorage.setItem(
+    "students",
+    JSON.stringify(students)
+  );
 
-localStorage.setItem(
-"subjects",
-JSON.stringify(
-subjects
-)
-);
+  localStorage.setItem(
+    "subjects",
+    JSON.stringify(subjects)
+  );
 
-localStorage.setItem(
-"reportHistory",
-JSON.stringify(
-reportHistory
-)
-);
+  localStorage.setItem(
+    "reportHistory",
+    JSON.stringify(reportHistory)
+  );
 
 }
 
@@ -236,46 +187,44 @@ DASHBOARD
 
 function updateDashboard() {
 
-const totalStudents =
-document.getElementById(
-"totalStudents"
-);
+  const totalStudents =
+    document.getElementById(
+      "totalStudents"
+    );
 
-const totalSubjects =
-document.getElementById(
-"totalSubjects"
-);
+  const totalSubjects =
+    document.getElementById(
+      "totalSubjects"
+    );
 
-const totalReports =
-document.getElementById(
-"totalReports"
-);
+  const totalReports =
+    document.getElementById(
+      "totalReports"
+    );
 
-if (totalStudents) {
+  if (totalStudents) {
 
-```
-totalStudents.textContent =
-  students.length;
-```
+    totalStudents.textContent =
+      students.length;
 
-}
+  }
 
-if (totalSubjects) {
+  if (totalSubjects) {
 
-```
-totalSubjects.textContent =
-  subjects.length;
-```
+    totalSubjects.textContent =
+      subjects.length;
 
-}
+  }
 
-if (totalReports) {
+  if (totalReports) {
 
-```
-totalReports.textContent =
-  reportHistory.length;
-```
+    totalReports.textContent =
+      reportHistory.length;
+
+  }
 
 }
 
-}
+/* =====================================
+END OF PART 1
+===================================== */
