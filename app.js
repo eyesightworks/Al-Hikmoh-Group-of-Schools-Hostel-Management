@@ -771,3 +771,288 @@ function removeSubject() {
 /* =====================================
 END OF PART 2
 ===================================== */
+/* =====================================
+APP.JS - PART 3A
+REPORT CALCULATION
+IMAGE HANDLING
+===================================== */
+
+/* =====================================
+REPORT IMAGE
+===================================== */
+
+let selectedImage = "image.png";
+
+/* =====================================
+IMAGE UPLOAD
+===================================== */
+
+const studentImageInput =
+  document.getElementById(
+    "studentImage"
+  );
+
+if (studentImageInput) {
+
+  studentImageInput.addEventListener(
+    "change",
+    function(event) {
+
+      const file =
+        event.target.files[0];
+
+      if (!file) return;
+
+      const reader =
+        new FileReader();
+
+      reader.onload =
+        function(e) {
+
+          selectedImage =
+            e.target.result;
+
+          const preview =
+            document.getElementById(
+              "reportPreviewImage"
+            );
+
+          if (preview) {
+
+            preview.src =
+              selectedImage;
+
+          }
+
+        };
+
+      reader.readAsDataURL(
+        file
+      );
+
+    }
+  );
+
+}
+
+/* =====================================
+GET STUDENT BY ID
+===================================== */
+
+function getStudentById(id) {
+
+  return students.find(
+    function(student) {
+
+      return (
+        student.id === Number(id)
+      );
+
+    }
+  );
+
+}
+
+/* =====================================
+CURRENT STUDENT
+===================================== */
+
+function getCurrentStudent() {
+
+  const select =
+    document.getElementById(
+      "studentSelect"
+    );
+
+  if (!select) return null;
+
+  return getStudentById(
+    select.value
+  );
+
+}
+
+/* =====================================
+CALCULATE REPORT
+===================================== */
+
+function calculateReport() {
+
+  const scores =
+    document.querySelectorAll(
+      ".subject-score"
+    );
+
+  let total = 0;
+
+  scores.forEach(function(input) {
+
+    total += Number(
+      input.value || 0
+    );
+
+  });
+
+  const academicAverage =
+
+    scores.length > 0
+
+    ?
+
+    total / scores.length
+
+    :
+
+    0;
+
+  const character =
+    Number(
+      document.getElementById(
+        "character"
+      )?.value || 0
+    );
+
+  const respect =
+    Number(
+      document.getElementById(
+        "respect"
+      )?.value || 0
+    );
+
+  const discipline =
+    Number(
+      document.getElementById(
+        "discipline"
+      )?.value || 0
+    );
+
+  const neatness =
+    Number(
+      document.getElementById(
+        "neatness"
+      )?.value || 0
+    );
+
+  const punctuality =
+    Number(
+      document.getElementById(
+        "punctuality"
+      )?.value || 0
+    );
+
+  const characterAverage =
+
+    (
+      character +
+      respect +
+      discipline +
+      neatness +
+      punctuality
+    ) / 5;
+
+  const overall =
+
+    (
+      academicAverage +
+      characterAverage
+    ) / 2;
+
+  let grade = "F";
+
+  if (overall >= 70) {
+
+    grade = "A";
+
+  } else if (overall >= 60) {
+
+    grade = "B";
+
+  } else if (overall >= 50) {
+
+    grade = "C";
+
+  } else if (overall >= 45) {
+
+    grade = "D";
+
+  } else if (overall >= 40) {
+
+    grade = "E";
+
+  }
+
+  const academicEl =
+    document.getElementById(
+      "academicAverage"
+    );
+
+  const characterEl =
+    document.getElementById(
+      "characterAverage"
+    );
+
+  const overallEl =
+    document.getElementById(
+      "overallPercentage"
+    );
+
+  const gradeEl =
+    document.getElementById(
+      "grade"
+    );
+
+  if (academicEl) {
+
+    academicEl.textContent =
+      academicAverage.toFixed(1) + "%";
+
+  }
+
+  if (characterEl) {
+
+    characterEl.textContent =
+      characterAverage.toFixed(1) + "%";
+
+  }
+
+  if (overallEl) {
+
+    overallEl.textContent =
+      overall.toFixed(1) + "%";
+
+  }
+
+  if (gradeEl) {
+
+    gradeEl.textContent =
+      grade;
+
+  }
+
+  return {
+
+    academicAverage,
+    characterAverage,
+    overall,
+    grade
+
+  };
+
+}
+
+/* =====================================
+AUTO CALCULATE
+===================================== */
+
+document.addEventListener(
+  "input",
+  function() {
+
+    calculateReport();
+
+  }
+);
+
+/* =====================================
+END OF PART 3A
+===================================== */
