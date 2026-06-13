@@ -1506,3 +1506,178 @@ function sendProgressWhatsApp() {
 /* =====================================
 END OF PART 3C
 ===================================== */
+/* =====================================
+APP.JS - PART 3D
+PROGRESS REPORT
+REPORT HISTORY
+STARTUP
+===================================== */
+
+/* =====================================
+GENERATE PROGRESS PDF
+===================================== */
+
+async function generateProgressPDF() {
+
+  const studentSelect =
+    document.getElementById("progressStudent");
+
+  if (
+    !studentSelect ||
+    studentSelect.selectedOptions.length === 0
+  ) {
+
+    alert("Please select a student.");
+
+    return;
+
+  }
+
+  const studentText =
+    studentSelect.selectedOptions[0].textContent;
+
+  const ids = [
+    "progressPreviewStudent",
+    "progressPreviewClass",
+    "progressPreviewAge",
+    "progressPreviewParent",
+    "progressPreviewPhone",
+    "progressPreviewJoined",
+    "progressPreviewInitial",
+    "progressPreviewCurrent",
+    "progressPreviewAchievements",
+    "progressPreviewImprovement",
+    "progressPreviewTeacher",
+    "progressPreviewHostel",
+    "progressPreviewDate"
+  ];
+
+  ids.forEach(function(id) {
+
+    const el =
+      document.getElementById(id);
+
+    if (!el) {
+      return;
+    }
+
+    if (id === "progressPreviewStudent") {
+
+      el.textContent = studentText;
+
+    } else if (id === "progressPreviewDate") {
+
+      el.textContent =
+        new Date().toLocaleDateString();
+
+    }
+
+  });
+
+  await createMultiPagePDF(
+    "progressPDF",
+    "Student_Progress.pdf"
+  );
+
+}
+
+/* =====================================
+REPORT HISTORY
+===================================== */
+
+function loadReportHistory() {
+
+  const container =
+    document.getElementById(
+      "reportHistoryList"
+    );
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+
+  if (reportHistory.length === 0) {
+
+    container.innerHTML =
+      "<p>No reports generated yet.</p>";
+
+    return;
+
+  }
+
+  reportHistory
+    .slice()
+    .reverse()
+    .forEach(function(item) {
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "pdf-card";
+
+      div.innerHTML =
+        "<strong>" +
+        item.type +
+        "</strong><br>" +
+        item.student +
+        "<br>" +
+        item.date;
+
+      container.appendChild(div);
+
+    });
+
+}
+
+/* =====================================
+ADD REPORT HISTORY
+===================================== */
+
+function addReportHistory(type, student) {
+
+  reportHistory.push({
+
+    type: type,
+
+    student: student,
+
+    date:
+      new Date().toLocaleString()
+
+  });
+
+  saveData();
+
+  updateDashboard();
+
+  loadReportHistory();
+
+}
+
+/* =====================================
+SYSTEM STARTUP
+===================================== */
+
+window.addEventListener(
+  "load",
+  function() {
+
+    loadStudents();
+
+    loadSubjects();
+
+    updateStudentList();
+
+    updateDashboard();
+
+    loadReportHistory();
+
+  }
+);
+
+/* =====================================
+END OF PART 3D
+===================================== */
