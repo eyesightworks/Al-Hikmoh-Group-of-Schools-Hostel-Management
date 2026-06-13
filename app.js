@@ -1280,3 +1280,229 @@ async function generateStudentReportPDF() {
   );
 
 }
+/* =====================================
+APP.JS - PART 3C
+STUDENT NOTE
+ACTIVITIES
+WHATSAPP
+===================================== */
+
+/* =====================================
+STUDENT NOTE PDF
+===================================== */
+
+async function generateStudentNotePDF() {
+
+  const title =
+    document.getElementById("noteTitle");
+
+  const student =
+    document.getElementById("noteStudent");
+
+  const category =
+    document.getElementById("noteCategory");
+
+  const text =
+    document.getElementById("noteText");
+
+  if (document.getElementById("notePreviewTitle")) {
+    document.getElementById("notePreviewTitle").textContent =
+      title ? title.value : "";
+  }
+
+  if (document.getElementById("notePreviewStudent")) {
+    document.getElementById("notePreviewStudent").textContent =
+      student && student.selectedOptions.length
+        ? student.selectedOptions[0].textContent
+        : "";
+  }
+
+  if (document.getElementById("notePreviewCategory")) {
+    document.getElementById("notePreviewCategory").textContent =
+      category ? category.value : "";
+  }
+
+  if (document.getElementById("notePreviewText")) {
+    document.getElementById("notePreviewText").textContent =
+      text ? text.value : "";
+  }
+
+  if (document.getElementById("notePreviewDate")) {
+    document.getElementById("notePreviewDate").textContent =
+      new Date().toLocaleDateString();
+  }
+
+  await createMultiPagePDF(
+    "studentNotePDF",
+    "Student_Note.pdf"
+  );
+
+}
+
+/* =====================================
+ACTIVITY STORAGE
+===================================== */
+
+let activityQuestions = [];
+
+/* =====================================
+ADD ACTIVITY QUESTION
+===================================== */
+
+function addActivityQuestion() {
+
+  const input =
+    document.getElementById("questionInput");
+
+  if (!input) {
+    return;
+  }
+
+  const value =
+    input.value.trim();
+
+  if (value === "") {
+    return;
+  }
+
+  activityQuestions.push(value);
+
+  input.value = "";
+
+  renderActivities();
+
+}
+
+/* =====================================
+RENDER ACTIVITY LIST
+===================================== */
+
+function renderActivities() {
+
+  const list =
+    document.getElementById("activityList");
+
+  if (!list) {
+    return;
+  }
+
+  list.innerHTML = "";
+
+  activityQuestions.forEach(function (question, index) {
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "activity-item";
+
+    div.textContent =
+      (index + 1) + ". " + question;
+
+    list.appendChild(div);
+
+  });
+
+}
+
+/* =====================================
+GENERATE ACTIVITY PDF
+===================================== */
+
+async function generateActivityPDF() {
+
+  const student =
+    document.getElementById("activityStudent");
+
+  const preview =
+    document.getElementById("activityQuestionsPreview");
+
+  if (document.getElementById("activityStudentPreview")) {
+
+    document.getElementById(
+      "activityStudentPreview"
+    ).textContent =
+      student &&
+      student.selectedOptions.length
+        ? student.selectedOptions[0].textContent
+        : "";
+
+  }
+
+  if (preview) {
+
+    preview.innerHTML = "";
+
+    activityQuestions.forEach(function (question, index) {
+
+      const p =
+        document.createElement("p");
+
+      p.textContent =
+        (index + 1) + ". " + question;
+
+      preview.appendChild(p);
+
+    });
+
+  }
+
+  if (document.getElementById("activityDatePreview")) {
+
+    document.getElementById(
+      "activityDatePreview"
+    ).textContent =
+      new Date().toLocaleDateString();
+
+  }
+
+  await createMultiPagePDF(
+    "activityPDF",
+    "Student_Activities.pdf"
+  );
+
+}
+
+/* =====================================
+WHATSAPP PLACEHOLDERS
+===================================== */
+
+function sendStudentReportWhatsApp() {
+
+  window.open(
+    "https://wa.me/",
+    "_blank"
+  );
+
+}
+
+function sendStudentNoteWhatsApp() {
+
+  window.open(
+    "https://wa.me/",
+    "_blank"
+  );
+
+}
+
+function sendActivityWhatsApp() {
+
+  window.open(
+    "https://wa.me/",
+    "_blank"
+  );
+
+}
+
+function sendProgressWhatsApp() {
+
+  window.open(
+    "https://wa.me/",
+    "_blank"
+  );
+
+}
+
+/* =====================================
+END OF PART 3C
+===================================== */
