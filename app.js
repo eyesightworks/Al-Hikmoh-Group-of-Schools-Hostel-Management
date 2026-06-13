@@ -1056,3 +1056,227 @@ document.addEventListener(
 /* =====================================
 END OF PART 3A
 ===================================== */
+/* =====================================
+APP.JS - PART 3B
+REPORT PDF
+===================================== */
+
+/* =====================================
+BUILD SUBJECT LIST
+===================================== */
+
+function buildSubjectTable() {
+
+  let html = "";
+
+  const scores =
+    document.querySelectorAll(
+      ".subject-score"
+    );
+
+  scores.forEach(function(input) {
+
+    html +=
+      "<p><strong>" +
+      input.dataset.subject +
+      ":</strong> " +
+      input.value +
+      "</p>";
+
+  });
+
+  return html;
+
+}
+
+/* =====================================
+POPULATE REPORT PREVIEW
+===================================== */
+
+function populateReportPreview() {
+
+  const student =
+    getCurrentStudent();
+
+  if (!student) {
+
+    alert("Select a student");
+
+    return false;
+
+  }
+
+  const report =
+    calculateReport();
+
+  const setText = function(id, value) {
+
+    const el =
+      document.getElementById(id);
+
+    if (el) {
+
+      el.textContent = value;
+
+    }
+
+  };
+
+  setText(
+    "reportPreviewName",
+    student.name
+  );
+
+  setText(
+    "reportPreviewClass",
+    "Class: " + student.class
+  );
+
+  setText(
+    "reportPreviewAge",
+    "Age: " + student.age
+  );
+
+  setText(
+    "reportPreviewParent",
+    "Parent: " + student.parentName
+  );
+
+  setText(
+    "reportPreviewPhone",
+    "Phone: " + student.parentPhone
+  );
+
+  setText(
+    "reportPreviewAcademicAverage",
+    "Academic Average: " +
+    report.academicAverage.toFixed(1) +
+    "%"
+  );
+
+  setText(
+    "reportPreviewCharacterAverage",
+    "Character Average: " +
+    report.characterAverage.toFixed(1) +
+    "%"
+  );
+
+  setText(
+    "reportPreviewOverall",
+    "Overall: " +
+    report.overall.toFixed(1) +
+    "%"
+  );
+
+  setText(
+    "reportPreviewGrade",
+    "Grade: " +
+    report.grade
+  );
+
+  const subjects =
+    document.getElementById(
+      "reportPreviewSubjects"
+    );
+
+  if (subjects) {
+
+    subjects.innerHTML =
+      buildSubjectTable();
+
+  }
+
+  return true;
+
+}
+
+/* =====================================
+CREATE PDF
+===================================== */
+
+async function createMultiPagePDF(
+  elementId,
+  fileName
+) {
+
+  const element =
+    document.getElementById(
+      elementId
+    );
+
+  if (!element) {
+
+    alert("Preview not found");
+
+    return;
+
+  }
+
+  const canvas =
+    await html2canvas(
+      element,
+      {
+        scale: 2
+      }
+    );
+
+  const img =
+    canvas.toDataURL(
+      "image/png"
+    );
+
+  const pdf =
+    new window.jspdf.jsPDF(
+      "p",
+      "mm",
+      "a4"
+    );
+
+  const width = 190;
+
+  const height =
+    canvas.height *
+    width /
+    canvas.width;
+
+  pdf.addImage(
+    img,
+    "PNG",
+    10,
+    10,
+    width,
+    height
+  );
+
+  pdf.save(fileName);
+
+}
+
+/* =====================================
+GENERATE STUDENT REPORT PDF
+===================================== */
+
+async function generateStudentReportPDF() {
+
+  const ok =
+    populateReportPreview();
+
+  if (!ok) {
+
+    return;
+
+  }
+
+  const student =
+    getCurrentStudent();
+
+  await createMultiPagePDF(
+
+    "studentReportPDF",
+
+    student.name +
+    "_Report.pdf"
+
+  );
+
+}
