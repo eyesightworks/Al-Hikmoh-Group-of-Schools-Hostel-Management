@@ -1,5 +1,7 @@
 /* =====================================
-RESET
+AL HIKMOH HOSTEL MANAGEMENT SYSTEM
+STYLE.CSS - PART 1
+GLOBAL + RESET + LOGIN
 ===================================== */
 
 *{
@@ -8,41 +10,55 @@ RESET
   box-sizing:border-box;
 }
 
-:root{
-
-  --bg:#0f172a;
-  --card:#1e293b;
-  --card2:#334155;
-  --border:#475569;
-
-  --primary:#38bdf8;
-  --success:#22c55e;
-  --danger:#ef4444;
-
-  --text:#ffffff;
-  --muted:#cbd5e1;
-
-  --radius:14px;
-
+html{
+  font-size:16px;
+  scroll-behavior:smooth;
 }
 
 body{
-
-  background:var(--bg);
-  color:var(--text);
-
-  font-family:
-  Arial,
-  Helvetica,
-  sans-serif;
-
-  min-height:100vh;
-
+  font-family:Arial, Helvetica, sans-serif;
+  background:#f4f7fb;
+  color:#222;
+  line-height:1.5;
 }
 
+/* Images */
 img{
   max-width:100%;
+  height:auto;
   display:block;
+}
+
+/* Inputs */
+input,
+select,
+textarea,
+button{
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  margin-bottom:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
+  font-family:inherit;
+}
+
+textarea{
+  resize:vertical;
+  min-height:100px;
+}
+
+button{
+  cursor:pointer;
+  background:#0b6b3a;
+  color:#fff;
+  border:none;
+  transition:0.2s;
+}
+
+button:hover{
+  opacity:0.9;
 }
 
 /* =====================================
@@ -50,843 +66,414 @@ LOGIN PAGE
 ===================================== */
 
 .login-page{
-
-  padding:25px;
-
-  max-width:450px;
-  margin:auto;
-
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
   text-align:center;
-
 }
 
 .logo{
-
   width:120px;
-  height:120px;
-
-  object-fit:cover;
-
-  margin:40px auto 20px;
-
-  border-radius:50%;
-
+  max-width:40vw;
+  margin-bottom:20px;
 }
 
 .login-page h1{
-
-  margin-bottom:10px;
-
+  margin-bottom:8px;
 }
 
 .login-subtitle{
-
-  color:var(--muted);
-
-  margin-bottom:25px;
-
+  margin-bottom:20px;
+  color:#666;
 }
 
-/* =====================================
-FORM ELEMENTS
-===================================== */
-
-input,
-select,
-textarea,
-button{
-
+.login-page input,
+.login-page button{
   width:100%;
-
-  border:none;
-
-  border-radius:12px;
-
-  padding:14px;
-
-  margin-top:12px;
-
-  font-size:15px;
-
+  max-width:380px;
 }
-
-input,
-select,
-textarea{
-
-  background:white;
-  color:black;
-
-}
-
-textarea{
-
-  resize:vertical;
-  min-height:120px;
-
-}
-
-button{
-
-  background:var(--primary);
-  color:black;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-}
-
-button:hover{
-
-  opacity:.9;
-
-}
-
 /* =====================================
-TOPBAR
+STYLE.CSS - PART 2
+TOP BAR + MENU + SECTIONS + DASHBOARD
 ===================================== */
+
+/* Top Navigation */
 
 .topbar{
-
   position:sticky;
   top:0;
-
-  background:var(--card);
-
-  padding:15px;
+  z-index:1000;
 
   display:flex;
   align-items:center;
   gap:15px;
 
-  z-index:999;
+  padding:15px 20px;
 
-  box-shadow:
-  0 2px 10px rgba(0,0,0,.35);
+  background:#0b6b3a;
+  color:#ffffff;
 
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
 }
 
 .topbar h2{
-
-  font-size:18px;
-
+  margin:0;
+  font-size:22px;
 }
 
 .topbar small{
-
-  color:var(--muted);
-
+  display:block;
+  opacity:0.9;
 }
 
 .menu-btn{
-
-  width:48px;
-  height:48px;
-
-  font-size:22px;
-
+  width:50px;
+  height:50px;
+  font-size:24px;
   padding:0;
-
+  border-radius:8px;
 }
 
-/* =====================================
-MENU
-===================================== */
+/* Side Menu */
 
 .menu{
-
   display:none;
 
-  background:var(--card);
+  background:#ffffff;
 
-  border-top:
-  1px solid var(--border);
+  border-bottom:1px solid #dddddd;
 
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
 .menu p{
-
-  padding:16px;
-
-  border-bottom:
-  1px solid var(--border);
+  padding:14px 20px;
 
   cursor:pointer;
 
+  border-bottom:1px solid #eeeeee;
+
+  transition:background 0.2s;
 }
 
 .menu p:hover{
-
-  background:var(--card2);
-
+  background:#f3f3f3;
 }
 
-/* =====================================
-SECTION
-===================================== */
+/* Sections */
 
 .section{
+  display:none;
+  padding:20px;
+}
 
-  padding:16px;
-
+#dashboard{
+  display:block;
 }
 
 .section h2{
-
-  margin-bottom:15px;
-
+  margin-bottom:20px;
 }
 
-/* =====================================
-DASHBOARD
-===================================== */
+/* Dashboard Grid */
 
 .dashboard-grid{
-
   display:grid;
-
-  grid-template-columns:
-  1fr;
-
-  gap:15px;
-
+  grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+  gap:20px;
+  margin-bottom:20px;
 }
 
 .dashboard-card{
+  background:#ffffff;
 
-  background:var(--card);
-
-  padding:16px;
-
-  border-radius:var(--radius);
-
-  box-shadow:
-  0 2px 8px rgba(0,0,0,.25);
-
-}
-
-.dashboard-card h3{
-
-  margin-bottom:10px;
-
-}
-
-.dashboard-card p{
-
-  line-height:1.6;
-
-}
-/* =====================================
-PDF REPORT DESIGN
-===================================== */
-
-.pdf-card{
-
-  background:white;
-  color:black;
-
-  margin-top:20px;
+  border-radius:12px;
 
   padding:20px;
 
-  border-radius:16px;
-
-  overflow:hidden;
-
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
 }
 
-.report-paper{
+.dashboard-card h3{
+  margin-bottom:10px;
+}
 
-  background:white;
-
-  color:black;
-
-  line-height:1.7;
-
+.dashboard-card p{
   word-wrap:break-word;
-
 }
 
-.report-header{
+/* Generic Cards */
 
-  text-align:center;
-
+.card,
+.pdf-card{
+  background:#ffffff;
+  padding:20px;
+  border-radius:12px;
   margin-bottom:20px;
-
-  padding-bottom:15px;
-
-  border-bottom:
-  2px solid #ddd;
-
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
-.report-header h1{
+/* Student List */
 
-  color:#0f172a;
-
-  font-size:24px;
-
-  margin-bottom:5px;
-
-}
-
-.report-header h3{
-
-  color:#555;
-
-  font-weight:normal;
-
-}
-
-/* =====================================
-STUDENT PROFILE
-===================================== */
-
-.student-profile{
-
-  display:flex;
-
-  gap:15px;
-
-  align-items:flex-start;
-
-  margin-bottom:20px;
-
-}
-
-.passport-photo{
-
-  width:100px;
-  height:120px;
-
-  object-fit:cover;
-
-  border-radius:10px;
-
-  border:2px solid #ddd;
-
-  flex-shrink:0;
-
-}
-
-.student-profile h3{
-
-  margin-bottom:10px;
-
-}
-
-.student-profile p{
-
-  margin-bottom:5px;
-
-}
-
-/* =====================================
-REPORT TABLE
-===================================== */
-
-.report-table{
-
-  width:100%;
-
-  border-collapse:collapse;
-
-  margin-top:10px;
-
-}
-
-.report-table th{
-
-  background:#0f172a;
-
-  color:white;
-
-  padding:10px;
-
-  border:1px solid #ddd;
-
-}
-
-.report-table td{
-
-  padding:10px;
-
-  border:1px solid #ddd;
-
-}
-
-.report-table tr:nth-child(even){
-
-  background:#f7f7f7;
-
-}
-
-/* =====================================
-BEHAVIOUR SUMMARY
-===================================== */
-
-#behaviourSummary{
-
-  display:grid;
-
-  grid-template-columns:
-  1fr;
-
-  gap:8px;
-
-}
-
-.behaviour-item{
-
-  background:#f1f5f9;
-
-  padding:10px;
-
-  border-radius:8px;
-
-}
-
-/* =====================================
-ACTIVITY LIST
-===================================== */
-
-.activity-list{
-
-  margin-top:15px;
-
-}
-
+.student-row,
+.subject-row,
 .activity-item{
-
-  background:var(--card);
-
   padding:12px;
-
-  border-radius:12px;
-
   margin-bottom:10px;
-
-  line-height:1.6;
-
+  background:#f8f8f8;
+  border-radius:8px;
+  border-left:4px solid #0b6b3a;
 }
 
-/* =====================================
-STUDENT DIRECTORY
-===================================== */
-
-#studentList{
-
-  margin-top:20px;
-
-}
-
-.student-row{
-
-  background:var(--card);
-
-  padding:15px;
-
-  border-radius:12px;
-
-  margin-bottom:12px;
-
-  line-height:1.8;
-
-  border-left:
-  4px solid var(--primary);
-
-}
-
-/* =====================================
-SUBJECTS
-===================================== */
-
-#subjectContainer{
-
-  display:flex;
-
-  flex-direction:column;
-
-  gap:12px;
-
-}
+/* Subject Input */
 
 .subject-item{
-
-  background:var(--card);
-
-  padding:15px;
-
-  border-radius:12px;
-
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
 }
 
 .subject-item label{
-
-  display:block;
-
-  margin-bottom:8px;
-
-  font-weight:bold;
-
+  flex:1;
+  min-width:180px;
 }
 
-.subject-row{
-
-  background:var(--card);
-
-  padding:12px;
-
-  border-radius:10px;
-
-  margin-bottom:10px;
-
+.subject-item input{
+  flex:1;
+  min-width:100px;
 }
-
 /* =====================================
-REPORT HISTORY
+STYLE.CSS - PART 3
+REPORTS + PDF + MOBILE RESPONSIVE
 ===================================== */
 
-#reportHistoryList{
+/* Report Containers */
 
-  margin-top:20px;
-
-}
-
-.history-card{
-
-  background:var(--card);
-
-  padding:15px;
-
+#studentReportPDF,
+#studentNotePDF,
+#activityPDF,
+#progressPDF{
+  width:100%;
+  max-width:900px;
+  margin:20px auto;
+  padding:20px;
+  background:#ffffff;
+  border:1px solid #dddddd;
   border-radius:12px;
-
-  margin-bottom:12px;
-
+  overflow-wrap:break-word;
 }
 
-/* =====================================
-LONG TEXT SUPPORT
-===================================== */
-
-#reportPreviewRemark,
-#notePreviewText,
-#progressPreviewInitial,
-#progressPreviewCurrent,
-#progressPreviewAchievements,
-#progressPreviewImprovement,
-#progressPreviewTeacher,
-#progressPreviewHostel{
-
-  white-space:pre-wrap;
-
-  line-height:1.8;
-
-  margin-top:10px;
-
-  margin-bottom:10px;
-
-}
-
-/* =====================================
-HR
-===================================== */
-
-hr{
-
-  margin:20px 0;
-
-  border:none;
-
-  border-top:1px solid #ddd;
-
-}
-/* =====================================
-TABLET
-===================================== */
-
-@media (min-width:768px){
-
-  .section{
-
-    max-width:1100px;
-
-    margin:auto;
-
-  }
-
-  .dashboard-grid{
-
-    grid-template-columns:
-    repeat(2,1fr);
-
-  }
-
-  #subjectContainer{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(2,1fr);
-
-    gap:15px;
-
-  }
-
-  .student-profile{
-
-    gap:25px;
-
-  }
-
-  .passport-photo{
-
-    width:120px;
-    height:140px;
-
-  }
-
-}
-
-/* =====================================
-LAPTOP
-===================================== */
-
-@media (min-width:1024px){
-
-  .dashboard-grid{
-
-    grid-template-columns:
-    repeat(4,1fr);
-
-  }
-
-  .topbar{
-
-    padding:18px 25px;
-
-  }
-
-  .topbar h2{
-
-    font-size:22px;
-
-  }
-
-  .section{
-
-    padding:25px;
-
-  }
-
-}
-
-/* =====================================
-LARGE SCREEN
-===================================== */
-
-@media (min-width:1400px){
-
-  .section{
-
-    max-width:1300px;
-
-  }
-
-}
-
-/* =====================================
-PDF TABLE SCROLL SAFETY
-===================================== */
-
-.report-table{
-
-  table-layout:fixed;
-
-}
-
-.report-table td{
-
-  word-break:break-word;
-
-}
-
-/* =====================================
-PDF IMAGE SAFETY
-===================================== */
+/* Preview Images */
 
 #reportPreviewImage,
 #progressPreviewImage{
-
-  width:100px;
-  height:120px;
-
+  width:120px;
+  height:140px;
   object-fit:cover;
+  margin:0 auto 15px;
+  border:2px solid #cccccc;
+  border-radius:10px;
+}
 
+/* Report Headings */
+
+#studentReportPDF h1,
+#studentNotePDF h1,
+#activityPDF h1,
+#progressPDF h1,
+#studentReportPDF h2,
+#studentNotePDF h2,
+#activityPDF h2,
+#progressPDF h2{
+  text-align:center;
+  margin-bottom:15px;
+}
+
+/* Paragraphs */
+
+#studentReportPDF p,
+#studentNotePDF p,
+#activityPDF p,
+#progressPDF p{
+  margin-bottom:10px;
+  word-break:break-word;
+}
+
+/* Tables */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+}
+
+table th,
+table td{
+  border:1px solid #cccccc;
+  padding:10px;
+  text-align:left;
+  word-break:break-word;
+}
+
+table th{
+  background:#f3f3f3;
+}
+
+/* Lists */
+
+ul,
+ol{
+  padding-left:20px;
+}
+
+li{
+  margin-bottom:8px;
+}
+
+/* Utility */
+
+.hidden{
+  display:none;
+}
+
+.text-center{
+  text-align:center;
+}
+
+.mt-20{
+  margin-top:20px;
+}
+
+.mb-20{
+  margin-bottom:20px;
 }
 
 /* =====================================
-BUTTON GROUPS
+MOBILE RESPONSIVE
 ===================================== */
 
-.button-group{
+@media (max-width:768px){
 
-  display:flex;
-
-  flex-direction:column;
-
-  gap:10px;
-
-  margin-top:15px;
-
-}
-
-@media (min-width:768px){
-
-  .button-group{
-
-    flex-direction:row;
-
+  body{
+    font-size:15px;
   }
 
+  .topbar{
+    padding:12px;
+  }
+
+  .topbar h2{
+    font-size:18px;
+  }
+
+  .section{
+    padding:12px;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+
+  .subject-item{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .subject-item label,
+  .subject-item input{
+    width:100%;
+  }
+
+  #studentReportPDF,
+  #studentNotePDF,
+  #activityPDF,
+  #progressPDF{
+    padding:12px;
+  }
+
+  table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+
+  .logo{
+    width:90px;
+  }
+
+  button{
+    font-size:15px;
+  }
 }
 
 /* =====================================
-FORM SPACING
+SMALL PHONES
 ===================================== */
 
-input,
-select,
-textarea{
+@media (max-width:480px){
 
-  margin-bottom:10px;
+  html{
+    font-size:14px;
+  }
 
-}
+  .topbar{
+    gap:10px;
+  }
 
-h3{
+  .menu-btn{
+    width:44px;
+    height:44px;
+    font-size:20px;
+  }
 
-  margin-top:20px;
-  margin-bottom:10px;
+  #reportPreviewImage,
+  #progressPreviewImage{
+    width:90px;
+    height:110px;
+  }
 
+  input,
+  select,
+  textarea,
+  button{
+    font-size:14px;
+    padding:10px;
+  }
 }
 
 /* =====================================
-PDF PRINT OPTIMIZATION
+PRINT / PDF
 ===================================== */
 
 @media print{
 
   body{
-
-    background:white;
-
+    background:#ffffff;
   }
 
-  .pdf-card{
+  .topbar,
+  .menu,
+  .menu-btn{
+    display:none !important;
+  }
 
-    box-shadow:none;
-
+  #studentReportPDF,
+  #studentNotePDF,
+  #activityPDF,
+  #progressPDF{
+    max-width:100%;
     border:none;
-
+    box-shadow:none;
+    margin:0;
+    padding:0;
   }
 
-}
-
-/* =====================================
-SCROLLBAR
-===================================== */
-
-::-webkit-scrollbar{
-
-  width:8px;
-
-}
-
-::-webkit-scrollbar-track{
-
-  background:#0f172a;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-  background:#475569;
-
-  border-radius:10px;
-
-}
-
-::-webkit-scrollbar-thumb:hover{
-
-  background:#64748b;
-
-}
-
-/* =====================================
-EMPTY STATE
-===================================== */
-
-.empty-state{
-
-  text-align:center;
-
-  padding:25px;
-
-  opacity:.7;
-
-}
-
-/* =====================================
-SUCCESS / WARNING COLORS
-===================================== */
-
-.success{
-
-  color:#22c55e;
-
-  font-weight:bold;
-
-}
-
-.warning{
-
-  color:#f59e0b;
-
-  font-weight:bold;
-
-}
-
-.danger{
-
-  color:#ef4444;
-
-  font-weight:bold;
-
-}
-
-/* =====================================
-FINAL FIXES
-===================================== */
-
-.pdf-card p{
-
-  overflow-wrap:break-word;
-
-}
-
-.pdf-card h1,
-.pdf-card h2,
-.pdf-card h3{
-
-  overflow-wrap:break-word;
-
-}
-
-.student-row,
-.subject-row,
-.activity-item{
-
-  overflow-wrap:break-word;
-
+  button{
+    display:none !important;
+  }
 }
