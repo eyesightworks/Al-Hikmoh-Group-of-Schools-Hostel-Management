@@ -1191,67 +1191,75 @@ function populateReportPreview() {
 }
 
 /* =====================================
-CREATE PDF
+CREATE MULTI PAGE PDF
 ===================================== */
 
-async function createMultiPagePDF(
-  elementId,
-  fileName
-) {
+async function createMultiPagePDF(elementId, fileName) {
 
-  const element =
-    document.getElementById(
-      elementId
-    );
+  const element = document.getElementById(elementId);
 
   if (!element) {
-
     alert("Preview not found");
-
     return;
-
   }
 
-  const canvas =
-    await html2canvas(
-      element,
-      {
-        scale: 2
-      }
-    );
+  const canvas = await html2canvas(element, {
+    scale: 2,
+    useCORS: true
+  });
 
-  const img =
-    canvas.toDataURL(
-      "image/png"
-    );
+  const imgData = canvas.toDataURL("image/png");
 
-  const pdf =
-    new window.jspdf.jsPDF(
-      "p",
-      "mm",
-      "a4"
-    );
+  const pdf = new window.jspdf.jsPDF(
+    "p",
+    "mm",
+    "a4"
+  );
 
-  const width = 190;
+  const pageWidth = 210;
+  const pageHeight = 297;
 
-  const height =
-    canvas.height *
-    width /
-    canvas.width;
+  const margin = 10;
+
+  const imgWidth = pageWidth - (margin * 2);
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+  let heightLeft = imgHeight;
+  let position = margin;
 
   pdf.addImage(
-    img,
+    imgData,
     "PNG",
-    10,
-    10,
-    width,
-    height
+    margin,
+    position,
+    imgWidth,
+    imgHeight
   );
+
+  heightLeft -= (pageHeight - margin * 2);
+
+  while (heightLeft > 0) {
+
+    position = heightLeft - imgHeight + margin;
+
+    pdf.addPage();
+
+    pdf.addImage(
+      imgData,
+      "PNG",
+      margin,
+      position,
+      imgWidth,
+      imgHeight
+    );
+
+    heightLeft -= (pageHeight - margin * 2);
+
+  }
 
   pdf.save(fileName);
 
 }
-
 /* =====================================
 GENERATE STUDENT REPORT PDF
 ===================================== */
