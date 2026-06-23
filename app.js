@@ -1550,68 +1550,58 @@ GENERATE PROGRESS PDF
 
 async function generateProgressPDF() {
 
-  const studentSelect =
-    document.getElementById("progressStudent");
+  const student = getCurrentStudent();
 
-  if (
-    !studentSelect ||
-    studentSelect.selectedOptions.length === 0
-  ) {
-
+  if (!student) {
     alert("Please select a student.");
-
     return;
-
   }
 
-  const studentText =
-    studentSelect.selectedOptions[0].textContent;
+  document.getElementById("progressPreviewStudent").textContent =
+    student.name;
 
-  const ids = [
-    "progressPreviewStudent",
-    "progressPreviewClass",
-    "progressPreviewAge",
-    "progressPreviewParent",
-    "progressPreviewPhone",
-    "progressPreviewJoined",
-    "progressPreviewInitial",
-    "progressPreviewCurrent",
-    "progressPreviewAchievements",
-    "progressPreviewImprovement",
-    "progressPreviewTeacher",
-    "progressPreviewHostel",
-    "progressPreviewDate"
-  ];
+  document.getElementById("progressPreviewClass").textContent =
+    student.class;
 
-  ids.forEach(function(id) {
+  document.getElementById("progressPreviewAge").textContent =
+    student.age;
 
-    const el =
-      document.getElementById(id);
+  document.getElementById("progressPreviewParent").textContent =
+    student.parentName;
 
-    if (!el) {
-      return;
-    }
+  document.getElementById("progressPreviewPhone").textContent =
+    student.parentPhone;
 
-    if (id === "progressPreviewStudent") {
+  document.getElementById("progressPreviewJoined").textContent =
+    document.getElementById("joinedDate")?.value || "";
 
-      el.textContent = studentText;
+  document.getElementById("progressPreviewInitial").textContent =
+    document.getElementById("initialPerformance")?.value || "";
 
-    } else if (id === "progressPreviewDate") {
+  document.getElementById("progressPreviewCurrent").textContent =
+    document.getElementById("currentPerformance")?.value || "";
 
-      el.textContent =
-        new Date().toLocaleDateString();
+  document.getElementById("progressPreviewAchievements").textContent =
+    document.getElementById("achievements")?.value || "";
 
-    }
+  document.getElementById("progressPreviewImprovement").textContent =
+    document.getElementById("improvementAreas")?.value || "";
 
-  });
+  document.getElementById("progressPreviewTeacher").textContent =
+    document.getElementById("teacherComment")?.value || "";
+
+  document.getElementById("progressPreviewHostel").textContent =
+    document.getElementById("hostelComment")?.value || "";
+
+  document.getElementById("progressPreviewDate").textContent =
+    new Date().toLocaleDateString();
 
   await createMultiPagePDF(
     "progressPDF",
-    "Student_Progress.pdf"
+    student.name + "_Progress.pdf"
   );
 
 }
-
 /* =====================================
 REPORT HISTORY
 ===================================== */
