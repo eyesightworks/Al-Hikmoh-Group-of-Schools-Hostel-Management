@@ -1095,101 +1095,124 @@ POPULATE REPORT PREVIEW
 
 function populateReportPreview() {
 
-  const student =
-    getCurrentStudent();
+  const student = getCurrentStudent();
 
   if (!student) {
-
     alert("Select a student");
-
     return false;
-
   }
 
-  const report =
-    calculateReport();
+  const report = calculateReport();
 
-  const setText = function(id, value) {
-
-    const el =
-      document.getElementById(id);
-
+  function setText(id, value) {
+    const el = document.getElementById(id);
     if (el) {
-
       el.textContent = value;
-
     }
+  }
 
-  };
+  // Student details
+  setText("reportPreviewName", student.name);
+  setText("reportPreviewClass", "Class: " + student.class);
+  setText("reportPreviewAge", "Age: " + student.age);
+  setText("reportPreviewParent", "Parent: " + student.parentName);
+  setText("reportPreviewPhone", "Phone: " + student.parentPhone);
 
+  // Term
+  const term = document.getElementById("term");
   setText(
-    "reportPreviewName",
-    student.name
+    "reportPreviewTerm",
+    "Term: " + (term ? term.value : "")
   );
 
-  setText(
-    "reportPreviewClass",
-    "Class: " + student.class
-  );
-
-  setText(
-    "reportPreviewAge",
-    "Age: " + student.age
-  );
-
-  setText(
-    "reportPreviewParent",
-    "Parent: " + student.parentName
-  );
-
-  setText(
-    "reportPreviewPhone",
-    "Phone: " + student.parentPhone
-  );
-
+  // Summary
   setText(
     "reportPreviewAcademicAverage",
     "Academic Average: " +
-    report.academicAverage.toFixed(1) +
-    "%"
+      report.academicAverage.toFixed(1) +
+      "%"
   );
 
   setText(
     "reportPreviewCharacterAverage",
     "Character Average: " +
-    report.characterAverage.toFixed(1) +
-    "%"
+      report.characterAverage.toFixed(1) +
+      "%"
   );
 
   setText(
     "reportPreviewOverall",
     "Overall: " +
-    report.overall.toFixed(1) +
-    "%"
+      report.overall.toFixed(1) +
+      "%"
   );
 
   setText(
     "reportPreviewGrade",
-    "Grade: " +
-    report.grade
+    "Grade: " + report.grade
   );
 
-  const subjects =
+  // Hostel Master Remark
+  const remark =
+    document.getElementById("remark");
+
+  setText(
+    "reportPreviewRemark",
+    remark ? remark.value : ""
+  );
+
+  // Date
+  setText(
+    "reportPreviewDate",
+    "Generated: " +
+      new Date().toLocaleDateString()
+  );
+
+  // Behaviour Assessment
+  const behaviour =
+    document.getElementById(
+      "behaviourSummary"
+    );
+
+  if (behaviour) {
+
+    const character =
+      document.getElementById("character")?.value || 0;
+
+    const respect =
+      document.getElementById("respect")?.value || 0;
+
+    const discipline =
+      document.getElementById("discipline")?.value || 0;
+
+    const neatness =
+      document.getElementById("neatness")?.value || 0;
+
+    const punctuality =
+      document.getElementById("punctuality")?.value || 0;
+
+    behaviour.innerHTML =
+      "<p>Character: " + character + "</p>" +
+      "<p>Respect: " + respect + "</p>" +
+      "<p>Discipline: " + discipline + "</p>" +
+      "<p>Neatness: " + neatness + "</p>" +
+      "<p>Punctuality: " + punctuality + "</p>";
+  }
+
+  // Subjects table
+  const table =
     document.getElementById(
       "reportPreviewSubjects"
     );
 
-  if (subjects) {
-
-    subjects.innerHTML =
+  if (table) {
+    table.innerHTML =
       buildSubjectTable();
-
   }
 
   return true;
 
 }
-
 /* =====================================
 CREATE MULTI PAGE PDF
 ===================================== */
