@@ -1443,49 +1443,73 @@ GENERATE ACTIVITY PDF
 async function generateActivityPDF() {
 
   const student =
-    document.getElementById("activityStudent");
+    document.getElementById(
+      "activityStudent"
+    );
+
+  document.getElementById(
+    "activityStudentPreview"
+  ).textContent =
+    student &&
+    student.selectedOptions.length
+      ? student.selectedOptions[0].textContent
+      : "";
+
+  document.getElementById(
+    "activityClassPreview"
+  ).textContent =
+    document.getElementById(
+      "activityClass"
+    ).value;
+
+  document.getElementById(
+    "activitySubjectPreview"
+  ).textContent =
+    document.getElementById(
+      "subject"
+    ).value;
+
+  document.getElementById(
+    "activityTutorPreview"
+  ).textContent =
+    document.getElementById(
+      "tutor"
+    ).value;
+
+  document.getElementById(
+    "activityFrequencyPreview"
+  ).textContent =
+    document.getElementById(
+      "frequency"
+    ).value;
 
   const preview =
-    document.getElementById("activityQuestionsPreview");
-
-  if (document.getElementById("activityStudentPreview")) {
-
     document.getElementById(
-      "activityStudentPreview"
-    ).textContent =
-      student &&
-      student.selectedOptions.length
-        ? student.selectedOptions[0].textContent
-        : "";
+      "activityQuestionsPreview"
+    );
 
-  }
+  preview.innerHTML = "";
 
-  if (preview) {
-
-    preview.innerHTML = "";
-
-    activityQuestions.forEach(function (question, index) {
+  activityQuestions.forEach(
+    function(question, index) {
 
       const p =
         document.createElement("p");
 
       p.textContent =
-        (index + 1) + ". " + question;
+        (index + 1) +
+        ". " +
+        question;
 
       preview.appendChild(p);
 
-    });
+    }
+  );
 
-  }
-
-  if (document.getElementById("activityDatePreview")) {
-
-    document.getElementById(
-      "activityDatePreview"
-    ).textContent =
-      new Date().toLocaleDateString();
-
-  }
+  document.getElementById(
+    "activityDatePreview"
+  ).textContent =
+    new Date().toLocaleDateString();
 
   await createMultiPagePDF(
     "activityPDF",
@@ -1493,7 +1517,6 @@ async function generateActivityPDF() {
   );
 
 }
-
 /* =====================================
 WHATSAPP PLACEHOLDERS
 ===================================== */
