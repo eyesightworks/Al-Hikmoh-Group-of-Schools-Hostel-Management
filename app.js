@@ -1553,55 +1553,99 @@ async function generateProgressPDF() {
   const student = getCurrentStudent();
 
   if (!student) {
-    alert("Please select a student.");
+
+    alert("Please select a student");
+
     return;
+
   }
 
-  document.getElementById("progressPreviewStudent").textContent =
-    student.name;
+  document.getElementById(
+    "progressPreviewStudent"
+  ).textContent = student.name;
 
-  document.getElementById("progressPreviewClass").textContent =
-    student.class;
+  document.getElementById(
+    "progressPreviewClass"
+  ).textContent =
+    "Class: " + student.class;
 
-  document.getElementById("progressPreviewAge").textContent =
-    student.age;
+  document.getElementById(
+    "progressPreviewAge"
+  ).textContent =
+    "Age: " + student.age;
 
-  document.getElementById("progressPreviewParent").textContent =
-    student.parentName;
+  document.getElementById(
+    "progressPreviewParent"
+  ).textContent =
+    "Parent: " + student.parentName;
 
-  document.getElementById("progressPreviewPhone").textContent =
-    student.parentPhone;
+  document.getElementById(
+    "progressPreviewPhone"
+  ).textContent =
+    "Phone: " + student.parentPhone;
 
-  document.getElementById("progressPreviewJoined").textContent =
-    document.getElementById("joinedDate")?.value || "";
+  document.getElementById(
+    "progressPreviewJoined"
+  ).textContent =
+    "Date Joined: " +
+    document.getElementById(
+      "joinedDate"
+    ).value;
 
-  document.getElementById("progressPreviewInitial").textContent =
-    document.getElementById("initialPerformance")?.value || "";
+  document.getElementById(
+    "progressPreviewInitial"
+  ).textContent =
+    document.getElementById(
+      "initialPerformance"
+    ).value;
 
-  document.getElementById("progressPreviewCurrent").textContent =
-    document.getElementById("currentPerformance")?.value || "";
+  document.getElementById(
+    "progressPreviewCurrent"
+  ).textContent =
+    document.getElementById(
+      "currentPerformance"
+    ).value;
 
-  document.getElementById("progressPreviewAchievements").textContent =
-    document.getElementById("achievements")?.value || "";
+  document.getElementById(
+    "progressPreviewAchievements"
+  ).textContent =
+    document.getElementById(
+      "achievements"
+    ).value;
 
-  document.getElementById("progressPreviewImprovement").textContent =
-    document.getElementById("improvementAreas")?.value || "";
+  document.getElementById(
+    "progressPreviewImprovement"
+  ).textContent =
+    document.getElementById(
+      "improvementAreas"
+    ).value;
 
-  document.getElementById("progressPreviewTeacher").textContent =
-    document.getElementById("teacherComment")?.value || "";
+  document.getElementById(
+    "progressPreviewTeacher"
+  ).textContent =
+    document.getElementById(
+      "teacherComment"
+    ).value;
 
-  document.getElementById("progressPreviewHostel").textContent =
-    document.getElementById("hostelComment")?.value || "";
+  document.getElementById(
+    "progressPreviewHostel"
+  ).textContent =
+    document.getElementById(
+      "hostelComment"
+    ).value;
 
-  document.getElementById("progressPreviewDate").textContent =
+  document.getElementById(
+    "progressPreviewDate"
+  ).textContent =
     new Date().toLocaleDateString();
 
   await createMultiPagePDF(
     "progressPDF",
-    student.name + "_Progress.pdf"
+    "Student_Progress.pdf"
   );
 
 }
+
 /* =====================================
 REPORT HISTORY
 ===================================== */
